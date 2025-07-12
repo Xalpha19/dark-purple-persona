@@ -39,30 +39,30 @@ const BlogSection = () => {
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-6xl font-bold mb-6 glow-text">
-            Latest Insights
+            Cyber Journal
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Thoughts, tutorials, and insights on technology, development, and innovation.
+            Deep technical analysis, threat intelligence, and cybersecurity insights from the field.
           </p>
         </div>
 
         {/* WordPress Integration Notice */}
         <div className="max-w-4xl mx-auto mb-12">
-          <Card className="bg-gradient-card border-border/50 glow-purple text-center">
+          <Card className="bg-gradient-card border-border/50 glow-cyber text-center cyber-hover">
             <CardContent className="p-8">
               <ExternalLink className="w-12 h-12 text-primary mx-auto mb-4" />
               <h3 className="text-2xl font-bold mb-4">WordPress Integration</h3>
               <p className="text-muted-foreground mb-6">
-                This blog section is designed to integrate seamlessly with your WordPress site. 
-                Connect your WordPress API to display live blog posts here automatically.
+                This cybersecurity journal is designed to integrate seamlessly with your WordPress site. 
+                Connect your WordPress API to display live security articles and threat intelligence.
               </p>
-              <Button variant="outline" className="glow-purple mr-4">
+              <Button variant="outline" className="glow-cyber mr-4 cyber-hover">
                 <ExternalLink className="w-4 h-4 mr-2" />
                 WordPress API Docs
               </Button>
-              <Link to="/blog">
-                <Button className="bg-gradient-primary glow-purple">
-                  View All Posts
+              <Link to="/journal">
+                <Button className="bg-gradient-primary glow-cyber cyber-hover">
+                  View All Entries
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </Link>
@@ -74,7 +74,7 @@ const BlogSection = () => {
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {featuredPosts.map((post, index) => (
-              <Card key={post.id} className="bg-gradient-card border-border/50 glow-purple hover:glow-purple transition-smooth animate-slide-up group overflow-hidden" style={{animationDelay: `${index * 0.1}s`}}>
+              <Card key={post.id} className="bg-gradient-card border-border/50 glow-cyber hover:glow-cyber transition-smooth animate-slide-up group overflow-hidden cyber-hover" style={{animationDelay: `${index * 0.1}s`}}>
                 <div className="aspect-video bg-gradient-primary/20 flex items-center justify-center">
                   <div className="text-6xl font-bold text-primary/30">Blog</div>
                 </div>
@@ -117,10 +117,10 @@ const BlogSection = () => {
           </div>
 
           <div className="text-center mt-12">
-            <Link to="/blog">
-              <Button size="lg" className="bg-gradient-primary glow-purple">
+            <Link to="/journal">
+              <Button size="lg" className="bg-gradient-primary glow-cyber cyber-hover">
                 <User className="w-4 h-4 mr-2" />
-                Visit Blog Page
+                Visit Journal Page
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </Link>

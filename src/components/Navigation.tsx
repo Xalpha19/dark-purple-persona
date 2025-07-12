@@ -22,7 +22,7 @@ const Navigation = () => {
     { name: 'Experience', href: '/#experience' },
     { name: 'Education', href: '/#education' },
     { name: 'Research', href: '/#research' },
-    { name: 'Blog', href: '/blog' },
+    { name: 'Journal', href: '/journal' },
     { name: 'Contact', href: '/contact' },
   ];
 
