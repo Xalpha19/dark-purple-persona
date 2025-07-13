@@ -6,47 +6,48 @@
 
 @layer base {
   :root {
-    /* Dark Purple Base Colors */
-    --background: 259 58% 11%;  /* #1a0b2e */
-    --foreground: 45 95% 95%;   /* Light gold text */
+    /* Ultra Dark Base Colors */
+    --background: 260 65% 4%;    /* #0a0612 - Much darker base */
+    --foreground: 45 95% 95%;    /* Light gold text */
 
-    --card: 259 37% 18%;        /* #2d1b3d */
+    --card: 260 45% 8%;          /* #130920 - Darker card background */
     --card-foreground: 45 95% 95%;
 
-    --popover: 259 37% 18%;
+    --popover: 260 45% 8%;
     --popover-foreground: 45 95% 95%;
 
-    /* Gold Accent Colors */
-    --primary: 51 100% 50%;     /* #ffd700 */
-    --primary-foreground: 259 58% 11%;
-    --primary-glow: 39 100% 71%; /* #ffb347 */
+    /* Refined Gold Accents */
+    --primary: 43 65% 52%;       /* #d4af37 - Muted gold */
+    --primary-foreground: 260 65% 4%;
+    --primary-glow: 43 70% 45%;  /* #b8941f - Darker gold */
 
-    --secondary: 259 37% 25%;   /* #4c2a54 */
+    --secondary: 259 45% 12%;    /* #1d0f2a - Darker tertiary */
     --secondary-foreground: 45 95% 95%;
 
-    --muted: 259 37% 20%;
-    --muted-foreground: 45 50% 75%;
+    --muted: 259 40% 10%;
+    --muted-foreground: 45 40% 70%;
 
-    --accent: 43 100% 57%;      /* #f4c430 */
-    --accent-foreground: 259 58% 11%;
+    --accent: 43 100% 57%;       /* #f4c430 - Bright highlights */
+    --accent-foreground: 260 65% 4%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 259 37% 15%;
-    --input: 259 37% 18%;
-    --ring: 51 100% 50%;
+    --border: 259 45% 12%;
+    --input: 259 45% 12%;
+    --ring: 43 65% 52%;
 
-    /* DFIR Professional gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(51 100% 50%), hsl(43 100% 57%));
-    --gradient-hero: linear-gradient(180deg, hsl(259 58% 11%) 0%, hsl(259 37% 18%) 100%);
-    --gradient-card: linear-gradient(145deg, hsl(259 37% 18%), hsl(259 37% 25%));
+    /* Enhanced Professional gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(43 65% 52%), hsl(43 70% 45%));
+    --gradient-hero: linear-gradient(180deg, hsl(260 65% 4%) 0%, hsl(260 45% 8%) 50%, hsl(259 45% 12%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(260 45% 8%), hsl(259 45% 12%));
     
-    /* Gold glow effects for DFIR theme */
-    --shadow-gold-glow: 0 0 30px hsl(51 100% 50% / 0.25);
-    --shadow-gold-intense: 0 0 50px hsl(51 100% 50% / 0.4);
-    --shadow-accent-glow: 0 0 25px hsl(43 100% 57% / 0.3);
-    --shadow-card: 0 10px 30px hsl(259 58% 5% / 0.5);
+    /* Enhanced glow effects */
+    --shadow-gold-glow: 0 0 30px hsl(43 65% 52% / 0.4);
+    --shadow-gold-intense: 0 0 50px hsl(43 65% 52% / 0.6);
+    --shadow-accent-glow: 0 0 25px hsl(43 100% 57% / 0.4);
+    --shadow-card: 0 10px 30px hsl(260 65% 2% / 0.8);
+    --shadow-purple-glow: 0 0 30px hsl(259 45% 12% / 0.6);
     
     /* Animations */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -121,7 +122,7 @@
 }
 
 @layer components {
-  /* DFIR gold glow effects */
+  /* Enhanced glow effects */
   .glow-gold {
     box-shadow: var(--shadow-gold-glow);
     transition: var(--transition-glow);
@@ -132,7 +133,7 @@
   }
   
   .glow-text {
-    text-shadow: 0 0 25px hsl(51 100% 50% / 0.7);
+    text-shadow: 0 0 25px hsl(43 65% 52% / 0.8);
   }
   
   .cyber-hover {
@@ -140,7 +141,49 @@
   }
   
   .cyber-hover:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: var(--shadow-gold-glow);
+    filter: brightness(1.1);
+  }
+  
+  /* Enhanced interactive elements */
+  .card-enhanced {
+    background: var(--gradient-card);
+    border: 1px solid hsl(var(--border));
+    box-shadow: var(--shadow-enhanced);
+    transition: all 0.3s ease;
+  }
+  
+  .card-enhanced:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), var(--shadow-purple-glow);
+    border-color: hsl(var(--primary));
+  }
+  
+  /* Professional button styles */
+  .btn-enhanced {
+    background: var(--gradient-primary);
+    color: hsl(var(--primary-foreground));
+    border: none;
+    box-shadow: var(--shadow-gold-glow);
+    transition: all 0.3s ease;
+  }
+  
+  .btn-enhanced:hover {
     transform: translateY(-2px);
+    box-shadow: var(--shadow-gold-intense);
+    filter: brightness(1.1);
+  }
+  
+  .btn-outline-enhanced {
+    background: transparent;
+    border: 2px solid hsl(var(--primary));
+    color: hsl(var(--primary));
+  }
+  
+  .btn-outline-enhanced:hover {
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
     box-shadow: var(--shadow-gold-glow);
   }
   

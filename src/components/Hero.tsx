@@ -10,13 +10,30 @@ const Hero = () => {
 
   return (
     <section className="min-h-screen relative bg-gradient-hero flex items-center justify-center">
-      {/* Space for Spline 3D Art - floating geometric shapes */}
+      {/* Spline 3D Art Integration Space */}
       <div className="absolute inset-0 overflow-hidden">
-        {/* 3D Art Container - ready for Spline integration */}
+        {/* Spline 3D Container - Ready for integration */}
         <div id="spline-3d-container" className="absolute inset-0 z-0">
-          {/* Fallback animated elements until Spline is integrated */}
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-float glow-gold"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-primary-glow/20 rounded-full blur-3xl animate-float glow-gold" style={{animationDelay: '2s'}}></div>
+          {/* Placeholder for Spline iframe integration:
+              <iframe 
+                src="https://my.spline.design/your-scene-url" 
+                frameBorder="0" 
+                width="100%" 
+                height="100%"
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  zIndex: 1,
+                  opacity: 0.7
+                }}
+              />
+          */}
+          
+          {/* Enhanced fallback elements with darker theme */}
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/15 rounded-full blur-3xl animate-float glow-gold"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-purple-600/20 rounded-full blur-3xl animate-float" style={{animationDelay: '2s'}}></div>
+          <div className="absolute top-1/2 right-1/3 w-48 h-48 bg-accent/10 rounded-full blur-2xl animate-float" style={{animationDelay: '4s'}}></div>
           
           {/* DFIR themed floating icons */}
           <div className="absolute top-1/3 right-1/4 animate-float" style={{ animationDelay: '1s' }}>
@@ -31,9 +48,9 @@ const Hero = () => {
         </div>
       </div>
       
-      {/* Content */}
+      {/* Content Overlay with Enhanced Readability */}
       <div className="container mx-auto px-6 text-center relative z-10">
-        <div className="animate-slide-up">
+        <div className="animate-slide-up bg-gradient-to-r from-background/90 via-background/60 to-transparent backdrop-blur-sm rounded-2xl p-8">
           <div className="mb-4">
             <span className="text-accent font-medium text-lg tracking-wider">SENIOR DFIR SPECIALIST</span>
           </div>
@@ -60,7 +77,7 @@ const Hero = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
             <Button 
               size="lg" 
-              className="bg-gradient-primary glow-gold text-lg px-8 py-6 text-primary-foreground"
+              className="btn-enhanced text-lg px-8 py-6"
               onClick={scrollToNextSection}
             >
               View My Work
@@ -68,7 +85,7 @@ const Hero = () => {
             <Button 
               variant="outline" 
               size="lg" 
-              className="border-accent text-accent hover:bg-accent hover:text-accent-foreground glow-gold text-lg px-8 py-6"
+              className="btn-outline-enhanced text-lg px-8 py-6"
             >
               Download Resume
             </Button>
@@ -80,33 +97,33 @@ const Hero = () => {
               href="https://github.com/ishaansrivastava" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="w-12 h-12 bg-card border border-border rounded-lg flex items-center justify-center hover:border-primary glow-gold transition-smooth group"
+              className="w-12 h-12 card-enhanced rounded-lg flex items-center justify-center cyber-hover group"
             >
-              <Github className="w-6 h-6 text-muted-foreground group-hover:text-primary" />
+              <Github className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
             </a>
             <a 
               href="https://linkedin.com/in/ishaan-srivastava" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="w-12 h-12 bg-card border border-border rounded-lg flex items-center justify-center hover:border-primary glow-gold transition-smooth group"
+              className="w-12 h-12 card-enhanced rounded-lg flex items-center justify-center cyber-hover group"
             >
-              <Linkedin className="w-6 h-6 text-muted-foreground group-hover:text-primary" />
+              <Linkedin className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
             </a>
             <a 
               href="mailto:ishaansrivastava@proton.me"
-              className="w-12 h-12 bg-card border border-border rounded-lg flex items-center justify-center hover:border-primary glow-gold transition-smooth group"
+              className="w-12 h-12 card-enhanced rounded-lg flex items-center justify-center cyber-hover group"
             >
-              <Mail className="w-6 h-6 text-muted-foreground group-hover:text-primary" />
+              <Mail className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
             </a>
           </div>
         </div>
       </div>
       
-      {/* Scroll indicator */}
+      {/* Enhanced scroll indicator */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
         <button 
           onClick={scrollToNextSection}
-          className="w-8 h-12 border-2 border-primary/50 rounded-full flex justify-center pt-2 hover:border-primary hover:glow-purple transition-smooth"
+          className="w-8 h-12 border-2 border-primary/50 rounded-full flex justify-center pt-2 hover:border-primary hover:shadow-purple-glow transition-smooth cyber-hover"
         >
           <ArrowDown className="w-4 h-4 text-primary animate-pulse" />
         </button>

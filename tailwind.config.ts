@@ -30,15 +30,23 @@ export default {
 					glow: 'hsl(var(--primary-glow))'
 				},
 				gold: {
-					DEFAULT: 'hsl(51 100% 50%)',
-					light: 'hsl(39 100% 71%)',
+					DEFAULT: 'hsl(43 65% 52%)',
+					primary: 'hsl(43 65% 52%)',
+					secondary: 'hsl(43 70% 45%)',
 					accent: 'hsl(43 100% 57%)'
 				},
 				purple: {
-					900: 'hsl(259 58% 11%)',
-					800: 'hsl(259 37% 18%)',
-					700: 'hsl(259 37% 25%)',
-					600: 'hsl(259 30% 35%)'
+					950: 'hsl(260 65% 4%)',
+					900: 'hsl(260 45% 8%)',
+					800: 'hsl(259 45% 12%)',
+					700: 'hsl(259 40% 18%)',
+					600: 'hsl(259 35% 25%)',
+					500: 'hsl(259 30% 35%)'
+				},
+				graphite: {
+					100: 'hsl(0 0% 10%)',
+					200: 'hsl(0 0% 18%)',
+					300: 'hsl(0 0% 25%)'
 				},
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary))',
@@ -84,7 +92,9 @@ export default {
 				'gold-glow': 'var(--shadow-gold-glow)',
 				'gold-intense': 'var(--shadow-gold-intense)',
 				'accent-glow': 'var(--shadow-accent-glow)',
-				'card': 'var(--shadow-card)'
+				'purple-glow': 'var(--shadow-purple-glow)',
+				'card': 'var(--shadow-card)',
+				'enhanced': '0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1)'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
