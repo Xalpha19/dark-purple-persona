@@ -2,51 +2,51 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Portfolio Design System - Dark theme with purple glow */
+/* DFIR Specialist Portfolio - Dark Purple with Gold Accents */
 
 @layer base {
   :root {
-    /* Professional Cybersecurity Colors */
-    --background: 220 13% 4%;
-    --foreground: 220 20% 95%;
+    /* Dark Purple Base Colors */
+    --background: 259 58% 11%;  /* #1a0b2e */
+    --foreground: 45 95% 95%;   /* Light gold text */
 
-    --card: 220 13% 6%;
-    --card-foreground: 220 20% 95%;
+    --card: 259 37% 18%;        /* #2d1b3d */
+    --card-foreground: 45 95% 95%;
 
-    --popover: 220 13% 6%;
-    --popover-foreground: 220 20% 95%;
+    --popover: 259 37% 18%;
+    --popover-foreground: 45 95% 95%;
 
-    /* Cybersecurity accent colors */
-    --primary: 200 80% 65%;
-    --primary-foreground: 220 20% 95%;
-    --primary-glow: 200 100% 75%;
+    /* Gold Accent Colors */
+    --primary: 51 100% 50%;     /* #ffd700 */
+    --primary-foreground: 259 58% 11%;
+    --primary-glow: 39 100% 71%; /* #ffb347 */
 
-    --secondary: 220 13% 10%;
-    --secondary-foreground: 220 20% 85%;
+    --secondary: 259 37% 25%;   /* #4c2a54 */
+    --secondary-foreground: 45 95% 95%;
 
-    --muted: 220 13% 10%;
-    --muted-foreground: 220 15% 70%;
+    --muted: 259 37% 20%;
+    --muted-foreground: 45 50% 75%;
 
-    --accent: 180 60% 60%;
-    --accent-foreground: 220 20% 95%;
+    --accent: 43 100% 57%;      /* #f4c430 */
+    --accent-foreground: 259 58% 11%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 220 13% 12%;
-    --input: 220 13% 10%;
-    --ring: 200 80% 65%;
+    --border: 259 37% 15%;
+    --input: 259 37% 18%;
+    --ring: 51 100% 50%;
 
-    /* Professional gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(200 80% 65%), hsl(180 60% 60%));
-    --gradient-hero: linear-gradient(180deg, hsl(220 13% 4%) 0%, hsl(220 15% 8%) 100%);
-    --gradient-card: linear-gradient(145deg, hsl(220 13% 6%), hsl(220 15% 8%));
+    /* DFIR Professional gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(51 100% 50%), hsl(43 100% 57%));
+    --gradient-hero: linear-gradient(180deg, hsl(259 58% 11%) 0%, hsl(259 37% 18%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(259 37% 18%), hsl(259 37% 25%));
     
-    /* Cybersecurity glow effects */
-    --shadow-cyber-glow: 0 0 30px hsl(200 80% 65% / 0.25);
-    --shadow-cyber-intense: 0 0 50px hsl(200 80% 65% / 0.4);
-    --shadow-accent-glow: 0 0 25px hsl(180 60% 60% / 0.3);
-    --shadow-card: 0 10px 30px hsl(220 13% 2% / 0.5);
+    /* Gold glow effects for DFIR theme */
+    --shadow-gold-glow: 0 0 30px hsl(51 100% 50% / 0.25);
+    --shadow-gold-intense: 0 0 50px hsl(51 100% 50% / 0.4);
+    --shadow-accent-glow: 0 0 25px hsl(43 100% 57% / 0.3);
+    --shadow-card: 0 10px 30px hsl(259 58% 5% / 0.5);
     
     /* Animations */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -121,18 +121,18 @@
 }
 
 @layer components {
-  /* Cybersecurity glow effects */
-  .glow-cyber {
-    box-shadow: var(--shadow-cyber-glow);
+  /* DFIR gold glow effects */
+  .glow-gold {
+    box-shadow: var(--shadow-gold-glow);
     transition: var(--transition-glow);
   }
   
-  .glow-cyber:hover {
-    box-shadow: var(--shadow-cyber-intense);
+  .glow-gold:hover {
+    box-shadow: var(--shadow-gold-intense);
   }
   
   .glow-text {
-    text-shadow: 0 0 25px hsl(200 80% 65% / 0.7);
+    text-shadow: 0 0 25px hsl(51 100% 50% / 0.7);
   }
   
   .cyber-hover {
@@ -141,7 +141,7 @@
   
   .cyber-hover:hover {
     transform: translateY(-2px);
-    box-shadow: var(--shadow-cyber-glow);
+    box-shadow: var(--shadow-gold-glow);
   }
   
   /* Gradient backgrounds */

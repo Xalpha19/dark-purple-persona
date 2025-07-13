@@ -12,123 +12,123 @@ const Education = () => {
       icon: GraduationCap,
       items: [
         {
-          degree: "Master of Science in Computer Science",
-          school: "Stanford University",
-          period: "2017 - 2019",
-          location: "Stanford, CA",
-          gpa: "3.8/4.0",
-          description: "Specialized in Machine Learning and Software Engineering. Thesis on 'Optimizing Neural Networks for Edge Computing'.",
-          coursework: ["Advanced Algorithms", "Machine Learning", "Distributed Systems", "Computer Graphics", "Database Systems"]
+          degree: "Master of Science in Computer Forensics and Cybersecurity",
+          school: "University of Greenwich",
+          period: "2018 - 2020",
+          location: "London, UK",
+          gpa: "Distinction",
+          description: "Advanced studies in digital forensics, cybersecurity frameworks, and incident response methodologies. Specialized in malware analysis and threat intelligence.",
+          coursework: ["Digital Forensics", "Malware Analysis", "Network Security", "Threat Intelligence", "Incident Response", "Cyber Law"]
         },
         {
-          degree: "Bachelor of Science in Software Engineering",
-          school: "University of California, Berkeley",
-          period: "2013 - 2017",
-          location: "Berkeley, CA",
-          gpa: "3.7/4.0",
-          description: "Graduated Summa Cum Laude. Strong foundation in software development, data structures, and system design.",
-          coursework: ["Data Structures", "Software Architecture", "Web Development", "Mobile Computing", "Computer Networks"]
+          degree: "Bachelor of Technology in Information Technology",
+          school: "University of Mumbai",
+          period: "2014 - 2018",
+          location: "Mumbai, India",
+          gpa: "First Class",
+          description: "Strong foundation in computer systems, networking, and information security. Final year project on 'Advanced Persistent Threat Detection Systems'.",
+          coursework: ["Computer Networks", "Information Security", "Database Systems", "System Administration", "Cryptography"]
         }
       ]
     },
     {
       id: "certifications",
-      title: "Certifications",
+      title: "Professional Certifications",
       icon: Award,
       items: [
         {
-          name: "AWS Solutions Architect Professional",
-          issuer: "Amazon Web Services",
+          name: "GIAC Certified Forensic Examiner (GCFE)",
+          issuer: "SANS Institute",
           issued: "2023",
+          expires: "2027",
+          credential: "GCFE-2023-789012",
+          description: "Advanced certification in digital forensics and incident response, covering Windows forensics and timeline analysis.",
+          skills: ["Digital Forensics", "Windows Analysis", "Timeline Forensics", "Evidence Processing"]
+        },
+        {
+          name: "GIAC Certified Forensic Analyst (GCFA)",
+          issuer: "SANS Institute",
+          issued: "2022",
           expires: "2026",
-          credential: "AWS-SAP-2023-001234",
-          description: "Advanced certification demonstrating expertise in designing distributed systems and applications on AWS.",
-          skills: ["Cloud Architecture", "Security", "Cost Optimization", "Migration Strategies"]
+          credential: "GCFA-2022-345678",
+          description: "Expert-level certification in advanced digital forensics and incident response methodologies.",
+          skills: ["Advanced Forensics", "Memory Analysis", "Network Forensics", "Threat Hunting"]
         },
         {
-          name: "Google Cloud Professional Developer",
-          issuer: "Google Cloud",
-          issued: "2022",
-          expires: "2025",
-          credential: "GCP-PD-2022-567890",
-          description: "Professional-level certification for developing scalable applications on Google Cloud Platform.",
-          skills: ["Kubernetes", "Microservices", "CI/CD", "Monitoring"]
-        },
-        {
-          name: "Certified Kubernetes Administrator",
-          issuer: "Cloud Native Computing Foundation",
-          issued: "2022",
-          expires: "2025",
-          credential: "CKA-2022-ABCD1234",
-          description: "Demonstrates skills in managing Kubernetes clusters and containerized applications.",
-          skills: ["Container Orchestration", "Cluster Management", "Troubleshooting", "Security"]
+          name: "Offensive Security Certified Professional (OSCP)",
+          issuer: "Offensive Security",
+          issued: "In Progress",
+          expires: "Lifetime",
+          credential: "Expected 2024",
+          description: "Hands-on penetration testing certification demonstrating practical security assessment skills.",
+          skills: ["Penetration Testing", "Exploitation", "Post-Exploitation", "Report Writing"]
         }
       ]
     },
     {
       id: "courses",
-      title: "Online Learning",
+      title: "Specialized Training",
       icon: BookOpen,
       items: [
         {
-          name: "Advanced React Patterns",
-          platform: "Frontend Masters",
+          name: "Advanced Persistent Threat (APT) Analysis",
+          platform: "SANS Institute",
           completed: "2023",
-          instructor: "Kent C. Dodds",
-          description: "Deep dive into advanced React patterns, performance optimization, and modern development practices.",
-          topics: ["Hooks", "Context", "Performance", "Testing", "TypeScript"]
+          instructor: "SANS FOR508",
+          description: "Comprehensive training on advanced digital forensics techniques for sophisticated attacks and APT campaigns.",
+          topics: ["Timeline Analysis", "Memory Forensics", "Network Analysis", "Malware Reverse Engineering", "Threat Attribution"]
         },
         {
-          name: "System Design Interview Course",
-          platform: "Educative",
+          name: "Cloud Security & Forensics",
+          platform: "AWS Training",
           completed: "2023",
-          instructor: "System Design Experts",
-          description: "Comprehensive course covering system design principles for large-scale applications.",
-          topics: ["Scalability", "Load Balancing", "Databases", "Caching", "Microservices"]
+          instructor: "AWS Security Specialists",
+          description: "Specialized course covering security architecture and forensics in multi-cloud environments.",
+          topics: ["Cloud Incident Response", "AWS Security", "Azure Forensics", "GCP Security", "Container Security"]
         },
         {
-          name: "Machine Learning Specialization",
-          platform: "Coursera",
+          name: "Threat Intelligence & Hunting",
+          platform: "MITRE ATT&CK",
           completed: "2022",
-          instructor: "Andrew Ng",
-          description: "Complete specialization covering machine learning algorithms and their applications.",
-          topics: ["Supervised Learning", "Unsupervised Learning", "Neural Networks", "Deep Learning"]
+          instructor: "MITRE Corporation",
+          description: "Advanced threat hunting methodologies using MITRE ATT&CK framework and threat intelligence platforms.",
+          topics: ["ATT&CK Framework", "Threat Modeling", "IOC Analysis", "TTP Mapping", "Hunt Hypothesis"]
         }
       ]
     },
     {
       id: "skills",
-      title: "Technical Skills",
+      title: "Technical Expertise",
       icon: Code,
       items: [
         {
-          category: "Frontend Development",
+          category: "Digital Forensics & DFIR",
           skills: [
-            { name: "React/Next.js", level: 95 },
-            { name: "TypeScript", level: 90 },
-            { name: "Vue.js", level: 85 },
-            { name: "CSS/SASS", level: 90 },
-            { name: "Tailwind CSS", level: 95 }
+            { name: "Autopsy/Sleuth Kit", level: 95 },
+            { name: "Volatility (Memory Analysis)", level: 90 },
+            { name: "KAPE/Timeline Analysis", level: 95 },
+            { name: "X-Ways Forensics", level: 85 },
+            { name: "Mobile Forensics", level: 80 }
           ]
         },
         {
-          category: "Backend Development",
+          category: "Security Tools & SIEM",
           skills: [
-            { name: "Node.js", level: 90 },
-            { name: "Python", level: 85 },
-            { name: "Java", level: 80 },
-            { name: "PostgreSQL", level: 85 },
-            { name: "MongoDB", level: 80 }
+            { name: "Splunk", level: 95 },
+            { name: "Elastic Stack (ELK)", level: 90 },
+            { name: "QRadar", level: 85 },
+            { name: "Chronicle/Sumo Logic", level: 80 },
+            { name: "KQL (Kusto Query)", level: 90 }
           ]
         },
         {
-          category: "Cloud & DevOps",
+          category: "Threat Hunting & Analysis",
           skills: [
-            { name: "AWS", level: 90 },
-            { name: "Docker", level: 85 },
-            { name: "Kubernetes", level: 80 },
-            { name: "CI/CD", level: 85 },
-            { name: "Terraform", level: 75 }
+            { name: "MITRE ATT&CK", level: 95 },
+            { name: "YARA Rules", level: 90 },
+            { name: "Sigma Rules", level: 85 },
+            { name: "Threat Intelligence", level: 90 },
+            { name: "Malware Analysis", level: 85 }
           ]
         }
       ]

@@ -6,44 +6,47 @@ const Experience = () => {
   const experiences = [
     {
       id: 1,
-      title: "Senior Full Stack Developer",
-      company: "TechCorp Solutions",
-      location: "San Francisco, CA",
-      period: "2022 - Present",
-      description: "Leading development of modern web applications using React, Node.js, and cloud technologies. Mentoring junior developers and architecting scalable solutions for enterprise clients.",
-      technologies: ["React", "TypeScript", "Node.js", "AWS", "PostgreSQL", "Docker"],
+      title: "Cybersecurity Analyst",
+      company: "NatWest Group",
+      location: "Edinburgh, UK",
+      period: "February 2024 - Present",
+      description: "Leading advanced threat detection and digital forensics across multi-cloud environments (AWS, Azure, GCP). Spearheading incident response initiatives and developing custom detection rules to enhance security posture.",
+      technologies: ["Trellix EDR", "Carbon Black", "FireEye", "Splunk", "KQL", "Python", "AWS", "Azure", "GCP"],
       achievements: [
-        "Improved application performance by 40% through optimization",
-        "Led a team of 5 developers on a major product redesign",
-        "Implemented CI/CD pipelines reducing deployment time by 60%"
+        "Achieved 20% reduction in false positives through custom detection rules",
+        "Led digital forensics investigations for critical security incidents",
+        "Implemented advanced threat hunting methodologies across cloud infrastructure",
+        "Mentored junior analysts on DFIR best practices"
       ]
     },
     {
       id: 2,
-      title: "Frontend Developer",
-      company: "Digital Innovation Labs",
-      location: "New York, NY",
-      period: "2020 - 2022",
-      description: "Developed responsive web applications and mobile-first designs. Collaborated with UX/UI designers to create intuitive user experiences and implemented modern frontend architectures.",
-      technologies: ["React", "Vue.js", "JavaScript", "SASS", "Webpack", "Jest"],
+      title: "IT Security Engineer",
+      company: "Dar Al-Handasah",
+      location: "Pune, India",
+      period: "January 2020 - August 2022",
+      description: "Managed enterprise SIEM operations and conducted sophisticated threat hunting campaigns. Led Red Team engagements and adversary simulation exercises to strengthen organizational security posture.",
+      technologies: ["SIEM", "Splunk", "QRadar", "Metasploit", "Burp Suite", "Nessus", "Wireshark", "PowerShell"],
       achievements: [
-        "Built 15+ responsive web applications",
-        "Reduced bundle size by 35% through optimization techniques",
-        "Implemented design system used across 8 products"
+        "Reduced organizational risk by 40% through comprehensive security assessments",
+        "Successfully implemented ISO 27001:2013 with zero non-conformities",
+        "Conducted 25+ Red Team engagements and penetration tests",
+        "Developed threat intelligence program improving detection capabilities"
       ]
     },
     {
       id: 3,
-      title: "Junior Web Developer",
-      company: "StartupFlow",
-      location: "Austin, TX",
-      period: "2019 - 2020",
-      description: "Started my professional journey building dynamic websites and learning modern development practices. Gained experience in full-stack development and agile methodologies.",
-      technologies: ["HTML", "CSS", "JavaScript", "PHP", "MySQL", "WordPress"],
+      title: "Junior Security Analyst",
+      company: "InfoSec Solutions",
+      location: "Mumbai, India",
+      period: "June 2019 - December 2019",
+      description: "Started my cybersecurity journey focusing on SOC operations, malware analysis, and incident response. Gained foundational experience in digital forensics and threat detection methodologies.",
+      technologies: ["Splunk", "OSSEC", "Volatility", "Autopsy", "Wireshark", "Python", "PowerShell"],
       achievements: [
-        "Delivered 10+ client websites on time and within budget",
-        "Improved website loading speed by 50% through optimization",
-        "Learned and implemented responsive design principles"
+        "Analyzed 200+ security incidents and malware samples",
+        "Developed automated scripts reducing analysis time by 30%",
+        "Completed advanced training in digital forensics and incident response",
+        "Contributed to threat intelligence feed improving detection rates"
       ]
     }
   ];
@@ -56,7 +59,7 @@ const Experience = () => {
             Work Experience
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            My professional journey building innovative solutions and growing as a developer.
+            4+ years of expertise in digital forensics, incident response, and threat hunting across global organizations.
           </p>
         </div>
 

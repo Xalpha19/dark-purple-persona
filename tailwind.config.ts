@@ -29,6 +29,17 @@ export default {
 					foreground: 'hsl(var(--primary-foreground))',
 					glow: 'hsl(var(--primary-glow))'
 				},
+				gold: {
+					DEFAULT: 'hsl(51 100% 50%)',
+					light: 'hsl(39 100% 71%)',
+					accent: 'hsl(43 100% 57%)'
+				},
+				purple: {
+					900: 'hsl(259 58% 11%)',
+					800: 'hsl(259 37% 18%)',
+					700: 'hsl(259 37% 25%)',
+					600: 'hsl(259 30% 35%)'
+				},
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary))',
 					foreground: 'hsl(var(--secondary-foreground))'
@@ -70,8 +81,9 @@ export default {
 				'gradient-card': 'var(--gradient-card)'
 			},
 			boxShadow: {
-				'purple-glow': 'var(--shadow-purple-glow)',
-				'purple-intense': 'var(--shadow-purple-intense)',
+				'gold-glow': 'var(--shadow-gold-glow)',
+				'gold-intense': 'var(--shadow-gold-intense)',
+				'accent-glow': 'var(--shadow-accent-glow)',
 				'card': 'var(--shadow-card)'
 			},
 			borderRadius: {
