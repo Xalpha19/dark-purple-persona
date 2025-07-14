@@ -37,7 +37,6 @@ jobs:
           CI: true
           SITE_URL: ${{ inputs.site-url }}
         run: |
-          npm ci
           npm i
           npm install -D tailwindcss @tailwindcss/forms @tailwindcss/typography tailwindcss-animate
           npm run dev
