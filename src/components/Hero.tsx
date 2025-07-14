@@ -10,12 +10,19 @@ const Hero = () => {
 
   return (
     <section className="min-h-screen relative flex items-center justify-center">
-      {/* Pure CSS Hero Background */}
-      <div className="absolute inset-0 hero-gradient-bg">
-        {/* CSS-only floating elements */}
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/15 rounded-full blur-3xl animate-float glow-gold"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-primary/10 rounded-full blur-3xl animate-float" style={{animationDelay: '2s'}}></div>
-        <div className="absolute top-1/2 right-1/3 w-48 h-48 bg-accent/8 rounded-full blur-2xl animate-float" style={{animationDelay: '4s'}}></div>
+      {/* Spline 3D Background */}
+      <div className="absolute inset-0">
+        <iframe 
+          src="https://community.spline.design/file/7506882b-6fe6-4305-9c2c-00cb12cc4c42" 
+          frameBorder="0" 
+          width="100%" 
+          height="100%"
+          className="absolute inset-0 opacity-70"
+          style={{ pointerEvents: 'none' }}
+        />
+        
+        {/* Gradient overlay for readability */}
+        <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/40 to-background/60"></div>
         
         {/* DFIR themed floating icons */}
         <div className="absolute top-1/3 right-1/4 animate-float" style={{ animationDelay: '1s' }}>
