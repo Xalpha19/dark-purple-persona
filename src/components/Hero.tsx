@@ -9,55 +9,36 @@ const Hero = () => {
   };
 
   return (
-    <section className="min-h-screen relative bg-gradient-hero flex items-center justify-center">
-      {/* Spline 3D Art Integration Space */}
-      <div className="absolute inset-0 overflow-hidden">
-        {/* Spline 3D Container - Ready for integration */}
-        <div id="spline-3d-container" className="absolute inset-0 z-0">
-          {/* Placeholder for Spline iframe integration:
-              <iframe 
-                src="https://my.spline.design/your-scene-url" 
-                frameBorder="0" 
-                width="100%" 
-                height="100%"
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  zIndex: 1,
-                  opacity: 0.7
-                }}
-              />
-          */}
-          
-          {/* Enhanced fallback elements with darker theme */}
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/15 rounded-full blur-3xl animate-float glow-gold"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-purple-600/20 rounded-full blur-3xl animate-float" style={{animationDelay: '2s'}}></div>
-          <div className="absolute top-1/2 right-1/3 w-48 h-48 bg-accent/10 rounded-full blur-2xl animate-float" style={{animationDelay: '4s'}}></div>
-          
-          {/* DFIR themed floating icons */}
-          <div className="absolute top-1/3 right-1/4 animate-float" style={{ animationDelay: '1s' }}>
-            <Shield className="w-12 h-12 text-primary/30" />
-          </div>
-          <div className="absolute bottom-1/3 left-1/3 animate-float" style={{ animationDelay: '3s' }}>
-            <Search className="w-10 h-10 text-accent/30" />
-          </div>
-          <div className="absolute top-3/4 right-1/3 animate-float" style={{ animationDelay: '5s' }}>
-            <Lock className="w-8 h-8 text-primary/30" />
-          </div>
+    <section className="min-h-screen relative flex items-center justify-center">
+      {/* Pure CSS Hero Background */}
+      <div className="absolute inset-0 hero-gradient-bg">
+        {/* CSS-only floating elements */}
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/15 rounded-full blur-3xl animate-float glow-gold"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-primary/10 rounded-full blur-3xl animate-float" style={{animationDelay: '2s'}}></div>
+        <div className="absolute top-1/2 right-1/3 w-48 h-48 bg-accent/8 rounded-full blur-2xl animate-float" style={{animationDelay: '4s'}}></div>
+        
+        {/* DFIR themed floating icons */}
+        <div className="absolute top-1/3 right-1/4 animate-float" style={{ animationDelay: '1s' }}>
+          <Shield className="w-12 h-12 text-primary/30" />
+        </div>
+        <div className="absolute bottom-1/3 left-1/3 animate-float" style={{ animationDelay: '3s' }}>
+          <Search className="w-10 h-10 text-accent/30" />
+        </div>
+        <div className="absolute top-3/4 right-1/3 animate-float" style={{ animationDelay: '5s' }}>
+          <Lock className="w-8 h-8 text-primary/30" />
         </div>
       </div>
       
       {/* Content Overlay with Enhanced Readability */}
       <div className="container mx-auto px-6 text-center relative z-10">
-        <div className="animate-slide-up bg-gradient-to-r from-background/90 via-background/60 to-transparent backdrop-blur-sm rounded-2xl p-8">
+        <div className="animate-slide-up bg-gradient-to-r from-background/95 via-background/70 to-background/50 backdrop-blur-sm rounded-2xl p-8 border border-primary/20">
           <div className="mb-4">
             <span className="text-accent font-medium text-lg tracking-wider">SENIOR DFIR SPECIALIST</span>
           </div>
           
           <h1 className="text-6xl md:text-8xl font-bold mb-6 glow-text">
             Ishaan
-            <span className="block bg-gradient-primary bg-clip-text text-transparent">
+            <span className="block heading-primary">
               Srivastava
             </span>
           </h1>

@@ -39,8 +39,8 @@
 
     /* Enhanced Professional gradients */
     --gradient-primary: linear-gradient(135deg, hsl(43 65% 52%), hsl(43 70% 45%));
-    --gradient-hero: linear-gradient(180deg, hsl(260 65% 4%) 0%, hsl(260 45% 8%) 50%, hsl(259 45% 12%) 100%);
-    --gradient-card: linear-gradient(145deg, hsl(260 45% 8%), hsl(259 45% 12%));
+    --gradient-hero: linear-gradient(135deg, hsl(260 65% 4%) 0%, hsl(260 45% 8%) 25%, hsl(259 45% 12%) 50%, hsl(260 45% 8%) 75%, hsl(260 65% 4%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(259 45% 12%), hsl(259 40% 10%));
     
     /* Enhanced glow effects */
     --shadow-gold-glow: 0 0 30px hsl(43 65% 52% / 0.4);
@@ -48,6 +48,15 @@
     --shadow-accent-glow: 0 0 25px hsl(43 100% 57% / 0.4);
     --shadow-card: 0 10px 30px hsl(260 65% 2% / 0.8);
     --shadow-purple-glow: 0 0 30px hsl(259 45% 12% / 0.6);
+    
+    /* Professional graphite tones */
+    --graphite-100: 0 0% 10%;
+    --graphite-200: 0 0% 18%;
+    --graphite-300: 0 0% 25%;
+    
+    /* Glow effects */
+    --glow-purple: 259 45% 12% / 0.6;
+    --glow-gold: 43 65% 52% / 0.4;
     
     /* Animations */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -148,16 +157,16 @@
   
   /* Enhanced interactive elements */
   .card-enhanced {
-    background: var(--gradient-card);
-    border: 1px solid hsl(var(--border));
-    box-shadow: var(--shadow-enhanced);
+    background: linear-gradient(145deg, hsl(259 45% 12%), hsl(259 40% 10%));
+    border: 1px solid hsl(259 35% 15%);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
     transition: all 0.3s ease;
   }
   
   .card-enhanced:hover {
     transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), var(--shadow-purple-glow);
-    border-color: hsl(var(--primary));
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 20px hsl(var(--glow-purple));
+    border-color: hsl(var(--primary-glow));
   }
   
   /* Professional button styles */
@@ -212,6 +221,116 @@
   .animate-slide-up {
     animation: slide-up 0.8s ease-out;
   }
+  
+  /* Hero background patterns */
+  .hero-gradient-bg {
+    background: var(--gradient-hero);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .hero-gradient-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+      radial-gradient(circle at 20% 30%, hsl(43 65% 52% / 0.1) 1px, transparent 1px),
+      radial-gradient(circle at 80% 70%, hsl(259 45% 12% / 0.3) 1px, transparent 1px);
+    background-size: 40px 40px, 60px 60px;
+    animation: float-pattern 20s ease-in-out infinite;
+  }
+  
+  .hero-gradient-bg::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(from 0deg at 50% 50%, transparent 0deg, hsl(43 65% 52% / 0.03) 90deg, transparent 180deg, hsl(259 45% 12% / 0.05) 270deg, transparent 360deg);
+    animation: rotate-pattern 30s linear infinite;
+  }
+  
+  /* Interactive hover effects */
+  .interactive-hover {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .interactive-hover:hover {
+    transform: scale(1.02);
+    filter: brightness(1.1);
+  }
+  
+  .gold-glow-hover:hover {
+    text-shadow: 0 0 10px hsl(var(--glow-gold));
+    color: hsl(var(--accent));
+  }
+  
+  /* Typography enhancements */
+  .heading-primary {
+    background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+  }
+  
+  .heading-secondary {
+    color: #ffffff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+  
+  /* Skill cards with shimmer effect */
+  .skill-card {
+    background: linear-gradient(145deg, hsl(var(--graphite-100)), hsl(260 45% 8%));
+    border: 1px solid hsl(259 35% 15%);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .skill-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, hsl(43 65% 52% / 0.1), transparent);
+    transition: left 0.5s ease;
+  }
+  
+  .skill-card:hover::after {
+    left: 100%;
+  }
+  
+  /* Timeline enhancements */
+  .timeline-item {
+    background: hsl(259 45% 12%);
+    border-left: 4px solid hsl(var(--primary));
+    position: relative;
+  }
+  
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -8px;
+    top: 20px;
+    width: 12px;
+    height: 12px;
+    background: hsl(var(--primary));
+    border-radius: 50%;
+    box-shadow: 0 0 15px hsl(var(--glow-gold));
+  }
+  
+  .timeline-date {
+    color: hsl(var(--primary-glow));
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
 }
 
 @layer utilities {
@@ -243,4 +362,16 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+@keyframes float-pattern {
+  0%, 100% { transform: translateY(0px) translateX(0px); }
+  25% { transform: translateY(-20px) translateX(10px); }
+  50% { transform: translateY(-10px) translateX(-10px); }
+  75% { transform: translateY(-30px) translateX(5px); }
+}
+
+@keyframes rotate-pattern {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
