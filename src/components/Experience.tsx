@@ -34,21 +34,6 @@ const Experience = () => {
         "Developed threat intelligence program improving detection capabilities"
       ]
     },
-    {
-      id: 3,
-      title: "Junior Security Analyst",
-      company: "InfoSec Solutions",
-      location: "Mumbai, India",
-      period: "June 2019 - December 2019",
-      description: "Started my cybersecurity journey focusing on SOC operations, malware analysis, and incident response. Gained foundational experience in digital forensics and threat detection methodologies.",
-      technologies: ["Splunk", "OSSEC", "Volatility", "Autopsy", "Wireshark", "Python", "PowerShell"],
-      achievements: [
-        "Analyzed 200+ security incidents and malware samples",
-        "Developed automated scripts reducing analysis time by 30%",
-        "Completed advanced training in digital forensics and incident response",
-        "Contributed to threat intelligence feed improving detection rates"
-      ]
-    }
   ];
 
   return (
