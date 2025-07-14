@@ -10,13 +10,16 @@ const Experience = () => {
       company: "NatWest Group",
       location: "Edinburgh, UK",
       period: "February 2024 - Present",
-      description: "Leading advanced threat detection and digital forensics across multi-cloud environments (AWS, Azure, GCP). Spearheading incident response initiatives and developing custom detection rules to enhance security posture.",
-      technologies: ["Trellix EDR", "Carbon Black", "FireEye", "Splunk", "KQL", "Python", "AWS", "Azure", "GCP"],
+      description: "Performing SOC analyst responsibilities conducting comprehensive alert investigations and forensics analysis across AWS, Azure, and GCP cloud environments. Executing proactive threat hunting using SIEM log correlation and developing custom detection rules.",
+      technologies: ["Microsoft Defender XDR", "Splunk", "KQL", "Python", "PowerShell", "AWS", "Azure", "GCP", "Akamai", "Cofense"],
       achievements: [
-        "Achieved 20% reduction in false positives through custom detection rules",
-        "Led digital forensics investigations for critical security incidents",
-        "Implemented advanced threat hunting methodologies across cloud infrastructure",
-        "Mentored junior analysts on DFIR best practices"
+        "Performed root cause analysis of complex security incidents through multi-cloud evidence correlation to identify APTs and insider threats",
+        "Developed and refined custom threat hunting hypotheses and detection rules achieving 20% reduction in false positives",
+        "Executed proactive threat hunting using KQL and Splunk queries with SIEM log correlation to identify detection rule gaps",
+        "Led incident response efforts including containment, eradication, and recovery guidance for DDoS attacks using Akamai sensors",
+        "Investigated phishing and email threats using OSINT methodologies, Cisco IronPort, and Cofense platforms",
+        "Collaborated with SOC teams, Detection Engineering, and Intelligence teams on Purple Team exercises",
+        "Automated threat detection processes using Python and PowerShell scripting"
       ]
     },
     {
@@ -25,13 +28,15 @@ const Experience = () => {
       company: "Dar Al-Handasah",
       location: "Pune, India",
       period: "January 2020 - August 2022",
-      description: "Managed enterprise SIEM operations and conducted sophisticated threat hunting campaigns. Led Red Team engagements and adversary simulation exercises to strengthen organizational security posture.",
-      technologies: ["SIEM", "Splunk", "QRadar", "Metasploit", "Burp Suite", "Nessus", "Wireshark", "PowerShell"],
+      description: "Performed digital forensics analysis on disk, memory, and network artifacts while supporting incident response activities. Led enterprise estate threat hunting using intelligence-driven and TTP-based methodologies with MITRE ATT&CK framework.",
+      technologies: ["MITRE ATT&CK", "SIEM", "Digital Forensics", "Deception Technology", "ISO 27001", "AWS", "Azure", "Penetration Testing"],
       achievements: [
-        "Reduced organizational risk by 40% through comprehensive security assessments",
-        "Successfully implemented ISO 27001:2013 with zero non-conformities",
-        "Conducted 25+ Red Team engagements and penetration tests",
-        "Developed threat intelligence program improving detection capabilities"
+        "Led enterprise estate threat hunting using intelligence-driven and TTP-based methodologies with MITRE ATT&CK framework, resulting in 30% improved coverage",
+        "Led full-stack SIEM refresh project implementing hardware upgrades and software optimizations, resulting in reduced CAPEX costs and enhanced log fidelity",
+        "Supervised external penetration testing engagements establishing test parameters and converting findings into actionable detection rule sets",
+        "Deployed deception-based detection solutions enhancing early-stage threat visibility and reducing dwell time",
+        "Implemented ISO 27001:2013 compliance with zero non-conformities enhancing cyber governance",
+        "Implemented unified DDoS response framework for AWS and Azure SaaS infrastructure, resulting in 30% reduction in attack-related downtime"
       ]
     },
   ];

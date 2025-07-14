@@ -21,8 +21,8 @@ const Navigation = () => {
     { name: 'Home', href: '/' },
     { name: 'Experience', href: '/#experience' },
     { name: 'Education', href: '/#education' },
-    { name: 'Research', href: '/#research' },
-    { name: 'Journal', href: '/journal' },
+    { name: 'Projects', href: '/#projects' },
+    { name: 'Cyber Journal', href: 'https://journal.ishaansrv.com', external: true },
     { name: 'Contact', href: '/contact' },
   ];
 
@@ -53,20 +53,32 @@ const Navigation = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
-              <Link
-                key={item.name}
-                to={item.href}
-                onClick={() => handleNavClick(item.href)}
-                className={`text-sm font-medium transition-smooth hover:text-primary ${
-                  location.pathname === item.href || 
-                  (item.href === '/' && location.pathname === '/') ||
-                  (item.href.startsWith('/#') && location.pathname === '/')
-                    ? 'text-primary' 
-                    : 'text-muted-foreground'
-                }`}
-              >
-                {item.name}
-              </Link>
+              item.external ? (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm font-medium transition-smooth hover:text-primary text-muted-foreground"
+                >
+                  {item.name}
+                </a>
+              ) : (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  onClick={() => handleNavClick(item.href)}
+                  className={`text-sm font-medium transition-smooth hover:text-primary ${
+                    location.pathname === item.href || 
+                    (item.href === '/' && location.pathname === '/') ||
+                    (item.href.startsWith('/#') && location.pathname === '/')
+                      ? 'text-primary' 
+                      : 'text-muted-foreground'
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              )
             ))}
           </div>
 
@@ -86,20 +98,32 @@ const Navigation = () => {
           <div className="md:hidden bg-background/95 backdrop-blur-lg border-b border-border animate-slide-up">
             <div className="px-2 pt-2 pb-3 space-y-1">
               {navItems.map((item) => (
-                <Link
-                  key={item.name}
-                  to={item.href}
-                  onClick={() => handleNavClick(item.href)}
-                  className={`block px-3 py-2 text-sm font-medium transition-smooth hover:text-primary ${
-                    location.pathname === item.href || 
-                    (item.href === '/' && location.pathname === '/') ||
-                    (item.href.startsWith('/#') && location.pathname === '/')
-                      ? 'text-primary' 
-                      : 'text-muted-foreground'
-                  }`}
-                >
-                  {item.name}
-                </Link>
+                item.external ? (
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block px-3 py-2 text-sm font-medium transition-smooth hover:text-primary text-muted-foreground"
+                  >
+                    {item.name}
+                  </a>
+                ) : (
+                  <Link
+                    key={item.name}
+                    to={item.href}
+                    onClick={() => handleNavClick(item.href)}
+                    className={`block px-3 py-2 text-sm font-medium transition-smooth hover:text-primary ${
+                      location.pathname === item.href || 
+                      (item.href === '/' && location.pathname === '/') ||
+                      (item.href.startsWith('/#') && location.pathname === '/')
+                        ? 'text-primary' 
+                        : 'text-muted-foreground'
+                    }`}
+                  >
+                    {item.name}
+                  </Link>
+                )
               ))}
             </div>
           </div>

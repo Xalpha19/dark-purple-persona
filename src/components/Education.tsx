@@ -14,20 +14,29 @@ const Education = () => {
         {
           degree: "Master of Science in Computer Forensics and Cybersecurity",
           school: "University of Greenwich",
-          period: "2018 - 2020",
+          period: "2023",
           location: "London, UK",
           gpa: "Distinction",
-          description: "Advanced studies in digital forensics, cybersecurity frameworks, and incident response methodologies. Specialized in malware analysis and threat intelligence.",
-          coursework: ["Digital Forensics", "Malware Analysis", "Network Security", "Threat Intelligence", "Incident Response", "Cyber Law"]
+          description: "Advanced degree focusing on digital forensics methodologies, cybersecurity frameworks, and incident response protocols.",
+          coursework: ["Digital Forensics", "Malware Analysis", "Network Security", "Incident Response", "Computer Law"]
         },
         {
-          degree: "Bachelor of Technology in Information Technology",
-          school: "University of Mumbai",
-          period: "2014 - 2018",
-          location: "Mumbai, India",
+          degree: "Post Graduate Diploma in Advanced Computing",
+          school: "Center of Development in Advanced Computing",
+          period: "2020",
+          location: "Noida, India",
+          gpa: "Merit",
+          description: "Specialized training in advanced computing concepts with focus on cybersecurity applications.",
+          coursework: ["Advanced Programming", "System Security", "Network Protocols", "Database Security", "Cryptography"]
+        },
+        {
+          degree: "Bachelor's in Technology - Information Technology",
+          school: "Symbiosis International University",
+          period: "2019",
+          location: "Pune, India",
           gpa: "First Class",
-          description: "Strong foundation in computer systems, networking, and information security. Final year project on 'Advanced Persistent Threat Detection Systems'.",
-          coursework: ["Computer Networks", "Information Security", "Database Systems", "System Administration", "Cryptography"]
+          description: "Foundation in information technology with specialization in security frameworks and system administration.",
+          coursework: ["Computer Networks", "Operating Systems", "Database Management", "Information Security", "Software Engineering"]
         }
       ]
     },
@@ -37,31 +46,40 @@ const Education = () => {
       icon: Award,
       items: [
         {
-          name: "GIAC Certified Forensic Examiner (GCFE)",
-          issuer: "SANS Institute",
+          name: "Recorded Future Threat Intelligence Analyst Training",
+          issuer: "Recorded Future",
+          issued: "2021",
+          expires: "N/A",
+          credential: "RF-TIA-2021",
+          description: "Advanced threat intelligence analysis methodologies and adversary tracking techniques for proactive defense strategies",
+          skills: ["Threat Intelligence", "Adversary Tracking", "TTP Analysis", "IOC Development"]
+        },
+        {
+          name: "AttackIQ MITRE ATT&CK Security Stack for AWS",
+          issuer: "AttackIQ",
           issued: "2023",
-          expires: "2027",
-          credential: "GCFE-2023-789012",
-          description: "Advanced certification in digital forensics and incident response, covering Windows forensics and timeline analysis.",
-          skills: ["Digital Forensics", "Windows Analysis", "Timeline Forensics", "Evidence Processing"]
+          expires: "N/A",
+          credential: "AIQ-AWS-2023",
+          description: "Defending against MITRE TTPs on AWS services with automated security validation and continuous monitoring",
+          skills: ["MITRE ATT&CK", "AWS Security", "Security Validation", "Cloud Defense"]
         },
         {
-          name: "GIAC Certified Forensic Analyst (GCFA)",
-          issuer: "SANS Institute",
-          issued: "2022",
+          name: "AWS Security Essentials",
+          issuer: "Amazon Web Services",
+          issued: "2024",
           expires: "2026",
-          credential: "GCFA-2022-345678",
-          description: "Expert-level certification in advanced digital forensics and incident response methodologies.",
-          skills: ["Advanced Forensics", "Memory Analysis", "Network Forensics", "Threat Hunting"]
+          credential: "AWS-SE-2024",
+          description: "Comprehensive cloud security fundamentals and best practices for AWS infrastructure protection",
+          skills: ["AWS Security", "Cloud Architecture", "IAM", "Security Monitoring"]
         },
         {
-          name: "Offensive Security Certified Professional (OSCP)",
-          issuer: "Offensive Security",
-          issued: "In Progress",
-          expires: "Lifetime",
-          credential: "Expected 2024",
-          description: "Hands-on penetration testing certification demonstrating practical security assessment skills.",
-          skills: ["Penetration Testing", "Exploitation", "Post-Exploitation", "Report Writing"]
+          name: "Microsoft Defender XDR Administration Training",
+          issuer: "Microsoft",
+          issued: "2025",
+          expires: "2027",
+          credential: "MS-XDR-2025",
+          description: "Advanced endpoint detection and response administration for enterprise security operations",
+          skills: ["Microsoft Defender", "EDR", "XDR", "Threat Detection"]
         }
       ]
     },

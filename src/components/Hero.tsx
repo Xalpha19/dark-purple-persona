@@ -1,6 +1,5 @@
-import { ArrowDown, Github, Linkedin, Mail, Shield, Search, Lock } from "lucide-react";
+import { ArrowDown, Github, Linkedin, Mail, Shield, Search, Lock, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
 
 const Hero = () => {
   const scrollToNextSection = () => {
@@ -10,20 +9,8 @@ const Hero = () => {
 
   return (
     <section className="min-h-screen relative flex items-center justify-center">
-      {/* Spline 3D Background */}
-      <div className="absolute inset-0">
-        <iframe 
-          src="https://community.spline.design/file/7506882b-6fe6-4305-9c2c-00cb12cc4c42" 
-          frameBorder="0" 
-          width="100%" 
-          height="100%"
-          className="absolute inset-0 opacity-70"
-          style={{ pointerEvents: 'none' }}
-        />
-        
-        {/* Gradient overlay for readability */}
-        <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/40 to-background/60"></div>
-        
+      {/* Clean CSS Gradient Background with Tech Patterns */}
+      <div className="absolute inset-0 hero-gradient-bg">
         {/* DFIR themed floating icons */}
         <div className="absolute top-1/3 right-1/4 animate-float" style={{ animationDelay: '1s' }}>
           <Shield className="w-12 h-12 text-primary/30" />
@@ -36,11 +23,17 @@ const Hero = () => {
         </div>
       </div>
       
-      {/* Content Overlay with Enhanced Readability */}
+      {/* Content with Professional Information */}
       <div className="container mx-auto px-6 text-center relative z-10">
         <div className="animate-slide-up bg-gradient-to-r from-background/95 via-background/70 to-background/50 backdrop-blur-sm rounded-2xl p-8 border border-primary/20">
-          <div className="mb-4">
-            <span className="text-accent font-medium text-lg tracking-wider">SENIOR DFIR SPECIALIST</span>
+          {/* Professional Tagline */}
+          <div className="mb-6">
+            <span className="text-accent font-medium text-lg tracking-wider block mb-2">
+              SENIOR DIGITAL FORENSICS & INCIDENT RESPONSE SPECIALIST
+            </span>
+            <span className="text-primary font-medium text-base tracking-wide">
+              THREAT HUNTING RESEARCHER
+            </span>
           </div>
           
           <h1 className="text-6xl md:text-8xl font-bold mb-6 glow-text">
@@ -50,18 +43,17 @@ const Hero = () => {
             </span>
           </h1>
           
-          <h2 className="text-2xl md:text-3xl font-semibold text-primary mb-4">
-            Digital Forensics & Incident Response
-          </h2>
-          
-          <h3 className="text-xl md:text-2xl text-accent mb-8">
-            Threat Hunting Researcher
-          </h3>
+          {/* Location */}
+          <div className="flex items-center justify-center gap-2 mb-6">
+            <MapPin className="w-5 h-5 text-primary" />
+            <span className="text-lg text-muted-foreground">Edinburgh, Scotland, UK</span>
+          </div>
           
           <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-8 leading-relaxed">
             "Protecting digital assets through advanced forensics and proactive threat detection"
           </p>
           
+          {/* CTAs */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
             <Button 
               size="lg" 
@@ -79,7 +71,7 @@ const Hero = () => {
             </Button>
           </div>
           
-          {/* Social Links */}
+          {/* Professional Links */}
           <div className="flex justify-center gap-6">
             <a 
               href="https://github.com/ishaansrivastava" 
@@ -90,7 +82,7 @@ const Hero = () => {
               <Github className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
             </a>
             <a 
-              href="https://linkedin.com/in/ishaan-srivastava" 
+              href="https://linkedin.com/in/ishaansri" 
               target="_blank" 
               rel="noopener noreferrer"
               className="w-12 h-12 card-enhanced rounded-lg flex items-center justify-center cyber-hover group"
@@ -98,7 +90,7 @@ const Hero = () => {
               <Linkedin className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
             </a>
             <a 
-              href="mailto:ishaansrivastava@proton.me"
+              href="mailto:contact@ishaansrv.com"
               className="w-12 h-12 card-enhanced rounded-lg flex items-center justify-center cyber-hover group"
             >
               <Mail className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />

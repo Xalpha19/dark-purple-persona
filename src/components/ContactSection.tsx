@@ -34,14 +34,27 @@ const ContactSection = () => {
   };
 
   return (
-    <section className="py-24 bg-gradient-hero">
-      <div className="container mx-auto px-6">
+    <section className="py-24 relative">
+      {/* Spline 3D Background for Contact Section */}
+      <div className="absolute inset-0">
+        <iframe 
+          src="https://app.spline.design/file/9120bf79-3ddc-4d9d-8efa-a386dd7a353b"
+          frameBorder="0" 
+          width="100%" 
+          height="100%"
+          className="absolute inset-0 opacity-30"
+          style={{ pointerEvents: 'none' }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/70 to-background/90"></div>
+      </div>
+      
+      <div className="container mx-auto px-6 relative z-10">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-6xl font-bold mb-6 glow-text">
-            Let's Work Together
+            Let's Connect
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Ready to bring your ideas to life? Let's discuss your next project.
+            Open for cybersecurity consulting, DFIR projects, and collaboration opportunities.
           </p>
         </div>
 
@@ -62,10 +75,10 @@ const ContactSection = () => {
                       <div>
                         <p className="font-medium">Email</p>
                         <a 
-                          href="mailto:hello@portfolio.com" 
+                          href="mailto:contact@ishaansrv.com" 
                           className="text-muted-foreground hover:text-primary transition-smooth"
                         >
-                          hello@portfolio.com
+                          contact@ishaansrv.com
                         </a>
                       </div>
                     </div>
@@ -77,10 +90,10 @@ const ContactSection = () => {
                       <div>
                         <p className="font-medium">Phone</p>
                         <a 
-                          href="tel:+15551234567" 
+                          href="tel:+447394449386" 
                           className="text-muted-foreground hover:text-primary transition-smooth"
                         >
-                          +1 (555) 123-4567
+                          07394 449 386
                         </a>
                       </div>
                     </div>
@@ -91,7 +104,7 @@ const ContactSection = () => {
                       </div>
                       <div>
                         <p className="font-medium">Location</p>
-                        <p className="text-muted-foreground">San Francisco, CA</p>
+                        <p className="text-muted-foreground">Edinburgh, Scotland, UK</p>
                       </div>
                     </div>
 
@@ -100,19 +113,69 @@ const ContactSection = () => {
                         <Calendar className="w-6 h-6 text-primary" />
                       </div>
                       <div>
-                        <p className="font-medium">Availability</p>
-                        <p className="text-muted-foreground">Open for new projects</p>
+                        <p className="font-medium">Calendly</p>
+                        <a 
+                          href="https://calendly.com/ishaansr" 
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-muted-foreground hover:text-primary transition-smooth"
+                        >
+                          Schedule a Meeting
+                        </a>
                       </div>
                     </div>
                   </div>
 
-                  <div className="mt-8 pt-8 border-t border-border">
-                    <Link to="/contact">
-                      <Button className="w-full bg-gradient-primary glow-purple" size="lg">
-                        <Send className="w-4 h-4 mr-2" />
-                        Full Contact Page
+                  <div className="mt-8 pt-8 border-t border-border space-y-3">
+                    <a href="https://calendly.com/ishaansr" target="_blank" rel="noopener noreferrer">
+                      <Button className="w-full bg-gradient-primary glow-purple mb-3" size="lg">
+                        <Calendar className="w-4 h-4 mr-2" />
+                        Schedule a Meeting
                       </Button>
-                    </Link>
+                    </a>
+                    <Button variant="outline" className="w-full btn-outline-enhanced" size="lg">
+                      <Send className="w-4 h-4 mr-2" />
+                      Download Resume
+                    </Button>
+                  </div>
+
+                  {/* Professional Links */}
+                  <div className="mt-6 pt-6 border-t border-border">
+                    <h4 className="font-semibold mb-4">Professional Links</h4>
+                    <div className="space-y-3">
+                      <a 
+                        href="https://linkedin.com/in/ishaansri" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="block text-sm text-muted-foreground hover:text-primary transition-smooth"
+                      >
+                        LinkedIn Profile
+                      </a>
+                      <a 
+                        href="https://irepository.gitbook.io/defensive-security/" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="block text-sm text-muted-foreground hover:text-primary transition-smooth"
+                      >
+                        GitBook Repository
+                      </a>
+                      <a 
+                        href="https://journal.ishaansrv.com" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="block text-sm text-muted-foreground hover:text-primary transition-smooth"
+                      >
+                        Cyber Journal
+                      </a>
+                      <a 
+                        href="https://icybersec.wixsite.com/ishaans" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="block text-sm text-muted-foreground hover:text-primary transition-smooth"
+                      >
+                        Technical Portfolio
+                      </a>
+                    </div>
                   </div>
                 </CardContent>
               </Card>
