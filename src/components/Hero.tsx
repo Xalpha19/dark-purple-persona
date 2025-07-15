@@ -65,8 +65,15 @@ const Hero = () => {
               </div>
               
               <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto lg:mx-0 mb-8 leading-relaxed">
-                "Protecting digital assets through advanced forensics and proactive threat detection"
+                Senior Cybersecurity Analyst with 4+ years proven experience in digital forensics, threat hunting, and proactive threat detection across multi-cloud environments.
               </p>
+              
+              <div className="flex items-center justify-center lg:justify-start gap-4 mb-6 text-muted-foreground">
+                <Mail className="w-5 h-5 text-primary" />
+                <span>ishaansrivastava@proton.me</span>
+                <span className="text-primary">•</span>
+                <span>📱 07394 449 386</span>
+              </div>
               
               {/* CTAs */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center mb-8">
@@ -105,7 +112,7 @@ const Hero = () => {
                   <Linkedin className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
                 </a>
                 <a 
-                  href="mailto:contact@ishaansrv.com"
+                  href="mailto:ishaansrivastava@proton.me"
                   className="w-12 h-12 card-enhanced rounded-lg flex items-center justify-center cyber-hover group"
                 >
                   <Mail className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
