@@ -35,18 +35,6 @@ const ContactSection = () => {
 
   return (
     <section className="py-24 relative">
-      {/* Spline 3D Background for Contact Section */}
-      <div className="absolute inset-0">
-        <iframe 
-          src="https://app.spline.design/file/9120bf79-3ddc-4d9d-8efa-a386dd7a353b"
-          frameBorder="0" 
-          width="100%" 
-          height="100%"
-          className="absolute inset-0 opacity-30"
-          style={{ pointerEvents: 'none' }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/70 to-background/90"></div>
-      </div>
       
       <div className="container mx-auto px-6 relative z-10">
         <div className="text-center mb-16">
