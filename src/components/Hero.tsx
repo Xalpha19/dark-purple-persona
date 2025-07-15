@@ -1,6 +1,5 @@
 import { ArrowDown, Github, Linkedin, Mail, Shield, Search, Lock, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import professionalHeadshot from "@/assets/professional-headshot.jpg";
 
 const Hero = () => {
   const scrollToNextSection = () => {
@@ -25,100 +24,77 @@ const Hero = () => {
       </div>
       
       {/* Content with Professional Information */}
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="animate-slide-up card-enhanced p-8 max-w-5xl mx-auto">
-          <div className="flex flex-col lg:flex-row items-center gap-12">
-            {/* Professional Headshot */}
-            <div className="flex-shrink-0">
-              <div className="headshot-frame">
-                <img 
-                  src={professionalHeadshot} 
-                  alt="Ishaan Srivastava - Senior DFIR Specialist" 
-                  className="headshot-image"
-                />
-              </div>
-            </div>
-            
-            {/* Professional Information */}
-            <div className="text-center lg:text-left flex-1">
-              {/* Professional Tagline */}
-              <div className="mb-6">
-                <span className="text-accent font-medium text-lg tracking-wider block mb-2">
-                  SENIOR DIGITAL FORENSICS & INCIDENT RESPONSE SPECIALIST
-                </span>
-                <span className="text-primary font-medium text-base tracking-wide">
-                  THREAT HUNTING RESEARCHER
-                </span>
-              </div>
-              
-              <h1 className="text-5xl md:text-7xl font-bold mb-6 glow-text">
-                Ishaan
-                <span className="block heading-primary">
-                  Srivastava
-                </span>
-              </h1>
-              
-              {/* Location */}
-              <div className="flex items-center justify-center lg:justify-start gap-2 mb-6">
-                <MapPin className="w-5 h-5 text-primary" />
-                <span className="text-lg text-muted-foreground">Edinburgh, Scotland, UK</span>
-              </div>
-              
-              <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto lg:mx-0 mb-8 leading-relaxed">
-                Senior Cybersecurity Analyst with 4+ years proven experience in digital forensics, threat hunting, and proactive threat detection across multi-cloud environments.
-              </p>
-              
-              <div className="flex items-center justify-center lg:justify-start gap-4 mb-6 text-muted-foreground">
-                <Mail className="w-5 h-5 text-primary" />
-                <span>ishaansrivastava@proton.me</span>
-                <span className="text-primary">•</span>
-                <span>📱 07394 449 386</span>
-              </div>
-              
-              {/* CTAs */}
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center mb-8">
-                <Button 
-                  size="lg" 
-                  className="btn-enhanced text-lg px-8 py-6"
-                  onClick={scrollToNextSection}
-                >
-                  View My Work
-                </Button>
-                <Button 
-                  variant="outline" 
-                  size="lg" 
-                  className="btn-outline-enhanced text-lg px-8 py-6"
-                >
-                  Download Resume
-                </Button>
-              </div>
-              
-              {/* Professional Links */}
-              <div className="flex justify-center lg:justify-start gap-6">
-                <a 
-                  href="https://github.com/ishaansrivastava" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="w-12 h-12 card-enhanced rounded-lg flex items-center justify-center cyber-hover group"
-                >
-                  <Github className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
-                </a>
-                <a 
-                  href="https://linkedin.com/in/ishaansri" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="w-12 h-12 card-enhanced rounded-lg flex items-center justify-center cyber-hover group"
-                >
-                  <Linkedin className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
-                </a>
-                <a 
-                  href="mailto:ishaansrivastava@proton.me"
-                  className="w-12 h-12 card-enhanced rounded-lg flex items-center justify-center cyber-hover group"
-                >
-                  <Mail className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
-                </a>
-              </div>
-            </div>
+      <div className="container mx-auto px-6 text-center relative z-10">
+        <div className="animate-slide-up bg-gradient-to-r from-background/95 via-background/70 to-background/50 backdrop-blur-sm rounded-2xl p-8 border border-primary/20">
+          {/* Professional Tagline */}
+          <div className="mb-6">
+            <span className="text-accent font-medium text-lg tracking-wider block mb-2">
+              SENIOR DIGITAL FORENSICS & INCIDENT RESPONSE SPECIALIST
+            </span>
+            <span className="text-primary font-medium text-base tracking-wide">
+              THREAT HUNTING RESEARCHER
+            </span>
+          </div>
+          
+          <h1 className="text-6xl md:text-8xl font-bold mb-6 glow-text">
+            Ishaan
+            <span className="block heading-primary">
+              Srivastava
+            </span>
+          </h1>
+          
+          {/* Location */}
+          <div className="flex items-center justify-center gap-2 mb-6">
+            <MapPin className="w-5 h-5 text-primary" />
+            <span className="text-lg text-muted-foreground">Edinburgh, Scotland, UK</span>
+          </div>
+          
+          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-8 leading-relaxed">
+            "Protecting digital assets through advanced forensics and proactive threat detection"
+          </p>
+          
+          {/* CTAs */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
+            <Button 
+              size="lg" 
+              className="btn-enhanced text-lg px-8 py-6"
+              onClick={scrollToNextSection}
+            >
+              View My Work
+            </Button>
+            <Button 
+              variant="outline" 
+              size="lg" 
+              className="btn-outline-enhanced text-lg px-8 py-6"
+            >
+              Download Resume
+            </Button>
+          </div>
+          
+          {/* Professional Links */}
+          <div className="flex justify-center gap-6">
+            <a 
+              href="https://github.com/ishaansrivastava" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="w-12 h-12 card-enhanced rounded-lg flex items-center justify-center cyber-hover group"
+            >
+              <Github className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
+            </a>
+            <a 
+              href="https://linkedin.com/in/ishaansri" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="w-12 h-12 card-enhanced rounded-lg flex items-center justify-center cyber-hover group"
+            >
+              <Linkedin className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
+            </a>
+            <a 
+              href="mailto:contact@ishaansrv.com"
+              className="w-12 h-12 card-enhanced rounded-lg flex items-center justify-center cyber-hover group"
+            >
+              <Mail className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
+            </a>
           </div>
         </div>
       </div>
