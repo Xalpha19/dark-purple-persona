@@ -1,4 +1,4 @@
-import { ArrowDown, Github, Linkedin, Mail, Shield, Search, Lock, MapPin } from "lucide-react";
+import { ArrowDown, Linkedin, Mail, Shield, Search, Lock, MapPin, Twitter } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const Hero = () => {
@@ -28,11 +28,8 @@ const Hero = () => {
         <div className="animate-slide-up bg-gradient-to-r from-background/95 via-background/70 to-background/50 backdrop-blur-sm rounded-2xl p-8 border border-primary/20">
           {/* Professional Tagline */}
           <div className="mb-6">
-            <span className="text-accent font-medium text-lg tracking-wider block mb-2">
-              SENIOR DIGITAL FORENSICS & INCIDENT RESPONSE SPECIALIST
-            </span>
             <span className="text-primary font-medium text-base tracking-wide">
-              THREAT HUNTING RESEARCHER
+              SENIOR THREAT HUNTING AND INCIDENCE RESPONSE ANALYST
             </span>
           </div>
           
@@ -46,7 +43,7 @@ const Hero = () => {
           {/* Location */}
           <div className="flex items-center justify-center gap-2 mb-6">
             <MapPin className="w-5 h-5 text-primary" />
-            <span className="text-lg text-muted-foreground">Edinburgh, Scotland, UK</span>
+            <span className="text-lg text-muted-foreground">Edinburgh, Scotland, 🇬🇧</span>
           </div>
           
           <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-8 leading-relaxed">
@@ -74,12 +71,12 @@ const Hero = () => {
           {/* Professional Links */}
           <div className="flex justify-center gap-6">
             <a 
-              href="https://github.com/ishaansrivastava" 
+              href="https://x.com/X19Alpha" 
               target="_blank" 
               rel="noopener noreferrer"
               className="w-12 h-12 card-enhanced rounded-lg flex items-center justify-center cyber-hover group"
             >
-              <Github className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
+              <Twitter className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
             </a>
             <a 
               href="https://linkedin.com/in/ishaansri" 
