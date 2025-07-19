@@ -124,10 +124,7 @@ const BlogSection = () => {
             Cyber Journal
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-4">
-            {usingRSS 
-              ? "Latest insights from WordPress - updated dynamically via RSS"
-              : "Deep technical analysis, threat intelligence, and cybersecurity insights from the security landscape in actionable blog style content."
-            }
+            Defending the Digital Frontier, One Byte at a Time
           </p>
           {usingRSS && (
             <Badge variant="secondary" className="bg-green-500/20 text-green-400 border-green-500/30">
