@@ -79,14 +79,6 @@ const Hero = () => {
           {/* Professional Links */}
           <div className="flex justify-center gap-6">
             <a 
-              href="https://x.com/X19Alpha" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="w-12 h-12 card-enhanced rounded-lg flex items-center justify-center cyber-hover group"
-            >
-              <Twitter className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
-            </a>
-            <a 
               href="https://linkedin.com/in/ishaansri" 
               target="_blank" 
               rel="noopener noreferrer"
@@ -99,6 +91,14 @@ const Hero = () => {
               className="w-12 h-12 card-enhanced rounded-lg flex items-center justify-center cyber-hover group"
             >
               <Mail className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
+            </a>
+            <a 
+              href="https://x.com/X19Alpha" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="w-12 h-12 card-enhanced rounded-lg flex items-center justify-center cyber-hover group"
+            >
+              <Twitter className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
             </a>
           </div>
         </div>
