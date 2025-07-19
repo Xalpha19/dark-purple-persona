@@ -88,16 +88,20 @@ const Education = () => {
       icon: Code,
       items: [
         {
-          category: "Digital Forensics & DFIR",
-          skills: ["Autopsy/Sleuth Kit", "Volatility (Memory Analysis)", "KAPE/Timeline Analysis", "X-Ways Forensics", "Mobile Forensics"]
+          category: "🔍 Threat Hunting & Analysis",
+          skills: ["Threat Hunting & Detection Engineering", "Advanced TTP and hypothesis-driven threat hunting", "Custom detection rule development (SIEM, EDR, XDR)", "MITRE ATT&CK alignment and use-case mapping", "Behavioral and anomaly-based detection", "Query development using KQL, Splunk SPL, and SQL", "Dashboard creation and threat visualisation", "Detection gap analysis via purple teaming exercises"]
         },
         {
-          category: "Security Tools & SIEM",
-          skills: ["Splunk", "Elastic Stack (ELK)", "QRadar", "Chronicle/Sumo Logic", "KQL (Kusto Query)"]
+          category: "🧪 Digital Forensics & DFIR",
+          skills: ["Disk, memory, network, and cloud forensics (AWS, Azure, GCP)", "Root cause analysis and incident triage", "Email and phishing analysis using OSINT and threat platforms", "Incident containment, eradication, and recovery procedures", "Evidence handling, forensic tooling, and chain of custody", "Automated forensic data acquisition and triage scripting", "Deception-based detection to reduce dwell time"]
         },
         {
-          category: "Threat Hunting & Analysis",
-          skills: ["MITRE ATT&CK", "YARA Rules", "Sigma Rules", "Threat Intelligence", "Malware Analysis"]
+          category: "☁️ Cloud & Endpoint Security",
+          skills: ["Endpoint threat detection using Trellix, Carbon Black, Defender XDR, etc.", "Host-based and behavioural intrusion analysis", "Cloud-native security tooling (AWS GuardDuty, Azure Sentinel, GCP SCC)", "Multi-cloud detection and response across SaaS environments", "Unified DDoS incident response and mitigation framework", "Cloud log analysis and cross-platform threat correlation"]
+        },
+        {
+          category: "⚙️ Security Automation",
+          skills: ["Automation, Scripting for ingestion of Threat Intelligence using REST API", "Python, PowerShell, and JavaScript scripting", "Custom SOAR playbooks for threat response orchestration", "Automated ingestion and enrichment of threat intel feeds", "OSINT investigation and threat actor profiling", "Adversary simulation and malware behavioral research", "Integration of CTI into SOC workflows and detections", "Tool development for automated triage and IOC processing"]
         }
       ]
     }
