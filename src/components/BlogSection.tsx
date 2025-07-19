@@ -12,7 +12,8 @@ const BlogSection = () => {
       date: "2024-01-15", 
       readTime: "8 min read",
       image: "/api/placeholder/400/200",
-      tags: ["APT", "Threat Detection", "SIEM"]
+      tags: ["APT", "Threat Detection", "SIEM"],
+      url: "https://journal.ishaansrv.com/2025/03/30/introducing-you-to-threat-hunting/"
     },
     {
       id: 2,
@@ -21,7 +22,8 @@ const BlogSection = () => {
       date: "2024-01-10",
       readTime: "12 min read", 
       image: "/api/placeholder/400/200",
-      tags: ["Zero Trust", "Network Security", "Identity Management"]
+      tags: ["Zero Trust", "Network Security", "Identity Management"],
+      url: "https://journal.ishaansrv.com/2025/05/23/hex-appeal-part-1-unraveling-the-art-of-malware-analysis/"
     },
     {
       id: 3,
@@ -30,7 +32,8 @@ const BlogSection = () => {
       date: "2024-01-05",
       readTime: "10 min read",
       image: "/api/placeholder/400/200", 
-      tags: ["SOAR", "Automation", "Incident Response"]
+      tags: ["SOAR", "Automation", "Incident Response"],
+      url: "https://journal.ishaansrv.com/2025/07/05/static-code-analysis/"
     }
   ];
 
@@ -98,7 +101,7 @@ const BlogSection = () => {
                   </div>
 
                   <a 
-                    href="https://journal.ishaansrv.com" 
+                    href={post.url} 
                     target="_blank" 
                     rel="noopener noreferrer"
                   >
