@@ -1,10 +1,54 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { GraduationCap, Award, BookOpen, Code } from "lucide-react";
+import { GraduationCap, Award, BookOpen, Code, Globe, ExternalLink } from "lucide-react";
 
 const Education = () => {
+  const [blogPosts, setBlogPosts] = useState([]);
+
+  useEffect(() => {
+    const fetchBlogPosts = async () => {
+      try {
+        const response = await fetch('https://journal.ishaansrv.com/wp-json/wp/v2/posts?per_page=3&_embed');
+        if (response.ok) {
+          const posts = await response.json();
+          setBlogPosts(posts.map(post => ({
+            title: post.title.rendered,
+            excerpt: post.excerpt.rendered.replace(/<[^>]+>/g, '').substring(0, 100) + '...',
+            link: post.link,
+            date: new Date(post.date).toLocaleDateString()
+          })));
+        }
+      } catch (error) {
+        console.error('Failed to fetch blog posts:', error);
+        // Fallback content
+        setBlogPosts([
+          {
+            title: "Advanced Threat Hunting with KQL and SIGMA Rules",
+            excerpt: "Deep dive into proactive threat detection methodologies using advanced query languages. Exploring behavioral analytics and detection engineering for modern SOC operations.",
+            link: "https://journal.ishaansrv.com",
+            date: "2024-12-15"
+          },
+          {
+            title: "Digital Forensics in Multi-Cloud Environments",
+            excerpt: "Comprehensive analysis of cloud artifact collection and forensic investigation techniques. Strategies for evidence preservation across AWS, Azure, and GCP infrastructures.",
+            link: "https://journal.ishaansrv.com",
+            date: "2024-12-10"
+          },
+          {
+            title: "MITRE ATT&CK Framework Implementation Guide",
+            excerpt: "Practical implementation strategies for threat intelligence-driven defense architectures. Building detection capabilities mapped to adversary tactics, techniques, and procedures.",
+            link: "https://journal.ishaansrv.com",
+            date: "2024-12-05"
+          }
+        ]);
+      }
+    };
+
+    fetchBlogPosts();
+  }, []);
+
   const education = [
     {
       id: "degree",
@@ -41,9 +85,15 @@ const Education = () => {
       ]
     },
     {
-      id: "certifications",
-      title: "Professional Certifications",
-      icon: Award,
+      id: "blogs",
+      title: "Cyber Journal",
+      icon: Globe,
+      items: blogPosts
+    },
+    {
+      id: "courses",
+      title: "Specialized Training",
+      icon: BookOpen,
       items: [
         {
           name: "Recorded Future Threat Intelligence Analyst Training",
@@ -84,70 +134,21 @@ const Education = () => {
       ]
     },
     {
-      id: "courses",
-      title: "Specialized Training",
-      icon: BookOpen,
-      items: [
-        {
-          name: "Advanced Persistent Threat (APT) Analysis",
-          platform: "SANS Institute",
-          completed: "2023",
-          instructor: "SANS FOR508",
-          description: "Comprehensive training on advanced digital forensics techniques for sophisticated attacks and APT campaigns.",
-          topics: ["Timeline Analysis", "Memory Forensics", "Network Analysis", "Malware Reverse Engineering", "Threat Attribution"]
-        },
-        {
-          name: "Cloud Security & Forensics",
-          platform: "AWS Training",
-          completed: "2023",
-          instructor: "AWS Security Specialists",
-          description: "Specialized course covering security architecture and forensics in multi-cloud environments.",
-          topics: ["Cloud Incident Response", "AWS Security", "Azure Forensics", "GCP Security", "Container Security"]
-        },
-        {
-          name: "Threat Intelligence & Hunting",
-          platform: "MITRE ATT&CK",
-          completed: "2022",
-          instructor: "MITRE Corporation",
-          description: "Advanced threat hunting methodologies using MITRE ATT&CK framework and threat intelligence platforms.",
-          topics: ["ATT&CK Framework", "Threat Modeling", "IOC Analysis", "TTP Mapping", "Hunt Hypothesis"]
-        }
-      ]
-    },
-    {
       id: "skills",
       title: "Technical Expertise",
       icon: Code,
       items: [
         {
           category: "Digital Forensics & DFIR",
-          skills: [
-            { name: "Autopsy/Sleuth Kit", level: 95 },
-            { name: "Volatility (Memory Analysis)", level: 90 },
-            { name: "KAPE/Timeline Analysis", level: 95 },
-            { name: "X-Ways Forensics", level: 85 },
-            { name: "Mobile Forensics", level: 80 }
-          ]
+          skills: ["Autopsy/Sleuth Kit", "Volatility (Memory Analysis)", "KAPE/Timeline Analysis", "X-Ways Forensics", "Mobile Forensics"]
         },
         {
           category: "Security Tools & SIEM",
-          skills: [
-            { name: "Splunk", level: 95 },
-            { name: "Elastic Stack (ELK)", level: 90 },
-            { name: "QRadar", level: 85 },
-            { name: "Chronicle/Sumo Logic", level: 80 },
-            { name: "KQL (Kusto Query)", level: 90 }
-          ]
+          skills: ["Splunk", "Elastic Stack (ELK)", "QRadar", "Chronicle/Sumo Logic", "KQL (Kusto Query)"]
         },
         {
           category: "Threat Hunting & Analysis",
-          skills: [
-            { name: "MITRE ATT&CK", level: 95 },
-            { name: "YARA Rules", level: 90 },
-            { name: "Sigma Rules", level: 85 },
-            { name: "Threat Intelligence", level: 90 },
-            { name: "Malware Analysis", level: 85 }
-          ]
+          skills: ["MITRE ATT&CK", "YARA Rules", "Sigma Rules", "Threat Intelligence", "Malware Analysis"]
         }
       ]
     }
@@ -190,20 +191,13 @@ const Education = () => {
                           <CardTitle className="text-xl">{skillGroup.category}</CardTitle>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                          {skillGroup.skills.map((skill, skillIndex) => (
-                            <div key={skillIndex}>
-                              <div className="flex justify-between mb-2">
-                                <span className="font-medium">{skill.name}</span>
-                                <span className="text-sm text-muted-foreground">{skill.level}%</span>
-                              </div>
-                              <div className="w-full bg-secondary rounded-full h-2">
-                                <div 
-                                  className="bg-gradient-primary h-2 rounded-full glow-purple" 
-                                  style={{ width: `${skill.level}%` }}
-                                ></div>
-                              </div>
-                            </div>
-                          ))}
+                          <div className="flex flex-wrap gap-2">
+                            {skillGroup.skills.map((skill, skillIndex) => (
+                              <Badge key={skillIndex} variant="secondary" className="bg-primary/20 text-primary">
+                                {skill}
+                              </Badge>
+                            ))}
+                          </div>
                         </CardContent>
                       </Card>
                     ))}
@@ -241,6 +235,57 @@ const Education = () => {
                               </div>
                             </div>
                           ) : section.id === "certifications" ? (
+                            <div>
+                              <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between mb-4">
+                                <div>
+                                  <h3 className="text-2xl font-bold text-primary mb-2">{item.name}</h3>
+                                  <p className="text-lg font-medium mb-2">{item.issuer}</p>
+                                  <div className="flex flex-wrap gap-4 text-muted-foreground mb-4">
+                                    <span>Issued: {item.issued}</span>
+                                    <span>•</span>
+                                    <span>Expires: {item.expires}</span>
+                                    <span>•</span>
+                                    <span>ID: {item.credential}</span>
+                                  </div>
+                                </div>
+                              </div>
+                              <p className="text-muted-foreground mb-6">{item.description}</p>
+                              <div>
+                                <h4 className="font-semibold mb-3">Key Skills:</h4>
+                                <div className="flex flex-wrap gap-2">
+                                  {item.skills.map((skill) => (
+                                    <Badge key={skill} variant="secondary" className="bg-primary/20 text-primary">
+                                      {skill}
+                                    </Badge>
+                                  ))}
+                                </div>
+                              </div>
+                            </div>
+                          ) : section.id === "blogs" ? (
+                            <div>
+                              <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between mb-4">
+                                <div className="flex-1">
+                                  <h3 className="text-2xl font-bold text-primary mb-2">{item.title}</h3>
+                                  <p className="text-muted-foreground mb-4">{item.excerpt}</p>
+                                  <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                                    <span>{item.date}</span>
+                                  </div>
+                                </div>
+                                <div className="mt-4 lg:mt-0">
+                                  <a 
+                                    href={item.link} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-2 px-4 py-2 bg-primary/20 text-primary rounded-lg hover:bg-primary/30 transition-colors"
+                                  >
+                                    <Globe className="w-4 h-4" />
+                                    Read Article
+                                    <ExternalLink className="w-4 h-4" />
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+                          ) : section.id === "courses" ? (
                             <div>
                               <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between mb-4">
                                 <div>
