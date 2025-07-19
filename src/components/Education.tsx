@@ -1,54 +1,9 @@
-import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { GraduationCap, Award, BookOpen, Code, Globe, ExternalLink } from "lucide-react";
+import { GraduationCap, BookOpen, Code } from "lucide-react";
 
 const Education = () => {
-  const [blogPosts, setBlogPosts] = useState([]);
-
-  useEffect(() => {
-    const fetchBlogPosts = async () => {
-      try {
-        const response = await fetch('https://journal.ishaansrv.com/wp-json/wp/v2/posts?per_page=3&_embed');
-        if (response.ok) {
-          const posts = await response.json();
-          setBlogPosts(posts.map(post => ({
-            title: post.title.rendered,
-            excerpt: post.excerpt.rendered.replace(/<[^>]+>/g, '').substring(0, 100) + '...',
-            link: post.link,
-            date: new Date(post.date).toLocaleDateString()
-          })));
-        }
-      } catch (error) {
-        console.error('Failed to fetch blog posts:', error);
-        // Fallback content
-        setBlogPosts([
-          {
-            title: "Advanced Threat Hunting with KQL and SIGMA Rules",
-            excerpt: "Deep dive into proactive threat detection methodologies using advanced query languages. Exploring behavioral analytics and detection engineering for modern SOC operations.",
-            link: "https://journal.ishaansrv.com",
-            date: "2024-12-15"
-          },
-          {
-            title: "Digital Forensics in Multi-Cloud Environments",
-            excerpt: "Comprehensive analysis of cloud artifact collection and forensic investigation techniques. Strategies for evidence preservation across AWS, Azure, and GCP infrastructures.",
-            link: "https://journal.ishaansrv.com",
-            date: "2024-12-10"
-          },
-          {
-            title: "MITRE ATT&CK Framework Implementation Guide",
-            excerpt: "Practical implementation strategies for threat intelligence-driven defense architectures. Building detection capabilities mapped to adversary tactics, techniques, and procedures.",
-            link: "https://journal.ishaansrv.com",
-            date: "2024-12-05"
-          }
-        ]);
-      }
-    };
-
-    fetchBlogPosts();
-  }, []);
-
   const education = [
     {
       id: "degree",
@@ -83,12 +38,6 @@ const Education = () => {
           coursework: ["Computer Networks", "Operating Systems", "Database Management", "Information Security", "Software Engineering"]
         }
       ]
-    },
-    {
-      id: "blogs",
-      title: "Cyber Journal",
-      icon: Globe,
-      items: blogPosts
     },
     {
       id: "courses",
@@ -168,7 +117,7 @@ const Education = () => {
 
         <div className="max-w-6xl mx-auto">
           <Tabs defaultValue="degree" className="w-full">
-            <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4 bg-card/50 border border-border">
+            <TabsList className="grid w-full grid-cols-3 bg-card/50 border border-border">
               {education.map((section) => (
                 <TabsTrigger 
                   key={section.id}
@@ -258,30 +207,6 @@ const Education = () => {
                                       {skill}
                                     </Badge>
                                   ))}
-                                </div>
-                              </div>
-                            </div>
-                          ) : section.id === "blogs" ? (
-                            <div>
-                              <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between mb-4">
-                                <div className="flex-1">
-                                  <h3 className="text-2xl font-bold text-primary mb-2">{item.title}</h3>
-                                  <p className="text-muted-foreground mb-4">{item.excerpt}</p>
-                                  <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                                    <span>{item.date}</span>
-                                  </div>
-                                </div>
-                                <div className="mt-4 lg:mt-0">
-                                  <a 
-                                    href={item.link} 
-                                    target="_blank" 
-                                    rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-2 px-4 py-2 bg-primary/20 text-primary rounded-lg hover:bg-primary/30 transition-colors"
-                                  >
-                                    <Globe className="w-4 h-4" />
-                                    Read Article
-                                    <ExternalLink className="w-4 h-4" />
-                                  </a>
                                 </div>
                               </div>
                             </div>

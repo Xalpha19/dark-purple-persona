@@ -143,17 +143,6 @@ const Projects = () => {
                     </div>
                   </div>
 
-                  {/* Action Buttons */}
-                  <div className="flex gap-3 mt-auto">
-                    <Button variant="outline" size="sm" className="btn-outline-enhanced flex-1">
-                      <ExternalLink className="w-4 h-4 mr-2" />
-                      View Details
-                    </Button>
-                    <Button variant="outline" size="sm" className="btn-outline-enhanced flex-1">
-                      <Github className="w-4 h-4 mr-2" />
-                      GitHub Link
-                    </Button>
-                  </div>
                 </CardContent>
               </Card>
             ))}
