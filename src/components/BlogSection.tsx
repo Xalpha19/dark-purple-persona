@@ -57,7 +57,10 @@ const BlogSection = () => {
   const fetchRSSPosts = async (showRefreshToast = false) => {
     try {
       setIsRefreshing(true);
+      console.log('Starting RSS fetch from:', WORDPRESS_RSS_URL);
+      
       const rssPosts = await rssService.fetchRSSFeed(WORDPRESS_RSS_URL);
+      console.log('Successfully fetched RSS posts:', rssPosts.length);
       
       // Convert RSS items to match our post format
       const formattedPosts = rssPosts.slice(0, 6).map(item => ({
@@ -72,6 +75,10 @@ const BlogSection = () => {
         author: item.author
       }));
       
+      if (formattedPosts.length === 0) {
+        throw new Error('No posts found in RSS feed');
+      }
+      
       setPosts(formattedPosts);
       setUsingRSS(true);
       
@@ -84,13 +91,14 @@ const BlogSection = () => {
     } catch (error) {
       console.error("Failed to fetch RSS posts:", error);
       // Fall back to static posts
+      console.log('Falling back to static posts');
       setPosts(fallbackPosts);
       setUsingRSS(false);
       
       if (showRefreshToast) {
         toast({
-          title: "RSS Feed Error",
-          description: "Showing cached posts. Check your internet connection.",
+          title: "RSS Feed Error", 
+          description: `RSS fetch failed: ${error.message}. Showing cached posts.`,
           variant: "destructive",
         });
       }

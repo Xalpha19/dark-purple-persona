@@ -12,54 +12,105 @@ export interface RSSItem {
 
 export class RSSService {
   async fetchRSSFeed(feedUrl: string): Promise<RSSItem[]> {
-    try {
-      // Use CORS proxy for client-side RSS fetching
-      const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(feedUrl)}`;
-      
-      const response = await fetch(proxyUrl);
-      const data = await response.json();
-      
-      if (!data.contents) {
-        throw new Error('Failed to fetch RSS feed');
-      }
+    console.log('Attempting to fetch RSS feed from:', feedUrl);
+    
+    // Try multiple CORS proxy services
+    const corsProxies = [
+      `https://api.allorigins.win/get?url=${encodeURIComponent(feedUrl)}`,
+      `https://corsproxy.io/?${encodeURIComponent(feedUrl)}`,
+      `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}`
+    ];
 
-      // Parse XML manually using DOMParser
-      const parser = new DOMParser();
-      const xmlDoc = parser.parseFromString(data.contents, 'text/xml');
-      
-      // Check for parsing errors
-      const parseError = xmlDoc.querySelector('parsererror');
-      if (parseError) {
-        throw new Error('Invalid XML format');
-      }
-
-      const items = xmlDoc.querySelectorAll('item');
-      
-      return Array.from(items).map((item, index) => {
-        const title = this.getTextContent(item, 'title') || 'Untitled';
-        const link = this.getTextContent(item, 'link') || '';
-        const description = this.getTextContent(item, 'description') || '';
-        const pubDate = this.getTextContent(item, 'pubDate') || new Date().toISOString();
-        const author = this.getTextContent(item, 'dc:creator') || 
-                      this.getTextContent(item, 'author') || 
-                      'Unknown Author';
+    for (let i = 0; i < corsProxies.length; i++) {
+      try {
+        console.log(`Trying proxy ${i + 1}:`, corsProxies[i]);
         
-        return {
-          id: this.getTextContent(item, 'guid') || link || `item-${index}`,
-          title,
-          excerpt: this.extractExcerpt(description),
-          content: description,
-          link,
-          pubDate,
-          author,
-          categories: this.extractCategories(item),
-          thumbnail: this.extractThumbnail(item, description)
-        };
-      });
-    } catch (error) {
-      console.error('Error fetching RSS feed:', error);
-      throw new Error(`Failed to fetch RSS feed: ${error.message}`);
+        if (i === 2) {
+          // rss2json has different response format
+          return await this.fetchViaRss2Json(corsProxies[i]);
+        } else {
+          const response = await fetch(corsProxies[i]);
+          
+          if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+          }
+          
+          const data = await response.json();
+          console.log('Proxy response:', data);
+          
+          if (!data.contents) {
+            throw new Error('No contents in proxy response');
+          }
+
+          return await this.parseXMLFeed(data.contents);
+        }
+      } catch (error) {
+        console.error(`Proxy ${i + 1} failed:`, error);
+        if (i === corsProxies.length - 1) {
+          throw error;
+        }
+        continue;
+      }
     }
+
+    throw new Error('All CORS proxies failed');
+  }
+
+  private async fetchViaRss2Json(url: string): Promise<RSSItem[]> {
+    const response = await fetch(url);
+    const data = await response.json();
+    
+    if (data.status !== 'ok') {
+      throw new Error('RSS2JSON service error');
+    }
+
+    return data.items.map((item: any, index: number) => ({
+      id: item.guid || item.link || `item-${index}`,
+      title: item.title || 'Untitled',
+      excerpt: this.extractExcerpt(item.description || ''),
+      content: item.content || item.description || '',
+      link: item.link || '',
+      pubDate: item.pubDate || new Date().toISOString(),
+      author: item.author || 'Unknown Author',
+      categories: item.categories || [],
+      thumbnail: item.thumbnail
+    }));
+  }
+
+  private async parseXMLFeed(xmlContent: string): Promise<RSSItem[]> {
+    const parser = new DOMParser();
+    const xmlDoc = parser.parseFromString(xmlContent, 'text/xml');
+    
+    // Check for parsing errors
+    const parseError = xmlDoc.querySelector('parsererror');
+    if (parseError) {
+      throw new Error('Invalid XML format');
+    }
+
+    const items = xmlDoc.querySelectorAll('item');
+    console.log(`Found ${items.length} items in RSS feed`);
+    
+    return Array.from(items).map((item, index) => {
+      const title = this.getTextContent(item, 'title') || 'Untitled';
+      const link = this.getTextContent(item, 'link') || '';
+      const description = this.getTextContent(item, 'description') || '';
+      const pubDate = this.getTextContent(item, 'pubDate') || new Date().toISOString();
+      const author = this.getTextContent(item, 'dc:creator') || 
+                    this.getTextContent(item, 'author') || 
+                    'Unknown Author';
+      
+      return {
+        id: this.getTextContent(item, 'guid') || link || `item-${index}`,
+        title,
+        excerpt: this.extractExcerpt(description),
+        content: description,
+        link,
+        pubDate,
+        author,
+        categories: this.extractCategories(item),
+        thumbnail: this.extractThumbnail(item, description)
+      };
+    });
   }
 
   private getTextContent(element: Element, tagName: string): string {
