@@ -131,7 +131,7 @@ const BlogSection = () => {
           </p>
           {usingRSS && (
             <Badge variant="secondary" className="bg-green-500/20 text-green-400 border-green-500/30">
-              Live RSS Feed Active
+              Live Feed
             </Badge>
           )}
         </div>
