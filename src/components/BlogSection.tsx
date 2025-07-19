@@ -2,6 +2,9 @@ import { ArrowRight, Calendar, User, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "react-router-dom";
+import staticCodeAnalysisImage from "@/assets/blog-static-code-analysis.png";
+import hexAppealImage from "@/assets/blog-hex-appeal.jpg";
+import threatHuntingImage from "@/assets/blog-threat-hunting.png";
 
 const BlogSection = () => {
   const featuredPosts = [
@@ -11,7 +14,7 @@ const BlogSection = () => {
       excerpt: "Imagine you're trying to understand how a complex clock works, but you can't actually wind it up or let its gears turn. This is like static analysis in cybersecurity - examining software without running it.",
       date: "2025-07-05", 
       readTime: "12 min read",
-      image: "/api/placeholder/400/200",
+      image: staticCodeAnalysisImage,
       tags: ["Static Analysis", "Reverse Engineering", "Cybersecurity"],
       url: "https://journal.ishaansrv.com/2025/07/05/static-code-analysis/"
     },
@@ -21,7 +24,7 @@ const BlogSection = () => {
       excerpt: "Understanding how the adversary operates is paramount to mounting a proper defense. Malware analysis is a deep technical investigation into the heart of malicious code - a craft demanding skill and dedication.",
       date: "2025-05-23",
       readTime: "15 min read", 
-      image: "/api/placeholder/400/200",
+      image: hexAppealImage,
       tags: ["Malware Analysis", "Static Analysis", "Dynamic Analysis"],
       url: "https://journal.ishaansrv.com/2025/05/23/hex-appeal-part-1-unraveling-the-art-of-malware-analysis/"
     },
@@ -31,7 +34,7 @@ const BlogSection = () => {
       excerpt: "Threat Hunting is proactive and rigorously looking after threats in your environment. Learn how to establish effective threat hunting with the right data, baseline understanding, and hypothesis development.",
       date: "2025-03-30",
       readTime: "10 min read",
-      image: "/api/placeholder/400/200", 
+      image: threatHuntingImage, 
       tags: ["Threat Hunting", "MITRE ATT&CK", "Proactive Defense"],
       url: "https://journal.ishaansrv.com/2025/03/30/introducing-you-to-threat-hunting/"
     }
@@ -68,8 +71,12 @@ const BlogSection = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {featuredPosts.map((post, index) => (
               <Card key={post.id} className="bg-gradient-card border-border/50 glow-cyber hover:glow-cyber transition-smooth animate-slide-up group overflow-hidden cyber-hover" style={{animationDelay: `${index * 0.1}s`}}>
-                <div className="aspect-video bg-gradient-primary/20 flex items-center justify-center">
-                  <div className="text-6xl font-bold text-primary/30">Blog</div>
+                <div className="aspect-video overflow-hidden">
+                  <img 
+                    src={post.image} 
+                    alt={post.title}
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
                 </div>
                 <CardHeader>
                   <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
