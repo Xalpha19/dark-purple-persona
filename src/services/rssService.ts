@@ -1,5 +1,3 @@
-import Parser from 'rss-parser';
-
 export interface RSSItem {
   id: string;
   title: string;
@@ -13,22 +11,6 @@ export interface RSSItem {
 }
 
 export class RSSService {
-  private parser: Parser;
-
-  constructor() {
-    this.parser = new Parser({
-      customFields: {
-        item: [
-          ['media:thumbnail', 'thumbnail'],
-          ['content:encoded', 'contentEncoded'],
-          ['wp:post_id', 'postId'],
-          ['wp:post_date', 'postDate'],
-          ['wp:excerpt', 'excerpt']
-        ]
-      }
-    });
-  }
-
   async fetchRSSFeed(feedUrl: string): Promise<RSSItem[]> {
     try {
       // Use CORS proxy for client-side RSS fetching
@@ -41,71 +23,91 @@ export class RSSService {
         throw new Error('Failed to fetch RSS feed');
       }
 
-      const feed = await this.parser.parseString(data.contents);
+      // Parse XML manually using DOMParser
+      const parser = new DOMParser();
+      const xmlDoc = parser.parseFromString(data.contents, 'text/xml');
       
-      return feed.items.map((item, index) => ({
-        id: item.guid || item.link || `item-${index}`,
-        title: item.title || 'Untitled',
-        excerpt: this.extractExcerpt(item),
-        content: this.extractContent(item),
-        link: item.link || '',
-        pubDate: item.pubDate || item.isoDate || new Date().toISOString(),
-        author: item.creator || item['dc:creator'] || 'Unknown Author',
-        categories: this.extractCategories(item),
-        thumbnail: this.extractThumbnail(item)
-      }));
+      // Check for parsing errors
+      const parseError = xmlDoc.querySelector('parsererror');
+      if (parseError) {
+        throw new Error('Invalid XML format');
+      }
+
+      const items = xmlDoc.querySelectorAll('item');
+      
+      return Array.from(items).map((item, index) => {
+        const title = this.getTextContent(item, 'title') || 'Untitled';
+        const link = this.getTextContent(item, 'link') || '';
+        const description = this.getTextContent(item, 'description') || '';
+        const pubDate = this.getTextContent(item, 'pubDate') || new Date().toISOString();
+        const author = this.getTextContent(item, 'dc:creator') || 
+                      this.getTextContent(item, 'author') || 
+                      'Unknown Author';
+        
+        return {
+          id: this.getTextContent(item, 'guid') || link || `item-${index}`,
+          title,
+          excerpt: this.extractExcerpt(description),
+          content: description,
+          link,
+          pubDate,
+          author,
+          categories: this.extractCategories(item),
+          thumbnail: this.extractThumbnail(item, description)
+        };
+      });
     } catch (error) {
       console.error('Error fetching RSS feed:', error);
-      throw new Error('Failed to fetch RSS feed');
+      throw new Error(`Failed to fetch RSS feed: ${error.message}`);
     }
   }
 
-  private extractExcerpt(item: any): string {
-    // Try different excerpt sources
-    if (item.excerpt) return this.stripHtml(item.excerpt);
-    if (item.contentSnippet) return item.contentSnippet;
-    if (item.summary) return this.stripHtml(item.summary);
-    if (item.content) {
-      const content = this.stripHtml(item.content);
-      return content.length > 150 ? content.substring(0, 150) + '...' : content;
-    }
-    return 'No excerpt available';
+  private getTextContent(element: Element, tagName: string): string {
+    const el = element.querySelector(tagName);
+    return el ? el.textContent?.trim() || '' : '';
   }
 
-  private extractContent(item: any): string {
-    if (item.contentEncoded) return item.contentEncoded;
-    if (item.content) return item.content;
-    if (item['content:encoded']) return item['content:encoded'];
-    return item.contentSnippet || '';
+  private extractExcerpt(description: string): string {
+    if (!description) return 'No excerpt available';
+    
+    // Strip HTML tags
+    const stripped = this.stripHtml(description);
+    
+    // Get first 150 characters
+    return stripped.length > 150 ? stripped.substring(0, 150) + '...' : stripped;
   }
 
-  private extractCategories(item: any): string[] {
+  private extractCategories(item: Element): string[] {
     const categories: string[] = [];
     
-    if (item.categories) {
-      categories.push(...item.categories);
-    }
-    
-    if (item.category) {
-      if (Array.isArray(item.category)) {
-        categories.push(...item.category);
-      } else {
-        categories.push(item.category);
-      }
-    }
+    // Get all category elements
+    const categoryElements = item.querySelectorAll('category');
+    categoryElements.forEach(cat => {
+      const text = cat.textContent?.trim();
+      if (text) categories.push(text);
+    });
 
     return categories.filter(Boolean);
   }
 
-  private extractThumbnail(item: any): string | undefined {
-    // Try various thumbnail sources
-    if (item.thumbnail && item.thumbnail.url) return item.thumbnail.url;
-    if (item['media:thumbnail'] && item['media:thumbnail'].url) return item['media:thumbnail'].url;
-    if (item.enclosure && item.enclosure.type?.startsWith('image/')) return item.enclosure.url;
-    
-    // Extract from content
-    const content = item.content || item.contentEncoded || '';
-    const imgMatch = content.match(/<img[^>]+src="([^">]+)"/);
+  private extractThumbnail(item: Element, description: string): string | undefined {
+    // Try to find media thumbnail
+    const mediaThumbnail = item.querySelector('media\\:thumbnail, thumbnail');
+    if (mediaThumbnail) {
+      const url = mediaThumbnail.getAttribute('url');
+      if (url) return url;
+    }
+
+    // Try to find enclosure
+    const enclosure = item.querySelector('enclosure');
+    if (enclosure) {
+      const type = enclosure.getAttribute('type');
+      const url = enclosure.getAttribute('url');
+      if (type?.startsWith('image/') && url) return url;
+    }
+
+    // Extract from description/content
+    const imgMatch = description.match(/<img[^>]+src="([^">]+)"/);
     return imgMatch ? imgMatch[1] : undefined;
   }
 
