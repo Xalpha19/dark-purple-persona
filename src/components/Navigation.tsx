@@ -23,7 +23,7 @@ const Navigation = () => {
     { name: 'Education', href: '/#education' },
     { name: 'Projects', href: '/#projects' },
     { name: 'Blog', href: 'https://journal.ishaansrv.com', external: true },
-    { name: "Let's Connect", href: '/#contact' },
+    { name: "Let's Connect", href: '/#contact-bottom' },
   ];
 
   const handleNavClick = (href: string) => {

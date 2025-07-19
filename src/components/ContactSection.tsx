@@ -243,6 +243,7 @@ const ContactSection = () => {
           </div>
         </div>
       </div>
+      <div id="contact-bottom"></div>
     </section>
   );
 };
