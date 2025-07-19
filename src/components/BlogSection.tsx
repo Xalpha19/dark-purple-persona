@@ -7,30 +7,30 @@ const BlogSection = () => {
   const featuredPosts = [
     {
       id: 1,
-      title: "Building Modern Web Applications with React and TypeScript",
-      excerpt: "Exploring best practices for creating scalable and maintainable web applications using modern development tools and patterns.",
-      date: "2024-01-15",
-      readTime: "5 min read",
+      title: "Advanced Persistent Threats Detection",
+      excerpt: "Deep dive into identifying and mitigating sophisticated cyber attacks using behavioral analysis and threat hunting techniques in enterprise environments.",
+      date: "2024-01-15", 
+      readTime: "8 min read",
       image: "/api/placeholder/400/200",
-      tags: ["React", "TypeScript", "Web Development"]
+      tags: ["APT", "Threat Detection", "SIEM"]
     },
     {
       id: 2,
-      title: "The Future of AI in Software Development",
-      excerpt: "How artificial intelligence is transforming the way we write, test, and deploy software applications in the modern era.",
+      title: "Zero Trust Architecture Implementation",
+      excerpt: "Comprehensive guide to implementing zero trust security models, including network segmentation, identity verification, and continuous monitoring strategies.",
       date: "2024-01-10",
-      readTime: "8 min read",
+      readTime: "12 min read", 
       image: "/api/placeholder/400/200",
-      tags: ["AI", "Machine Learning", "Software Development"]
+      tags: ["Zero Trust", "Network Security", "Identity Management"]
     },
     {
       id: 3,
-      title: "Design Systems: Creating Consistent User Experiences",
-      excerpt: "A comprehensive guide to building and maintaining design systems for modern applications and teams.",
+      title: "Incident Response Automation",
+      excerpt: "Building effective SOAR playbooks for automated incident response, including threat intelligence integration and orchestrated security workflows.",
       date: "2024-01-05",
-      readTime: "6 min read",
-      image: "/api/placeholder/400/200",
-      tags: ["Design", "UI/UX", "Design Systems"]
+      readTime: "10 min read",
+      image: "/api/placeholder/400/200", 
+      tags: ["SOAR", "Automation", "Incident Response"]
     }
   ];
 
@@ -42,32 +42,22 @@ const BlogSection = () => {
             Cyber Journal
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Deep technical analysis, threat intelligence, and cybersecurity insights from the field.
+            Deep technical analysis, threat intelligence, and cybersecurity insights from the security landscape in actionable blog style content.
           </p>
         </div>
 
-        {/* WordPress Integration Notice */}
-        <div className="max-w-4xl mx-auto mb-12">
-          <Card className="bg-gradient-card border-border/50 glow-cyber text-center cyber-hover">
-            <CardContent className="p-8">
-              <ExternalLink className="w-12 h-12 text-primary mx-auto mb-4" />
-              <h3 className="text-2xl font-bold mb-4">WordPress Integration</h3>
-              <p className="text-muted-foreground mb-6">
-                This cybersecurity journal is designed to integrate seamlessly with your WordPress site. 
-                Connect your WordPress API to display live security articles and threat intelligence.
-              </p>
-              <Button variant="outline" className="glow-cyber mr-4 cyber-hover">
-                <ExternalLink className="w-4 h-4 mr-2" />
-                WordPress API Docs
-              </Button>
-              <Link to="/journal">
-                <Button className="bg-gradient-primary glow-cyber cyber-hover">
-                  View All Entries
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Button>
-              </Link>
-            </CardContent>
-          </Card>
+        {/* Take Me There Button */}
+        <div className="max-w-4xl mx-auto mb-12 text-center">
+          <a 
+            href="https://journal.ishaansrv.com" 
+            target="_blank" 
+            rel="noopener noreferrer"
+          >
+            <Button size="lg" className="bg-gradient-primary glow-cyber cyber-hover">
+              <ExternalLink className="w-4 h-4 mr-2" />
+              Take me there
+            </Button>
+          </a>
         </div>
 
         {/* Featured Blog Posts */}
@@ -107,10 +97,16 @@ const BlogSection = () => {
                     )}
                   </div>
 
-                  <Button variant="outline" className="w-full group-hover:bg-primary/10 group-hover:border-primary transition-smooth">
-                    Read Article
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </Button>
+                  <a 
+                    href="https://journal.ishaansrv.com" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                  >
+                    <Button variant="outline" className="w-full group-hover:bg-primary/10 group-hover:border-primary transition-smooth">
+                      Read Article
+                      <ArrowRight className="w-4 h-4 ml-2" />
+                    </Button>
+                  </a>
                 </CardContent>
               </Card>
             ))}

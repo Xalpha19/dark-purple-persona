@@ -22,7 +22,7 @@ const Navigation = () => {
     { name: 'Experience', href: '/#experience' },
     { name: 'Education', href: '/#education' },
     { name: 'Projects', href: '/#projects' },
-    { name: 'Cyber Journal', href: 'https://journal.ishaansrv.com', external: true },
+    { name: 'Blog', href: 'https://journal.ishaansrv.com', external: true },
     { name: 'Contact', href: '/contact' },
   ];
 
@@ -47,7 +47,7 @@ const Navigation = () => {
           
           {/* Logo */}
           <Link to="/" className="text-2xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-            Portfolio
+            IS
           </Link>
 
           {/* Desktop Navigation */}
