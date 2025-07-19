@@ -50,7 +50,7 @@ const Navigation = () => {
             <img 
               src="/lovable-uploads/ca542af3-90d3-44d4-ba3d-09206934c8d0.png" 
               alt="Ishaan Srivastava Logo" 
-              className="w-10 h-10 object-contain"
+              className="w-20 h-20 object-contain"
             />
           </a>
 
