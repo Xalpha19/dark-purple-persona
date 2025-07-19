@@ -66,7 +66,7 @@ const Hero = () => {
               asChild
             >
               <a 
-                href="/resume.pdf" 
+                href="/lovable-uploads/Ishaan_Srivastava_Resume.pdf" 
                 download="Ishaan_Srivastava_Resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
