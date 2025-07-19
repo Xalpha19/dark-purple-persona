@@ -46,9 +46,13 @@ const Navigation = () => {
         <div className="flex items-center justify-between h-16">
           
           {/* Logo */}
-          <Link to="/" className="text-2xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-            IS
-          </Link>
+          <a href="https://ishaansrv.com" className="flex items-center">
+            <img 
+              src="/lovable-uploads/ca542af3-90d3-44d4-ba3d-09206934c8d0.png" 
+              alt="Ishaan Srivastava Logo" 
+              className="w-10 h-10 object-contain"
+            />
+          </a>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
