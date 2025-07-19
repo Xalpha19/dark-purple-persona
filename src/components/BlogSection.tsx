@@ -7,33 +7,33 @@ const BlogSection = () => {
   const featuredPosts = [
     {
       id: 1,
-      title: "Advanced Persistent Threats Detection",
-      excerpt: "Deep dive into identifying and mitigating sophisticated cyber attacks using behavioral analysis and threat hunting techniques in enterprise environments.",
-      date: "2024-01-15", 
-      readTime: "8 min read",
+      title: "Static Code Analysis",
+      excerpt: "Imagine you're trying to understand how a complex clock works, but you can't actually wind it up or let its gears turn. This is like static analysis in cybersecurity - examining software without running it.",
+      date: "2025-07-05", 
+      readTime: "12 min read",
       image: "/api/placeholder/400/200",
-      tags: ["APT", "Threat Detection", "SIEM"],
-      url: "https://journal.ishaansrv.com/2025/03/30/introducing-you-to-threat-hunting/"
+      tags: ["Static Analysis", "Reverse Engineering", "Cybersecurity"],
+      url: "https://journal.ishaansrv.com/2025/07/05/static-code-analysis/"
     },
     {
       id: 2,
-      title: "Zero Trust Architecture Implementation",
-      excerpt: "Comprehensive guide to implementing zero trust security models, including network segmentation, identity verification, and continuous monitoring strategies.",
-      date: "2024-01-10",
-      readTime: "12 min read", 
+      title: "Hex Appeal Part 1: Unraveling the Art of Malware Analysis",
+      excerpt: "Understanding how the adversary operates is paramount to mounting a proper defense. Malware analysis is a deep technical investigation into the heart of malicious code - a craft demanding skill and dedication.",
+      date: "2025-05-23",
+      readTime: "15 min read", 
       image: "/api/placeholder/400/200",
-      tags: ["Zero Trust", "Network Security", "Identity Management"],
+      tags: ["Malware Analysis", "Static Analysis", "Dynamic Analysis"],
       url: "https://journal.ishaansrv.com/2025/05/23/hex-appeal-part-1-unraveling-the-art-of-malware-analysis/"
     },
     {
       id: 3,
-      title: "Incident Response Automation",
-      excerpt: "Building effective SOAR playbooks for automated incident response, including threat intelligence integration and orchestrated security workflows.",
-      date: "2024-01-05",
+      title: "Introducing you to Threat Hunting",
+      excerpt: "Threat Hunting is proactive and rigorously looking after threats in your environment. Learn how to establish effective threat hunting with the right data, baseline understanding, and hypothesis development.",
+      date: "2025-03-30",
       readTime: "10 min read",
       image: "/api/placeholder/400/200", 
-      tags: ["SOAR", "Automation", "Incident Response"],
-      url: "https://journal.ishaansrv.com/2025/07/05/static-code-analysis/"
+      tags: ["Threat Hunting", "MITRE ATT&CK", "Proactive Defense"],
+      url: "https://journal.ishaansrv.com/2025/03/30/introducing-you-to-threat-hunting/"
     }
   ];
 
