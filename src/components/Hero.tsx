@@ -63,8 +63,16 @@ const Hero = () => {
               variant="outline" 
               size="lg" 
               className="btn-outline-enhanced text-lg px-8 py-6"
+              asChild
             >
-              Download Resume
+              <a 
+                href="/resume.pdf" 
+                download="Ishaan_Srivastava_Resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Download Resume
+              </a>
             </Button>
           </div>
           
