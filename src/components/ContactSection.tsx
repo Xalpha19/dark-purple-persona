@@ -108,10 +108,11 @@ const ContactSection = () => {
                         Schedule a Meeting
                       </Button>
                     </a>
-                    <Button variant="outline" className="w-full btn-outline-enhanced" size="lg">
-                      <Send className="w-4 h-4 mr-2" />
-                      Download Resume
-                    </Button>
+                    <img 
+                      src="/lovable-uploads/c5eeaf58-c7e6-4b7d-b38f-c2527cb49448.png" 
+                      alt="Profile" 
+                      className="w-full rounded-lg"
+                    />
                   </div>
 
                   {/* Professional Links */}
