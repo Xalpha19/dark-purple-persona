@@ -25,7 +25,7 @@ const Hero = () => {
       
       {/* Content with Professional Information */}
       <div className="container mx-auto px-6 text-center relative z-10">
-        <div className="animate-slide-up bg-gradient-to-r from-background/95 via-background/70 to-background/50 backdrop-blur-sm rounded-2xl p-8 border border-primary/20">
+        <div className="animate-slide-up bg-gradient-to-r from-background/35 via-background/25 to-background/15 backdrop-blur-sm rounded-2xl p-8 border border-primary/20">
           {/* Professional Tagline */}
           <div className="mb-6">
             <span className="text-primary font-medium text-base tracking-wide">
