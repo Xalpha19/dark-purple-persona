@@ -161,7 +161,7 @@ const BlogSection = () => {
               ) : (
                 <RefreshCw className="mr-2 h-4 w-4 group-hover:rotate-180 transition-transform duration-300" />
               )}
-              Refresh RSS Feed
+              Refresh Feed
             </Button>
           </div>
         </div>
