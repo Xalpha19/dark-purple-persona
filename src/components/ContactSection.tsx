@@ -109,8 +109,8 @@ const ContactSection = () => {
                       </Button>
                     </a>
                     <img 
-                      src="/lovable-uploads/c5eeaf58-c7e6-4b7d-b38f-c2527cb49448.png" 
-                      alt="Profile" 
+                      src="/lovable-uploads/16a0b86d-3467-4726-9866-9e79c3ae6d39.png" 
+                      alt="QR Code" 
                       className="w-full rounded-lg"
                     />
                   </div>
