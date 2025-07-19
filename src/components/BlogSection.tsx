@@ -112,15 +112,6 @@ const BlogSection = () => {
             ))}
           </div>
 
-          <div className="text-center mt-12">
-            <Link to="/journal">
-              <Button size="lg" className="bg-gradient-primary glow-cyber cyber-hover">
-                <User className="w-4 h-4 mr-2" />
-                Visit Journal Page
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Button>
-            </Link>
-          </div>
         </div>
       </div>
     </section>
