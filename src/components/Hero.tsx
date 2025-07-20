@@ -9,8 +9,18 @@ const Hero = () => {
 
   return (
     <section className="min-h-screen relative flex items-center justify-center">
+      {/* Full Page Background Image */}
+      <div className="absolute inset-0">
+        <img 
+          src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=1920&h=1080&fit=crop"
+          alt="Technology Background"
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-background/80 backdrop-blur-sm"></div>
+      </div>
+      
       {/* Clean CSS Gradient Background with Tech Patterns */}
-      <div className="absolute inset-0 hero-gradient-bg">
+      <div className="absolute inset-0 hero-gradient-bg opacity-50">
         {/* DFIR themed floating icons */}
         <div className="absolute top-1/3 left-1/4 animate-float" style={{ animationDelay: '1s' }}>
           <Shield className="w-12 h-12 text-primary/30" />
@@ -29,15 +39,6 @@ const Hero = () => {
           {/* Left Column - Content */}
           <div className="text-left animate-slide-up">
             <div className="bg-gradient-to-r from-background/18 via-background/12 to-background/8 backdrop-blur-sm rounded-2xl p-12 border-4 border-primary/30 w-[150%] relative overflow-hidden">
-              {/* Background Image */}
-              <div className="absolute inset-0 opacity-10">
-                <img 
-                  src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=800&h=600&fit=crop"
-                  alt="Technology Background"
-                  className="w-full h-full object-cover rounded-xl"
-                />
-              </div>
-              
               {/* Content Overlay */}
               <div className="relative z-10">
                 {/* Professional Tagline */}
