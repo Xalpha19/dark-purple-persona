@@ -8,21 +8,36 @@ import { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
 import { useScrollAnimation, fadeInUpVariants, fadeInLeftVariants, fadeInRightVariants } from "@/hooks/useScrollAnimation";
-
 const ContactSection = () => {
-  const { ref: sectionRef, controls: sectionControls } = useScrollAnimation(0.1);
-  const { ref: titleRef, controls: titleControls } = useScrollAnimation(0.2);
-  const { ref: formRef, controls: formControls } = useScrollAnimation(0.2);
-  const { ref: infoRef, controls: infoControls } = useScrollAnimation(0.2);
-
+  const {
+    ref: sectionRef,
+    controls: sectionControls
+  } = useScrollAnimation(0.1);
+  const {
+    ref: titleRef,
+    controls: titleControls
+  } = useScrollAnimation(0.2);
+  const {
+    ref: formRef,
+    controls: formControls
+  } = useScrollAnimation(0.2);
+  const {
+    ref: infoRef,
+    controls: infoControls
+  } = useScrollAnimation(0.2);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: ""
   });
-  const [captcha, setCaptcha] = useState({ question: "", answer: 0 });
+  const [captcha, setCaptcha] = useState({
+    question: "",
+    answer: 0
+  });
   const [captchaInput, setCaptchaInput] = useState("");
-  const { toast } = useToast();
+  const {
+    toast
+  } = useToast();
 
   // Generate random math captcha
   const generateCaptcha = () => {
@@ -30,11 +45,9 @@ const ContactSection = () => {
     const num2 = Math.floor(Math.random() * 10) + 1;
     const operations = ['+', '-', '*'];
     const operation = operations[Math.floor(Math.random() * operations.length)];
-    
     let answer;
     let question;
-    
-    switch(operation) {
+    switch (operation) {
       case '+':
         answer = num1 + num2;
         question = `${num1} + ${num2}`;
@@ -51,18 +64,19 @@ const ContactSection = () => {
         answer = num1 + num2;
         question = `${num1} + ${num2}`;
     }
-    
-    setCaptcha({ question, answer });
+    setCaptcha({
+      question,
+      answer
+    });
   };
 
   // Generate captcha on component mount
   useEffect(() => {
     generateCaptcha();
   }, []);
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Validate captcha
     if (parseInt(captchaInput) !== captcha.answer) {
       toast({
@@ -74,7 +88,7 @@ const ContactSection = () => {
       setCaptchaInput("");
       return;
     }
-    
+
     // Here you would typically send the form data to your backend
     toast({
       title: "Message Sent!",
@@ -88,31 +102,15 @@ const ContactSection = () => {
     setCaptchaInput("");
     generateCaptcha(); // Generate new captcha for next submission
   };
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData(prev => ({
       ...prev,
       [e.target.name]: e.target.value
     }));
   };
-
-  return (
-    <motion.section 
-      ref={sectionRef}
-      initial="hidden"
-      animate={sectionControls}
-      variants={fadeInUpVariants}
-      id="contact" 
-      className="py-24 relative"
-    >
+  return <motion.section ref={sectionRef} initial="hidden" animate={sectionControls} variants={fadeInUpVariants} id="contact" className="py-24 relative">
       <div className="container mx-auto px-6 relative z-10">
-        <motion.div 
-          ref={titleRef}
-          initial="hidden"
-          animate={titleControls}
-          variants={fadeInUpVariants}
-          className="text-center mb-16"
-        >
+        <motion.div ref={titleRef} initial="hidden" animate={titleControls} variants={fadeInUpVariants} className="text-center mb-16">
           <h2 className="text-4xl md:text-6xl font-bold mb-6 glow-text">
             Let's Connect
           </h2>
@@ -125,13 +123,7 @@ const ContactSection = () => {
           <div className="grid lg:grid-cols-2 gap-12">
             
             {/* Quick Contact Form - Moved Left */}
-            <motion.div 
-              ref={formRef}
-              initial="hidden"
-              animate={formControls}
-              variants={fadeInLeftVariants}
-              className="lg:order-1"
-            >
+            <motion.div ref={formRef} initial="hidden" animate={formControls} variants={fadeInLeftVariants} className="lg:order-1">
               <Card className="bg-gradient-card border-border/20 glow-purple">
                 <CardContent className="p-8">
                   <h3 className="text-2xl font-bold mb-6">Quick Message</h3>
@@ -175,13 +167,7 @@ const ContactSection = () => {
             </motion.div>
 
             {/* Contact Info - Moved Right */}
-            <motion.div 
-              ref={infoRef}
-              initial="hidden"
-              animate={infoControls}
-              variants={fadeInRightVariants}
-              className="lg:order-2 space-y-8"
-            >
+            <motion.div ref={infoRef} initial="hidden" animate={infoControls} variants={fadeInRightVariants} className="lg:order-2 space-y-8">
               <Card className="bg-gradient-card border-border/50 glow-purple">
                 <CardContent className="p-8">
                   <h3 className="text-2xl font-bold mb-6">Let's Connect</h3>
@@ -219,17 +205,7 @@ const ContactSection = () => {
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center glow-purple">
-                        <Calendar className="w-6 h-6 text-primary" />
-                      </div>
-                      <div>
-                        <p className="font-medium">Calendly</p>
-                        <a href="https://calendly.com/ishaansr" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-smooth">
-                          Schedule a Meeting
-                        </a>
-                      </div>
-                    </div>
+                    
                   </div>
 
                   <div className="mt-8 pt-8 border-t border-border space-y-3">
@@ -240,11 +216,7 @@ const ContactSection = () => {
                       </Button>
                     </a>
                     <a href="https://linktr.ee/ishaansri" target="_blank" rel="noopener noreferrer">
-                      <img 
-                        src="/lovable-uploads/45f71e23-7955-4485-81aa-9112ced904d2.png" 
-                        alt="QR Code" 
-                        className="w-2/5 rounded-lg mx-auto cursor-pointer hover:opacity-80 transition-opacity"
-                      />
+                      <img src="/lovable-uploads/45f71e23-7955-4485-81aa-9112ced904d2.png" alt="QR Code" className="w-2/5 rounded-lg mx-auto cursor-pointer hover:opacity-80 transition-opacity" />
                     </a>
                   </div>
 
@@ -281,8 +253,6 @@ const ContactSection = () => {
         </div>
       </div>
       <div id="contact-bottom"></div>
-    </motion.section>
-  );
+    </motion.section>;
 };
-
 export default ContactSection;
