@@ -127,7 +127,7 @@ const Hero = () => {
               <img 
                 src="/lovable-uploads/0e5e242a-c425-4668-acb8-5dda74e3b6ef.png"
                 alt="Ishaan Srivastava"
-                className="relative w-80 h-96 md:w-96 md:h-[32rem] object-cover rounded-3xl shadow-2xl border border-primary/20"
+                className="relative w-80 h-96 md:w-96 md:h-[32rem] object-cover rounded-3xl shadow-2xl border border-primary/20 -translate-y-24"
               />
             </div>
           </div>
