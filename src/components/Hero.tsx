@@ -1,15 +1,27 @@
 import { ArrowDown, Linkedin, Mail, Shield, Search, Lock, MapPin, Twitter } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
+import { useScrollAnimation, fadeInUpVariants, fadeInLeftVariants, fadeInRightVariants } from "@/hooks/useScrollAnimation";
 import codeSpaceAnimation from "@/assets/code-space-animation.jpg";
 
 const Hero = () => {
+  const { ref: heroRef, controls: heroControls } = useScrollAnimation(0.2);
+  const { ref: contentRef, controls: contentControls } = useScrollAnimation(0.3);
+  const { ref: imageRef, controls: imageControls } = useScrollAnimation(0.3);
+
   const scrollToNextSection = () => {
     const nextSection = document.getElementById('experience');
     nextSection?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
-    <section className="min-h-screen relative flex items-center justify-center">
+    <motion.section 
+      ref={heroRef}
+      initial="hidden"
+      animate={heroControls}
+      variants={fadeInUpVariants}
+      className="min-h-screen relative flex items-center justify-center"
+    >
       {/* Animated Code Space Background */}
       <div className="absolute inset-0">
         <img 
@@ -38,7 +50,13 @@ const Hero = () => {
       <div className="container mx-auto px-6 relative z-10 max-w-7xl">
         <div className="grid lg:grid-cols-2 gap-6 items-center min-h-screen py-12">
           {/* Left Column - Content */}
-          <div className="text-left animate-slide-up">
+          <motion.div 
+            ref={contentRef}
+            initial="hidden"
+            animate={contentControls}
+            variants={fadeInLeftVariants}
+            className="text-left"
+          >
             <div className="bg-gradient-to-r from-background/40 via-background/35 to-background/30 backdrop-blur-sm rounded-2xl p-12 border-4 border-primary/30 w-[150%] relative overflow-hidden -translate-y-32">
               {/* Content Overlay */}
               <div className="relative z-10">
@@ -119,10 +137,16 @@ const Hero = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
           
           {/* Right Column - Photo */}
-          <div className="flex justify-center lg:justify-end animate-slide-up" style={{ animationDelay: '0.3s' }}>
+          <motion.div 
+            ref={imageRef}
+            initial="hidden"
+            animate={imageControls}
+            variants={fadeInRightVariants}
+            className="flex justify-center lg:justify-end"
+          >
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 rounded-3xl blur-xl transform rotate-3"></div>
               <img 
@@ -131,7 +155,7 @@ const Hero = () => {
                 className="relative w-80 h-96 md:w-96 md:h-[32rem] object-cover rounded-3xl shadow-2xl border border-primary/20 -translate-y-24"
               />
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
       
@@ -145,7 +169,7 @@ const Hero = () => {
           <ArrowDown className="w-4 h-4 text-primary animate-pulse" />
         </button>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

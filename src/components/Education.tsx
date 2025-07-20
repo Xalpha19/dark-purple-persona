@@ -2,8 +2,14 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { GraduationCap, BookOpen, Code, Shield } from "lucide-react";
+import { motion } from "framer-motion";
+import { useScrollAnimation, fadeInUpVariants, staggerContainerVariants, staggerItemVariants } from "@/hooks/useScrollAnimation";
 
 const Education = () => {
+  const { ref: sectionRef, controls: sectionControls } = useScrollAnimation(0.1);
+  const { ref: titleRef, controls: titleControls } = useScrollAnimation(0.2);
+  const { ref: tabsRef, controls: tabsControls } = useScrollAnimation(0.2);
+
   const education = [
     {
       id: "degree",
@@ -108,19 +114,38 @@ const Education = () => {
   ];
 
   return (
-    <section id="education" className="py-24 bg-gradient-hero">
+    <motion.section 
+      ref={sectionRef}
+      initial="hidden"
+      animate={sectionControls}
+      variants={fadeInUpVariants}
+      id="education" 
+      className="py-24 bg-gradient-hero"
+    >
       <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
+        <motion.div 
+          ref={titleRef}
+          initial="hidden"
+          animate={titleControls}
+          variants={fadeInUpVariants}
+          className="text-center mb-16"
+        >
           <h2 className="text-4xl md:text-6xl font-bold mb-6 glow-text">
             Education & Skills
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Continuous learning and professional development throughout my career.
           </p>
-        </div>
+        </motion.div>
 
         <div className="max-w-6xl mx-auto">
-          <Tabs defaultValue="degree" className="w-full">
+          <motion.div
+            ref={tabsRef}
+            initial="hidden"
+            animate={tabsControls}
+            variants={staggerContainerVariants}
+          >
+            <Tabs defaultValue="degree" className="w-full">
             <TabsList className="grid w-full grid-cols-3 bg-card/50 border border-border">
               {education.map((section) => (
                 <TabsTrigger 
@@ -156,9 +181,15 @@ const Education = () => {
                     ))}
                   </div>
                 ) : (
-                  <div className="grid gap-6">
+                  <motion.div 
+                    variants={staggerContainerVariants}
+                    initial="hidden"
+                    animate="visible"
+                    className="grid gap-6"
+                  >
                     {section.items.map((item, index) => (
-                      <Card key={index} className="bg-gradient-card border-border/50 glow-purple hover:glow-purple transition-smooth animate-slide-up" style={{animationDelay: `${index * 0.1}s`}}>
+                      <motion.div key={index} variants={staggerItemVariants}>
+                        <Card className="bg-gradient-card border-border/50 glow-purple hover:glow-purple transition-smooth">
                         <CardContent className="p-8">
                           {section.id === "degree" ? (
                             <div>
@@ -268,16 +299,18 @@ const Education = () => {
                             </div>
                           )}
                         </CardContent>
-                      </Card>
+                        </Card>
+                      </motion.div>
                     ))}
-                  </div>
+                  </motion.div>
                 )}
               </TabsContent>
             ))}
-          </Tabs>
+            </Tabs>
+          </motion.div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

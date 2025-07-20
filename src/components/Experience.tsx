@@ -1,8 +1,14 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Building2, Calendar, MapPin } from "lucide-react";
+import { motion } from "framer-motion";
+import { useScrollAnimation, fadeInUpVariants, staggerContainerVariants, staggerItemVariants } from "@/hooks/useScrollAnimation";
 
 const Experience = () => {
+  const { ref: sectionRef, controls: sectionControls } = useScrollAnimation(0.1);
+  const { ref: titleRef, controls: titleControls } = useScrollAnimation(0.2);
+  const { ref: timelineRef, controls: timelineControls } = useScrollAnimation(0.2);
+
   const experiences = [
     {
       id: 1,
@@ -42,25 +48,48 @@ const Experience = () => {
   ];
 
   return (
-    <section id="experience" className="py-24 bg-background">
+    <motion.section 
+      ref={sectionRef}
+      initial="hidden"
+      animate={sectionControls}
+      variants={fadeInUpVariants}
+      id="experience" 
+      className="py-24 bg-background"
+    >
       <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
+        <motion.div 
+          ref={titleRef}
+          initial="hidden"
+          animate={titleControls}
+          variants={fadeInUpVariants}
+          className="text-center mb-16"
+        >
           <h2 className="text-4xl md:text-6xl font-bold mb-6 glow-text">
             Work Experience
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             4+ years of expertise in digital forensics, incident response, and threat hunting across global organizations.
           </p>
-        </div>
+        </motion.div>
 
         <div className="max-w-4xl mx-auto">
-          <div className="relative">
+          <motion.div 
+            ref={timelineRef}
+            initial="hidden"
+            animate={timelineControls}
+            variants={staggerContainerVariants}
+            className="relative"
+          >
             {/* Timeline line */}
             <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary via-primary-glow to-primary opacity-60"></div>
             
             <div className="space-y-12">
               {experiences.map((exp, index) => (
-                <div key={exp.id} className="relative animate-slide-up" style={{animationDelay: `${index * 0.2}s`}}>
+                <motion.div 
+                  key={exp.id} 
+                  variants={staggerItemVariants}
+                  className="relative"
+                >
                   {/* Timeline dot */}
                   <div className="absolute left-6 w-4 h-4 bg-primary rounded-full glow-purple"></div>
                   
@@ -119,13 +148,13 @@ const Experience = () => {
                       </CardContent>
                     </Card>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

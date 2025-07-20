@@ -2,7 +2,15 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Github, ExternalLink, Calendar, Users } from "lucide-react";
+import { motion } from "framer-motion";
+import { useScrollAnimation, fadeInUpVariants, staggerContainerVariants, staggerItemVariants, scaleInVariants } from "@/hooks/useScrollAnimation";
+
 const Projects = () => {
+  const { ref: sectionRef, controls: sectionControls } = useScrollAnimation(0.1);
+  const { ref: titleRef, controls: titleControls } = useScrollAnimation(0.2);
+  const { ref: gridRef, controls: gridControls } = useScrollAnimation(0.2);
+  const { ref: pubRef, controls: pubControls } = useScrollAnimation(0.3);
+
   const projects = [{
     id: 1,
     title: "Detecting Insider Threats in Healthcare's IT Infrastructure",
@@ -48,6 +56,7 @@ const Projects = () => {
     liveLink: "#",
     type: "Technical"
   }];
+
   const getTypeColor = (type: string) => {
     switch (type) {
       case "Research":
@@ -60,77 +69,109 @@ const Projects = () => {
         return "bg-primary/20 text-primary border-primary/30";
     }
   };
-  return <section id="projects" className="py-24 bg-background">
+
+  return (
+    <motion.section 
+      ref={sectionRef}
+      initial="hidden"
+      animate={sectionControls}
+      variants={fadeInUpVariants}
+      id="projects" 
+      className="py-24 bg-background"
+    >
       <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
+        <motion.div 
+          ref={titleRef}
+          initial="hidden"
+          animate={titleControls}
+          variants={fadeInUpVariants}
+          className="text-center mb-16"
+        >
           <h2 className="text-4xl md:text-6xl font-bold mb-6 glow-text">
             Projects
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">Academic and research projects showcasing expertise in Response, threat detection, and cybersecurity frameworks.</p>
-        </div>
+        </motion.div>
 
         <div className="max-w-6xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-8">
-            {projects.map((project, index) => <Card key={project.id} className="bg-gradient-card border-border/50 glow-purple hover:glow-purple transition-smooth animate-slide-up h-full" style={{
-            animationDelay: `${index * 0.1}s`
-          }}>
-                <CardHeader>
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-2">
-                        <Badge className={`text-xs ${getTypeColor(project.type)}`}>
-                          {project.type}
-                        </Badge>
+          <motion.div 
+            ref={gridRef}
+            initial="hidden"
+            animate={gridControls}
+            variants={staggerContainerVariants}
+            className="grid lg:grid-cols-2 gap-8"
+          >
+            {projects.map((project, index) => (
+              <motion.div key={project.id} variants={staggerItemVariants}>
+                <Card className="bg-gradient-card border-border/50 glow-purple hover:glow-purple transition-smooth h-full">
+                  <CardHeader>
+                    <div className="flex items-start justify-between mb-4">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-2">
+                          <Badge className={`text-xs ${getTypeColor(project.type)}`}>
+                            {project.type}
+                          </Badge>
+                        </div>
+                        <CardTitle className="text-xl font-bold text-primary mb-2 leading-tight">
+                          {project.title}
+                        </CardTitle>
                       </div>
-                      <CardTitle className="text-xl font-bold text-primary mb-2 leading-tight">
-                        {project.title}
-                      </CardTitle>
                     </div>
-                  </div>
-                  
-                  <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
-                    <div className="flex items-center gap-1">
-                      <Calendar className="w-4 h-4" />
-                      <span>{project.period}</span>
+                    
+                    <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
+                      <div className="flex items-center gap-1">
+                        <Calendar className="w-4 h-4" />
+                        <span>{project.period}</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Users className="w-4 h-4" />
+                        <span>{project.organization}</span>
+                      </div>
                     </div>
-                    <div className="flex items-center gap-1">
-                      <Users className="w-4 h-4" />
-                      <span>{project.organization}</span>
-                    </div>
-                  </div>
-                </CardHeader>
+                  </CardHeader>
 
-                <CardContent className="pt-0">
-                  <p className="text-muted-foreground mb-6 leading-relaxed">
-                    {project.description}
-                  </p>
+                  <CardContent className="pt-0">
+                    <p className="text-muted-foreground mb-6 leading-relaxed">
+                      {project.description}
+                    </p>
 
-                  {/* Technologies */}
-                  <div className="mb-6">
-                    <h4 className="font-semibold mb-3">Technologies:</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {project.technologies.map(tech => <Badge key={tech} variant="secondary" className="bg-primary/20 text-primary hover:bg-primary/30">
-                          {tech}
-                        </Badge>)}
+                    {/* Technologies */}
+                    <div className="mb-6">
+                      <h4 className="font-semibold mb-3">Technologies:</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {project.technologies.map(tech => (
+                          <Badge key={tech} variant="secondary" className="bg-primary/20 text-primary hover:bg-primary/30">
+                            {tech}
+                          </Badge>
+                        ))}
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Skills */}
-                  <div className="mb-6">
-                    <h4 className="font-semibold mb-3">Skills:</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {project.skills.map(skill => <Badge key={skill} variant="outline" className="border-accent/30 text-accent">
-                          {skill}
-                        </Badge>)}
+                    {/* Skills */}
+                    <div className="mb-6">
+                      <h4 className="font-semibold mb-3">Skills:</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {project.skills.map(skill => (
+                          <Badge key={skill} variant="outline" className="border-accent/30 text-accent">
+                            {skill}
+                          </Badge>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-
-                </CardContent>
-              </Card>)}
-          </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </motion.div>
 
           {/* Publications Section */}
-          <div className="mt-16">
+          <motion.div 
+            ref={pubRef}
+            initial="hidden"
+            animate={pubControls}
+            variants={scaleInVariants}
+            className="mt-16"
+          >
             <div className="text-center mb-12">
               <h3 className="text-3xl md:text-4xl font-bold mb-4 heading-primary">
                 Publications
@@ -169,9 +210,11 @@ const Projects = () => {
                 </div>
               </CardContent>
             </Card>
-          </div>
+          </motion.div>
         </div>
       </div>
-    </section>;
+    </motion.section>
+  );
 };
+
 export default Projects;

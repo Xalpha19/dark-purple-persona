@@ -6,8 +6,15 @@ import { Textarea } from "@/components/ui/textarea";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { motion } from "framer-motion";
+import { useScrollAnimation, fadeInUpVariants, fadeInLeftVariants, fadeInRightVariants } from "@/hooks/useScrollAnimation";
 
 const ContactSection = () => {
+  const { ref: sectionRef, controls: sectionControls } = useScrollAnimation(0.1);
+  const { ref: titleRef, controls: titleControls } = useScrollAnimation(0.2);
+  const { ref: formRef, controls: formControls } = useScrollAnimation(0.2);
+  const { ref: infoRef, controls: infoControls } = useScrollAnimation(0.2);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -90,22 +97,41 @@ const ContactSection = () => {
   };
 
   return (
-    <section id="contact" className="py-24 relative">
+    <motion.section 
+      ref={sectionRef}
+      initial="hidden"
+      animate={sectionControls}
+      variants={fadeInUpVariants}
+      id="contact" 
+      className="py-24 relative"
+    >
       <div className="container mx-auto px-6 relative z-10">
-        <div className="text-center mb-16">
+        <motion.div 
+          ref={titleRef}
+          initial="hidden"
+          animate={titleControls}
+          variants={fadeInUpVariants}
+          className="text-center mb-16"
+        >
           <h2 className="text-4xl md:text-6xl font-bold mb-6 glow-text">
             Let's Connect
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Open to cybersecurity consultation, research engagements, and professional partnerships.
           </p>
-        </div>
+        </motion.div>
 
         <div className="max-w-6xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12">
             
             {/* Quick Contact Form - Moved Left */}
-            <div className="lg:order-1">
+            <motion.div 
+              ref={formRef}
+              initial="hidden"
+              animate={formControls}
+              variants={fadeInLeftVariants}
+              className="lg:order-1"
+            >
               <Card className="bg-gradient-card border-border/20 glow-purple">
                 <CardContent className="p-8">
                   <h3 className="text-2xl font-bold mb-6">Quick Message</h3>
@@ -173,10 +199,16 @@ const ContactSection = () => {
                   </form>
                 </CardContent>
               </Card>
-            </div>
+            </motion.div>
 
             {/* Contact Info - Moved Right */}
-            <div className="lg:order-2 space-y-8">
+            <motion.div 
+              ref={infoRef}
+              initial="hidden"
+              animate={infoControls}
+              variants={fadeInRightVariants}
+              className="lg:order-2 space-y-8"
+            >
               <Card className="bg-gradient-card border-border/50 glow-purple">
                 <CardContent className="p-8">
                   <h3 className="text-2xl font-bold mb-6">Let's Connect</h3>
@@ -269,12 +301,12 @@ const ContactSection = () => {
                   </div>
                 </CardContent>
               </Card>
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>
       <div id="contact-bottom"></div>
-    </section>
+    </motion.section>
   );
 };
 
