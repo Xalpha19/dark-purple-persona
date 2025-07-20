@@ -125,7 +125,7 @@ const Hero = () => {
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 rounded-3xl blur-xl transform rotate-3"></div>
               <img 
-                src="/lovable-uploads/71add771-5cb4-450b-8ad8-3b3546fe671f.png"
+                src="/lovable-uploads/0e5e242a-c425-4668-acb8-5dda74e3b6ef.png"
                 alt="Ishaan Srivastava"
                 className="relative w-80 h-96 md:w-96 md:h-[32rem] object-cover rounded-3xl shadow-2xl border border-primary/20"
               />
