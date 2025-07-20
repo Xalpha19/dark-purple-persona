@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 const ContactSection = () => {
   const [formData, setFormData] = useState({
@@ -12,11 +12,63 @@ const ContactSection = () => {
     email: "",
     message: ""
   });
+  const [captcha, setCaptcha] = useState({ question: "", answer: 0 });
+  const [captchaInput, setCaptchaInput] = useState("");
   const {
     toast
   } = useToast();
+
+  // Generate random math captcha
+  const generateCaptcha = () => {
+    const num1 = Math.floor(Math.random() * 10) + 1;
+    const num2 = Math.floor(Math.random() * 10) + 1;
+    const operations = ['+', '-', '*'];
+    const operation = operations[Math.floor(Math.random() * operations.length)];
+    
+    let answer;
+    let question;
+    
+    switch(operation) {
+      case '+':
+        answer = num1 + num2;
+        question = `${num1} + ${num2}`;
+        break;
+      case '-':
+        answer = num1 - num2;
+        question = `${num1} - ${num2}`;
+        break;
+      case '*':
+        answer = num1 * num2;
+        question = `${num1} × ${num2}`;
+        break;
+      default:
+        answer = num1 + num2;
+        question = `${num1} + ${num2}`;
+    }
+    
+    setCaptcha({ question, answer });
+  };
+
+  // Generate captcha on component mount
+  useEffect(() => {
+    generateCaptcha();
+  }, []);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validate captcha
+    if (parseInt(captchaInput) !== captcha.answer) {
+      toast({
+        title: "Captcha Failed",
+        description: "Please solve the math problem correctly.",
+        variant: "destructive"
+      });
+      generateCaptcha(); // Generate new captcha
+      setCaptchaInput("");
+      return;
+    }
+    
     // Here you would typically send the form data to your backend
     toast({
       title: "Message Sent!",
@@ -27,6 +79,8 @@ const ContactSection = () => {
       email: "",
       message: ""
     });
+    setCaptchaInput("");
+    generateCaptcha(); // Generate new captcha for next submission
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData(prev => ({
@@ -164,17 +218,33 @@ const ContactSection = () => {
                     <Input id="quick-email" name="email" type="email" value={formData.email} onChange={handleChange} required className="bg-background/50 border-border focus:border-primary" placeholder="your.email@example.com" />
                   </div>
                   
-                  <div>
-                    <label htmlFor="quick-message" className="block text-sm font-medium mb-2">
-                      Message
-                    </label>
-                    <Textarea id="quick-message" name="message" value={formData.message} onChange={handleChange} required rows={4} className="bg-background/50 border-border focus:border-primary resize-none" placeholder="Tell me about your project..." />
-                  </div>
-                  
-                  <Button type="submit" className="w-full bg-gradient-primary glow-purple" size="lg">
-                    <Send className="w-4 h-4 mr-2" />
-                    Send Message
-                  </Button>
+                   <div>
+                     <label htmlFor="quick-message" className="block text-sm font-medium mb-2">
+                       Message
+                     </label>
+                     <Textarea id="quick-message" name="message" value={formData.message} onChange={handleChange} required rows={4} className="bg-background/50 border-border focus:border-primary resize-none" placeholder="Tell me about your project..." />
+                   </div>
+                   
+                   {/* Captcha */}
+                   <div>
+                     <label htmlFor="captcha" className="block text-sm font-medium mb-2">
+                       Security Check: What is {captcha.question}?
+                     </label>
+                     <Input 
+                       id="captcha" 
+                       type="number" 
+                       value={captchaInput} 
+                       onChange={(e) => setCaptchaInput(e.target.value)} 
+                       required 
+                       className="bg-background/50 border-border focus:border-primary" 
+                       placeholder="Enter the answer" 
+                     />
+                   </div>
+                   
+                   <Button type="submit" className="w-full bg-gradient-primary glow-purple" size="lg">
+                     <Send className="w-4 h-4 mr-2" />
+                     Send Message
+                   </Button>
                 </form>
               </CardContent>
             </Card>
