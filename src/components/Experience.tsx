@@ -88,7 +88,7 @@ const Experience = () => {
                 <motion.div 
                   key={exp.id} 
                   variants={staggerItemVariants}
-                  className="relative"
+                  className="relative w-[150%]"
                 >
                   {/* Timeline dot */}
                   <div className="absolute left-6 w-4 h-4 bg-primary rounded-full glow-purple"></div>
