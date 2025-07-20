@@ -135,36 +135,6 @@ const Hero = () => {
         </div>
       </div>
       
-      {/* Spline 3D Model */}
-      <div 
-        className="absolute bottom-36 left-1/2 transform -translate-x-1/2 w-80 h-80 z-50 cursor-pointer"
-        onClick={() => {
-          const contactSection = document.getElementById('contact');
-          contactSection?.scrollIntoView({ behavior: 'smooth' });
-        }}
-      >
-        <iframe 
-          src='https://my.spline.design/robotfollowcursorforlandingpage-kBI1Z8KqmGLqXehJzjq41xqN/' 
-          frameBorder='0' 
-          width='100%' 
-          height='100%'
-          allow="accelerometer; autoplay; camera; clipboard-write; encrypted-media; gyroscope; microphone; picture-in-picture; web-share; xr-spatial-tracking"
-          sandbox="allow-scripts allow-same-origin"
-          allowFullScreen
-          loading="lazy"
-          style={{ 
-            border: 'none',
-            borderRadius: '12px',
-            overflow: 'hidden',
-            pointerEvents: 'none'
-          }}
-        />
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center pointer-events-none">
-          <span style={{ color: '#FFD700' }} className="text-lg font-semibold animate-pulse">
-            Click Me
-          </span>
-        </div>
-      </div>
 
       {/* Enhanced scroll indicator */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce z-20">
