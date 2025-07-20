@@ -2,6 +2,49 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Cross-browser compatibility fixes */
+* {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+
+body {
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Mobile-first responsive utilities */
+.mobile-optimized {
+  font-size: clamp(14px, 4vw, 16px);
+}
+
+.tablet-optimized {
+  font-size: clamp(16px, 2.5vw, 18px);
+}
+
+.desktop-optimized {
+  font-size: clamp(16px, 1.2vw, 18px);
+}
+
+/* Touch-friendly interactive elements */
+@media (hover: none) and (pointer: coarse) {
+  .hover\:scale-105:hover {
+    transform: none;
+  }
+  
+  button, a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
 /* DFIR Specialist Portfolio - Dark Purple with Gold Accents */
 
 @layer base {

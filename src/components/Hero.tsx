@@ -57,7 +57,7 @@ const Hero = () => {
             variants={fadeInLeftVariants}
             className="text-left"
           >
-            <div className="bg-gradient-to-r from-background/40 via-background/35 to-background/30 backdrop-blur-sm rounded-2xl p-12 border-4 border-primary/30 w-[150%] relative overflow-hidden -translate-y-32">
+            <div className="bg-gradient-to-r from-background/40 via-background/35 to-background/30 backdrop-blur-sm rounded-2xl p-6 sm:p-8 lg:p-12 border-4 border-primary/30 w-full sm:w-[120%] lg:w-[150%] relative overflow-hidden transform -translate-y-16 sm:-translate-y-24 lg:-translate-y-32">
               {/* Content Overlay */}
               <div className="relative z-10">
                 {/* Professional Tagline */}
@@ -67,7 +67,7 @@ const Hero = () => {
                   </span>
                 </div>
                 
-                <h1 className="text-5xl md:text-7xl font-bold mb-6 glow-text">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-6 glow-text">
                   Ishaan
                   <span className="block heading-primary">
                     Srivastava
@@ -80,7 +80,7 @@ const Hero = () => {
                   <span className="text-lg text-muted-foreground">Edinburgh, Scotland, 🇬🇧</span>
                 </div>
                 
-                <p className="text-lg md:text-xl text-muted-foreground mb-8 leading-relaxed">
+                <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-8 leading-relaxed">
                   "Protecting digital assets through advanced forensics and proactive threat detection"
                 </p>
                 
@@ -88,7 +88,7 @@ const Hero = () => {
                 <div className="flex flex-col sm:flex-row gap-4 mb-12">
                   <Button 
                     size="lg" 
-                    className="btn-enhanced text-lg px-8 py-6"
+                    className="btn-enhanced text-sm sm:text-base lg:text-lg px-6 sm:px-8 py-4 sm:py-6 w-full sm:w-auto"
                     onClick={scrollToNextSection}
                   >
                     View My Work
@@ -96,7 +96,7 @@ const Hero = () => {
                   <Button 
                     variant="outline" 
                     size="lg" 
-                    className="btn-outline-enhanced text-lg px-8 py-6"
+                    className="btn-outline-enhanced text-sm sm:text-base lg:text-lg px-6 sm:px-8 py-4 sm:py-6 w-full sm:w-auto"
                     asChild
                   >
                     <a 
@@ -152,7 +152,7 @@ const Hero = () => {
               <img 
                 src="/lovable-uploads/0e5e242a-c425-4668-acb8-5dda74e3b6ef.png"
                 alt="Ishaan Srivastava"
-                className="relative w-80 h-96 md:w-96 md:h-[32rem] object-cover rounded-3xl shadow-2xl border border-primary/20 -translate-y-24"
+                className="relative w-64 h-80 sm:w-80 sm:h-96 md:w-96 md:h-[32rem] object-cover rounded-3xl shadow-2xl border border-primary/20 transform -translate-y-12 sm:-translate-y-16 lg:-translate-y-24 mx-auto"
               />
             </div>
           </motion.div>
