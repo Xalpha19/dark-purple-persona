@@ -157,7 +157,7 @@ const Hero = () => {
             overflow: 'hidden'
           }}
         />
-        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 text-center">
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center pointer-events-none">
           <span style={{ color: '#FFD700' }} className="text-lg font-semibold animate-pulse">
             Click Me
           </span>
