@@ -377,18 +377,16 @@
 }
 
 /* Code Space Animation */
-@keyframes slow-zoom {
+@keyframes slide-infinite {
   0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.1);
+    transform: translateX(0%);
   }
   100% {
-    transform: scale(1);
+    transform: translateX(-50%);
   }
 }
 
 .animate-slow-zoom {
-  animation: slow-zoom 20s ease-in-out infinite;
+  animation: slide-infinite 30s linear infinite;
+  background-size: 200% 100%;
 }
