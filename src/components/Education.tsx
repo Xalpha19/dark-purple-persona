@@ -105,17 +105,6 @@ const Education = () => {
         }
       ]
     },
-    {
-      id: "grc",
-      title: "GRC",
-      icon: Shield,
-      items: [
-        {
-          category: "🛡️ Governance, Risk & Compliance (GRC)",
-          skills: ["ISO 27001 ISMS implementation & audits", "PCI DSS assessments & compliance support", "SOX ITGC design & testing", "NIST CSF control mapping", "Cross-framework gap & risk analysis", "GRC tools: Archer, SNOW, Excel"]
-        }
-      ]
-    }
   ];
 
   return (
@@ -132,7 +121,7 @@ const Education = () => {
 
         <div className="max-w-6xl mx-auto">
           <Tabs defaultValue="degree" className="w-full">
-            <TabsList className="grid w-full grid-cols-4 bg-card/50 border border-border">
+            <TabsList className="grid w-full grid-cols-3 bg-card/50 border border-border">
               {education.map((section) => (
                 <TabsTrigger 
                   key={section.id}
@@ -147,7 +136,7 @@ const Education = () => {
 
             {education.map((section) => (
               <TabsContent key={section.id} value={section.id} className="mt-8">
-                {section.id === "skills" || section.id === "grc" ? (
+                {section.id === "skills" ? (
                   <div className="grid md:grid-cols-3 gap-6">
                     {section.items.map((skillGroup, index) => (
                       <Card key={index} className="bg-gradient-card border-border/50 glow-purple">
