@@ -97,7 +97,7 @@ const ContactSection = () => {
             Let's Connect
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Open for cybersecurity consulting, DFIR projects, and collaboration opportunities.
+            Open to cybersecurity consultation, research engagements, and professional partnerships.
           </p>
         </div>
 
