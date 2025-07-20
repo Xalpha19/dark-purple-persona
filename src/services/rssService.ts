@@ -45,7 +45,7 @@ export class RSSService {
           return await this.parseXMLFeed(data.contents);
         }
       } catch (error) {
-        console.error(`Proxy ${i + 1} failed:`, error);
+        console.info(`Proxy ${i + 1} failed:`, error);
         if (i === corsProxies.length - 1) {
           throw error;
         }
