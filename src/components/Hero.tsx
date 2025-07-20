@@ -134,8 +134,19 @@ const Hero = () => {
         </div>
       </div>
       
+      {/* Spline 3D Model */}
+      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-96 h-96 z-0">
+        <iframe 
+          src='https://my.spline.design/robotfollowcursorforlandingpage-kBI1Z8KqmGLqXehJzjq41xqN/' 
+          frameBorder='0' 
+          width='100%' 
+          height='100%'
+          className="pointer-events-none"
+        />
+      </div>
+
       {/* Enhanced scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce z-20">
         <button 
           onClick={scrollToNextSection}
           className="w-8 h-12 border-2 border-primary/50 rounded-full flex justify-center pt-2 hover:border-primary hover:shadow-purple-glow transition-smooth cyber-hover"
