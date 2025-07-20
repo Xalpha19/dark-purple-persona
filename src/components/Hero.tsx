@@ -136,7 +136,7 @@ const Hero = () => {
       
       {/* Spline 3D Model */}
       <div 
-        className="absolute bottom-48 left-1/2 transform -translate-x-1/2 w-80 h-80 z-50 cursor-pointer"
+        className="absolute bottom-36 left-1/2 transform -translate-x-1/2 w-80 h-80 z-50 cursor-pointer"
         onClick={() => {
           const contactSection = document.getElementById('contact');
           contactSection?.scrollIntoView({ behavior: 'smooth' });
@@ -157,6 +157,11 @@ const Hero = () => {
             pointerEvents: 'none'
           }}
         />
+        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 text-center">
+          <span style={{ color: '#FFD700' }} className="text-lg font-semibold animate-pulse">
+            Click Me
+          </span>
+        </div>
       </div>
 
       {/* Enhanced scroll indicator */}
