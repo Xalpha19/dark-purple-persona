@@ -28,7 +28,7 @@ const Hero = () => {
         <div className="grid lg:grid-cols-2 gap-6 items-center min-h-screen py-12">
           {/* Left Column - Content */}
           <div className="text-left animate-slide-up">
-            <div className="bg-gradient-to-r from-background/18 via-background/12 to-background/8 backdrop-blur-sm rounded-2xl p-8 border border-primary/20">
+            <div className="bg-gradient-to-r from-background/18 via-background/12 to-background/8 backdrop-blur-sm rounded-2xl p-8 border border-primary/20 w-[150%]">
               {/* Professional Tagline */}
               <div className="mb-6">
                 <span className="text-primary font-medium text-base tracking-wide">
