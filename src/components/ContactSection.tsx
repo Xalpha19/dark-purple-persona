@@ -237,7 +237,7 @@ const ContactSection = () => {
                     <img 
                       src="/lovable-uploads/45f71e23-7955-4485-81aa-9112ced904d2.png" 
                       alt="QR Code" 
-                      className="w-full rounded-lg"
+                      className="w-2/5 rounded-lg mx-auto"
                     />
                   </div>
 
