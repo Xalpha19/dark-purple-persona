@@ -135,7 +135,13 @@ const Hero = () => {
       </div>
       
       {/* Spline 3D Model */}
-      <div className="absolute bottom-48 left-1/2 transform -translate-x-1/2 w-80 h-80 z-50">
+      <div 
+        className="absolute bottom-48 left-1/2 transform -translate-x-1/2 w-80 h-80 z-50 cursor-pointer"
+        onClick={() => {
+          const contactSection = document.getElementById('contact');
+          contactSection?.scrollIntoView({ behavior: 'smooth' });
+        }}
+      >
         <iframe 
           src='https://my.spline.design/robotfollowcursorforlandingpage-kBI1Z8KqmGLqXehJzjq41xqN/' 
           frameBorder='0' 
@@ -147,7 +153,8 @@ const Hero = () => {
           style={{ 
             border: 'none',
             borderRadius: '12px',
-            overflow: 'hidden'
+            overflow: 'hidden',
+            pointerEvents: 'none'
           }}
         />
       </div>
