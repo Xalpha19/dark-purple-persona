@@ -24,8 +24,8 @@ const Hero = () => {
       </div>
       
       {/* Two Column Layout */}
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center min-h-screen py-12">
+      <div className="container mx-auto px-6 relative z-10 max-w-7xl">
+        <div className="grid lg:grid-cols-2 gap-6 items-center min-h-screen py-12">
           {/* Left Column - Content */}
           <div className="text-left animate-slide-up">
             <div className="bg-gradient-to-r from-background/18 via-background/12 to-background/8 backdrop-blur-sm rounded-2xl p-8 border border-primary/20">
