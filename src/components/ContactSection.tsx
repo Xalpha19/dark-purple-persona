@@ -128,7 +128,7 @@ const ContactSection = () => {
                       <label htmlFor="quick-message" className="block text-sm font-medium mb-2">
                         Message
                       </label>
-                      <Textarea id="quick-message" name="message" value={formData.message} onChange={handleChange} required rows={4} className="bg-background/50 border-border focus:border-primary resize-none" placeholder="Tell me about your project..." />
+                      <Textarea id="quick-message" name="message" value={formData.message} onChange={handleChange} required rows={9} className="bg-background/50 border-border focus:border-primary resize-none" placeholder="Tell me about your project..." />
                     </div>
                     
                     {/* Visual Captcha */}
