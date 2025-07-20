@@ -38,7 +38,7 @@ const Hero = () => {
         <div className="grid lg:grid-cols-2 gap-6 items-center min-h-screen py-12">
           {/* Left Column - Content */}
           <div className="text-left animate-slide-up">
-            <div className="bg-gradient-to-r from-background/40 via-background/35 to-background/30 backdrop-blur-sm rounded-2xl p-12 border-4 border-primary/30 w-[150%] relative overflow-hidden">
+            <div className="bg-gradient-to-r from-background/40 via-background/35 to-background/30 backdrop-blur-sm rounded-2xl p-12 border-4 border-primary/30 w-[150%] relative overflow-hidden -translate-y-24">
               {/* Content Overlay */}
               <div className="relative z-10">
                 {/* Professional Tagline */}
