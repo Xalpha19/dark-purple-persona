@@ -1,5 +1,6 @@
 import { ArrowDown, Linkedin, Mail, Shield, Search, Lock, MapPin, Twitter } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import codeSpaceAnimation from "@/assets/code-space-animation.jpg";
 
 const Hero = () => {
   const scrollToNextSection = () => {
@@ -9,12 +10,12 @@ const Hero = () => {
 
   return (
     <section className="min-h-screen relative flex items-center justify-center">
-      {/* Full Page Background Image */}
+      {/* Animated Code Space Background */}
       <div className="absolute inset-0">
         <img 
-          src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=1920&h=1080&fit=crop"
-          alt="Technology Background"
-          className="w-full h-full object-cover"
+          src={codeSpaceAnimation}
+          alt="Code Animation in Space"
+          className="w-full h-full object-cover animate-slow-zoom"
         />
         <div className="absolute inset-0 bg-background/80 backdrop-blur-sm"></div>
       </div>
@@ -153,8 +154,7 @@ const Hero = () => {
           style={{ 
             border: 'none',
             borderRadius: '12px',
-            overflow: 'hidden',
-            pointerEvents: 'none'
+            overflow: 'hidden'
           }}
         />
         <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 text-center">
