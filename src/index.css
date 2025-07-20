@@ -13,24 +13,65 @@ html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  text-rendering: optimizeLegibility;
 }
 
-/* Mobile-first responsive utilities */
+/* Enhanced platform-specific optimizations */
 .mobile-optimized {
   font-size: clamp(14px, 4vw, 16px);
+  overscroll-behavior: contain;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 .tablet-optimized {
   font-size: clamp(16px, 2.5vw, 18px);
+  overscroll-behavior: auto;
+  touch-action: manipulation;
 }
 
 .desktop-optimized {
   font-size: clamp(16px, 1.2vw, 18px);
+  overscroll-behavior: auto;
+}
+
+.safari-optimized {
+  -webkit-transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  -webkit-perspective: 1000px;
+}
+
+.ios-optimized {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.android-optimized {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  overscroll-behavior-y: contain;
+}
+
+.retina-optimized {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+.touch-manipulation {
+  touch-action: manipulation;
+  -ms-touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 /* Touch-friendly interactive elements */
