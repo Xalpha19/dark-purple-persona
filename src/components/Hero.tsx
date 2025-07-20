@@ -149,6 +149,7 @@ const Hero = () => {
           width='100%' 
           height='100%'
           allow="accelerometer; autoplay; camera; clipboard-write; encrypted-media; gyroscope; microphone; picture-in-picture; web-share; xr-spatial-tracking"
+          sandbox="allow-scripts allow-same-origin"
           allowFullScreen
           loading="lazy"
           style={{ 
