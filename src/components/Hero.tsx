@@ -155,7 +155,8 @@ const Hero = () => {
           style={{ 
             border: 'none',
             borderRadius: '12px',
-            overflow: 'hidden'
+            overflow: 'hidden',
+            pointerEvents: 'none'
           }}
         />
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center pointer-events-none">
