@@ -135,68 +135,41 @@ const ContactSection = () => {
               <Card className="bg-gradient-card border-border/20 glow-purple">
                 <CardContent className="p-8">
                   <h3 className="text-2xl font-bold mb-6">Quick Message</h3>
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    <div>
-                      <label htmlFor="quick-name" className="block text-sm font-medium mb-2">
-                        Name
-                      </label>
-                      <Input id="quick-name" name="name" value={formData.name} onChange={handleChange} required className="bg-background/50 border-border focus:border-primary" placeholder="Your name" />
+                  <p className="text-sm text-muted-foreground mb-6">
+                    For detailed inquiries, please use the <Link to="/contact" className="text-primary hover:underline">secure contact form</Link>.
+                  </p>
+                  
+                  <div className="space-y-6">
+                    <div className="p-4 bg-primary/10 rounded-lg border border-primary/20">
+                      <h4 className="font-semibold text-primary mb-2">Professional Consultation</h4>
+                      <p className="text-sm text-muted-foreground">
+                        For cybersecurity consultation, threat hunting services, or incident response support.
+                      </p>
                     </div>
                     
-                    <div>
-                      <label htmlFor="quick-email" className="block text-sm font-medium mb-2">
-                        Email
-                      </label>
-                      <Input id="quick-email" name="email" type="email" value={formData.email} onChange={handleChange} required className="bg-background/50 border-border focus:border-primary" placeholder="your.email@example.com" />
+                    <div className="p-4 bg-secondary/10 rounded-lg border border-secondary/20">
+                      <h4 className="font-semibold text-secondary mb-2">Research Collaboration</h4>
+                      <p className="text-sm text-muted-foreground">
+                        Academic partnerships, research projects, and knowledge sharing opportunities.
+                      </p>
                     </div>
                     
-                    <div>
-                      <label htmlFor="quick-message" className="block text-sm font-medium mb-2">
-                        Message
-                      </label>
-                      <Textarea id="quick-message" name="message" value={formData.message} onChange={handleChange} required rows={9} className="bg-background/50 border-border focus:border-primary resize-none" placeholder="Tell me about your project..." />
+                    <div className="p-4 bg-accent/10 rounded-lg border border-accent/20">
+                      <h4 className="font-semibold text-accent mb-2">Speaking Engagements</h4>
+                      <p className="text-sm text-muted-foreground">
+                        Conference presentations, workshops, and cybersecurity training sessions.
+                      </p>
                     </div>
-                    
-                    {/* Visual Captcha */}
-                    <div>
-                      <label className="block text-sm font-medium mb-3">
-                        Security Check
-                      </label>
-                      <div className="bg-gradient-to-r from-primary/10 to-secondary/10 border-2 border-dashed border-primary/30 rounded-lg p-4 mb-3">
-                        <div className="flex items-center justify-center space-x-3">
-                          <div className="bg-background/80 rounded-lg px-4 py-2 text-2xl font-bold text-primary border border-primary/20">
-                            {captcha.question.split(' ')[0]}
-                          </div>
-                          <div className="text-3xl font-bold text-primary glow-text">
-                            {captcha.question.split(' ')[1]}
-                          </div>
-                          <div className="bg-background/80 rounded-lg px-4 py-2 text-2xl font-bold text-primary border border-primary/20">
-                            {captcha.question.split(' ')[2]}
-                          </div>
-                          <div className="text-3xl font-bold text-primary glow-text">
-                            =
-                          </div>
-                          <div className="text-2xl font-bold text-muted-foreground">
-                            ?
-                          </div>
-                        </div>
-                      </div>
-                      <Input 
-                        id="captcha" 
-                        type="number" 
-                        value={captchaInput} 
-                        onChange={(e) => setCaptchaInput(e.target.value)} 
-                        required 
-                        className="bg-background/50 border-border focus:border-primary text-center text-lg font-semibold" 
-                        placeholder="Enter your answer" 
-                      />
-                    </div>
-                    
-                    <Button type="submit" className="w-full bg-gradient-primary glow-purple" size="lg">
-                      <Send className="w-4 h-4 mr-2" />
-                      Send Message
-                    </Button>
-                  </form>
+                  </div>
+                  
+                  <div className="mt-6 pt-6 border-t border-border">
+                    <Link to="/contact">
+                      <Button className="w-full bg-gradient-primary glow-purple" size="lg">
+                        <Send className="w-4 h-4 mr-2" />
+                        Open Secure Contact Form
+                      </Button>
+                    </Link>
+                  </div>
                 </CardContent>
               </Card>
             </motion.div>

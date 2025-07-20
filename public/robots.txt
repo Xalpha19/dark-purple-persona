@@ -11,4 +11,14 @@ User-agent: facebookexternalhit
 Allow: /
 
 User-agent: *
+Disallow: /admin/
+Disallow: /api/
+Disallow: /_next/
+Disallow: /private/
 Allow: /
+
+# Security headers
+Sitemap: https://ishaansrv.com/sitemap.xml
+
+# Rate limiting directives
+Crawl-delay: 1

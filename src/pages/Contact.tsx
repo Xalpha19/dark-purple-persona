@@ -1,255 +1,151 @@
-import { ArrowLeft, Mail, Phone, MapPin, Send, Github, Linkedin, Twitter } from "lucide-react";
-import { Link } from "react-router-dom";
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
+import { Card, CardContent } from "@/components/ui/card";
+import { SecureForm } from "@/components/SecureForm";
+import { Mail, Phone, MapPin, Calendar, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { useState } from "react";
-import { useToast } from "@/hooks/use-toast";
 
 const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: ""
-  });
-  
-  const { toast } = useToast();
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Here you would typically send the form data to your backend
-    toast({
-      title: "Message Sent!",
-      description: "Thank you for your message. I'll get back to you soon.",
-    });
-    setFormData({ name: "", email: "", subject: "", message: "" });
+  const handleFormSubmit = async (data: any) => {
+    // In a real application, this would send data to your backend
+    console.log('Secure form submission:', data);
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 1000));
   };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData(prev => ({
-      ...prev,
-      [e.target.name]: e.target.value
-    }));
-  };
-
-  const contactInfo = [
-    {
-      icon: Mail,
-      label: "Email",
-      value: "hello@portfolio.com",
-      href: "mailto:hello@portfolio.com"
-    },
-    {
-      icon: Phone,
-      label: "Phone",
-      value: "+1 (555) 123-4567",
-      href: "tel:+15551234567"
-    },
-    {
-      icon: MapPin,
-      label: "Location",
-      value: "San Francisco, CA",
-      href: "#"
-    }
-  ];
-
-  const socialLinks = [
-    {
-      icon: Github,
-      label: "GitHub",
-      href: "https://github.com",
-      username: "@username"
-    },
-    {
-      icon: Linkedin,
-      label: "LinkedIn",
-      href: "https://linkedin.com",
-      username: "/in/username"
-    },
-    {
-      icon: Twitter,
-      label: "Twitter",
-      href: "https://twitter.com",
-      username: "@username"
-    }
-  ];
 
   return (
-    <div className="min-h-screen bg-gradient-hero">
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-background/80 backdrop-blur-lg border-b border-border z-50">
-        <div className="container mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <Link to="/" className="flex items-center gap-2 text-foreground hover:text-primary transition-smooth">
-              <ArrowLeft className="w-5 h-5" />
-              <span className="font-medium">Back to Portfolio</span>
-            </Link>
-            <div className="flex items-center gap-6">
-              <Link to="/" className="text-muted-foreground hover:text-foreground transition-smooth">Home</Link>
-              <Link to="/blog" className="text-muted-foreground hover:text-foreground transition-smooth">Blog</Link>
-            </div>
-          </div>
-        </div>
-      </nav>
-
-      {/* Hero Section */}
-      <section className="pt-32 pb-20">
-        <div className="container mx-auto px-6 text-center">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 glow-text">
-            Let's Connect
-          </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Have a project in mind or want to collaborate? I'd love to hear from you.
-          </p>
-        </div>
-      </section>
-
-      {/* Contact Section */}
-      <section className="py-20">
+    <div className="min-h-screen bg-background">
+      <Navigation />
+      
+      <main className="pt-20 pb-12">
         <div className="container mx-auto px-6">
-          <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+          <div className="max-w-4xl mx-auto">
             
-            {/* Contact Form */}
-            <Card className="bg-gradient-card border-border/50 glow-purple">
-              <CardHeader>
-                <CardTitle className="text-2xl mb-2">Send a Message</CardTitle>
-                <p className="text-muted-foreground">
-                  Fill out the form below and I'll get back to you as soon as possible.
-                </p>
-              </CardHeader>
-              <CardContent>
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    <div>
-                      <label htmlFor="name" className="block text-sm font-medium mb-2">
-                        Name
-                      </label>
-                      <Input
-                        id="name"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        required
-                        className="bg-background/50 border-border focus:border-primary"
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="email" className="block text-sm font-medium mb-2">
-                        Email
-                      </label>
-                      <Input
-                        id="email"
-                        name="email"
-                        type="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                        className="bg-background/50 border-border focus:border-primary"
-                      />
-                    </div>
-                  </div>
-                  
-                  <div>
-                    <label htmlFor="subject" className="block text-sm font-medium mb-2">
-                      Subject
-                    </label>
-                    <Input
-                      id="subject"
-                      name="subject"
-                      value={formData.subject}
-                      onChange={handleChange}
-                      required
-                      className="bg-background/50 border-border focus:border-primary"
-                    />
-                  </div>
-                  
-                  <div>
-                    <label htmlFor="message" className="block text-sm font-medium mb-2">
-                      Message
-                    </label>
-                    <Textarea
-                      id="message"
-                      name="message"
-                      value={formData.message}
-                      onChange={handleChange}
-                      required
-                      rows={5}
-                      className="bg-background/50 border-border focus:border-primary resize-none"
-                    />
-                  </div>
-                  
-                  <Button type="submit" className="w-full bg-gradient-primary glow-purple" size="lg">
-                    <Send className="w-4 h-4 mr-2" />
-                    Send Message
-                  </Button>
-                </form>
-              </CardContent>
-            </Card>
-
-            {/* Contact Info & Social */}
-            <div className="space-y-8">
+            {/* Header */}
+            <div className="text-center mb-12">
+              <div className="flex items-center justify-center gap-2 mb-4">
+                <Shield className="w-8 h-8 text-primary" />
+                <h1 className="text-4xl md:text-5xl font-bold glow-text">
+                  Secure Contact
+                </h1>
+              </div>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Protected communication channel for cybersecurity consultations, 
+                research collaboration, and professional inquiries.
+              </p>
+            </div>
+            
+            <div className="grid lg:grid-cols-2 gap-12">
               
+              {/* Secure Contact Form */}
+              <Card className="bg-gradient-card border-border/20 glow-purple">
+                <CardContent className="p-8">
+                  <div className="flex items-center gap-2 mb-6">
+                    <Shield className="w-6 h-6 text-primary" />
+                    <h2 className="text-2xl font-bold">Secure Message Form</h2>
+                  </div>
+                  
+                  <div className="mb-6 p-4 bg-primary/10 rounded-lg border border-primary/20">
+                    <p className="text-sm text-muted-foreground">
+                      <strong className="text-primary">Security Features:</strong><br/>
+                      • Input validation & sanitization<br/>
+                      • Rate limiting protection<br/>
+                      • Bot detection & honeypot filtering<br/>
+                      • End-to-end form security
+                    </p>
+                  </div>
+                  
+                  <SecureForm onSubmit={handleFormSubmit} />
+                </CardContent>
+              </Card>
+
               {/* Contact Information */}
-              <Card className="bg-gradient-card border-border/50 glow-purple">
-                <CardHeader>
-                  <CardTitle className="text-2xl">Contact Information</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  {contactInfo.map((item, index) => (
-                    <div key={index} className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center glow-purple">
-                        <item.icon className="w-6 h-6 text-primary" />
-                      </div>
-                      <div>
-                        <p className="font-medium">{item.label}</p>
-                        {item.href === "#" ? (
-                          <p className="text-muted-foreground">{item.value}</p>
-                        ) : (
-                          <a 
-                            href={item.href} 
-                            className="text-muted-foreground hover:text-primary transition-smooth"
-                          >
-                            {item.value}
+              <div className="space-y-6">
+                <Card className="bg-gradient-card border-border/20 glow-purple">
+                  <CardContent className="p-8">
+                    <h2 className="text-2xl font-bold mb-6">Direct Contact</h2>
+                    
+                    <div className="space-y-6">
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center glow-purple">
+                          <Mail className="w-6 h-6 text-primary" />
+                        </div>
+                        <div>
+                          <p className="font-medium">Email</p>
+                          <a href="mailto:contact@ishaansrv.com" className="text-muted-foreground hover:text-primary transition-smooth">
+                            contact@ishaansrv.com
                           </a>
-                        )}
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center glow-purple">
+                          <Phone className="w-6 h-6 text-primary" />
+                        </div>
+                        <div>
+                          <p className="font-medium">Phone (WhatsApp)</p>
+                          <a href="tel:+447908791987" className="text-muted-foreground hover:text-primary transition-smooth">
+                            07908791987
+                          </a>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center glow-purple">
+                          <MapPin className="w-6 h-6 text-primary" />
+                        </div>
+                        <div>
+                          <p className="font-medium">Location</p>
+                          <p className="text-muted-foreground">Edinburgh, Scotland, UK</p>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center glow-purple">
+                          <Calendar className="w-6 h-6 text-primary" />
+                        </div>
+                        <div>
+                          <p className="font-medium">Schedule Meeting</p>
+                          <a href="https://calendly.com/ishaansr" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-smooth">
+                            Book a consultation
+                          </a>
+                        </div>
                       </div>
                     </div>
-                  ))}
-                </CardContent>
-              </Card>
 
-              {/* Social Links */}
-              <Card className="bg-gradient-card border-border/50 glow-purple">
-                <CardHeader>
-                  <CardTitle className="text-2xl">Follow Me</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  {socialLinks.map((social, index) => (
-                    <a
-                      key={index}
-                      href={social.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-4 p-3 rounded-lg bg-background/30 hover:bg-background/50 transition-smooth group"
-                    >
-                      <div className="w-10 h-10 bg-primary/20 rounded-lg flex items-center justify-center group-hover:glow-purple transition-smooth">
-                        <social.icon className="w-5 h-5 text-primary" />
-                      </div>
+                    <div className="mt-8 pt-8 border-t border-border">
+                      <a href="https://calendly.com/ishaansr" target="_blank" rel="noopener noreferrer">
+                        <Button className="w-full bg-gradient-primary glow-purple" size="lg">
+                          <Calendar className="w-4 h-4 mr-2" />
+                          Schedule a Meeting
+                        </Button>
+                      </a>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Security Notice */}
+                <Card className="bg-gradient-to-r from-primary/10 to-secondary/10 border-primary/20">
+                  <CardContent className="p-6">
+                    <div className="flex items-start gap-3">
+                      <Shield className="w-6 h-6 text-primary mt-1" />
                       <div>
-                        <p className="font-medium">{social.label}</p>
-                        <p className="text-sm text-muted-foreground">{social.username}</p>
+                        <h3 className="font-semibold text-primary mb-2">Security & Privacy</h3>
+                        <p className="text-sm text-muted-foreground">
+                          All communications are treated with strict confidentiality. 
+                          For sensitive discussions, encrypted communication channels can be arranged.
+                        </p>
                       </div>
-                    </a>
-                  ))}
-                </CardContent>
-              </Card>
-              
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
             </div>
           </div>
         </div>
-      </section>
+      </main>
+      
+      <Footer />
     </div>
   );
 };
