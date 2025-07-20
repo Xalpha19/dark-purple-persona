@@ -209,7 +209,7 @@ const ContactSection = () => {
                   </div>
 
                   <div className="mt-8 pt-8 border-t border-border space-y-3">
-                    <a href="https://calendly.com/ishaansr" target="_blank" rel="noopener noreferrer">
+                    <a href="https://calendly.com/ishaansr/30min" target="_blank" rel="noopener noreferrer">
                       <Button className="w-full bg-gradient-primary glow-purple mb-3" size="lg">
                         <Calendar className="w-4 h-4 mr-2" />
                         Schedule a Meeting
