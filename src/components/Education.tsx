@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { GraduationCap, BookOpen, Code } from "lucide-react";
+import { GraduationCap, BookOpen, Code, Shield } from "lucide-react";
 
 const Education = () => {
   const education = [
@@ -104,6 +104,17 @@ const Education = () => {
           skills: ["Automation, Scripting for ingestion of Threat Intelligence using REST API", "Python, PowerShell, and JavaScript scripting", "Custom SOAR playbooks for threat response orchestration", "Automated ingestion and enrichment of threat intel feeds", "OSINT investigation and threat actor profiling", "Adversary simulation and malware behavioral research", "Integration of CTI into SOC workflows and detections", "Tool development for automated triage and IOC processing"]
         }
       ]
+    },
+    {
+      id: "grc",
+      title: "GRC",
+      icon: Shield,
+      items: [
+        {
+          category: "🛡️ Governance, Risk & Compliance (GRC)",
+          skills: ["ISO 27001 ISMS implementation & audits", "PCI DSS assessments & compliance support", "SOX ITGC design & testing", "NIST CSF control mapping", "Cross-framework gap & risk analysis", "GRC tools: Archer, SNOW, Excel"]
+        }
+      ]
     }
   ];
 
@@ -121,7 +132,7 @@ const Education = () => {
 
         <div className="max-w-6xl mx-auto">
           <Tabs defaultValue="degree" className="w-full">
-            <TabsList className="grid w-full grid-cols-3 bg-card/50 border border-border">
+            <TabsList className="grid w-full grid-cols-4 bg-card/50 border border-border">
               {education.map((section) => (
                 <TabsTrigger 
                   key={section.id}
@@ -136,7 +147,7 @@ const Education = () => {
 
             {education.map((section) => (
               <TabsContent key={section.id} value={section.id} className="mt-8">
-                {section.id === "skills" ? (
+                {section.id === "skills" || section.id === "grc" ? (
                   <div className="grid md:grid-cols-3 gap-6">
                     {section.items.map((skillGroup, index) => (
                       <Card key={index} className="bg-gradient-card border-border/50 glow-purple">
