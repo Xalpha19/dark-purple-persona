@@ -239,11 +239,13 @@ const ContactSection = () => {
                         Schedule a Meeting
                       </Button>
                     </a>
-                    <img 
-                      src="/lovable-uploads/45f71e23-7955-4485-81aa-9112ced904d2.png" 
-                      alt="QR Code" 
-                      className="w-2/5 rounded-lg mx-auto"
-                    />
+                    <a href="https://linktr.ee/ishaansri" target="_blank" rel="noopener noreferrer">
+                      <img 
+                        src="/lovable-uploads/45f71e23-7955-4485-81aa-9112ced904d2.png" 
+                        alt="QR Code" 
+                        className="w-2/5 rounded-lg mx-auto cursor-pointer hover:opacity-80 transition-opacity"
+                      />
+                    </a>
                   </div>
 
                   {/* Professional Links */}
