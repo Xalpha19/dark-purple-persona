@@ -135,14 +135,19 @@ const Hero = () => {
       </div>
       
       {/* Spline 3D Model */}
-      <div className="absolute bottom-32 left-1/2 transform -translate-x-1/2 w-80 h-80 z-10 transition-transform duration-300 hover:scale-105">
+      <div className="absolute bottom-48 left-1/2 transform -translate-x-1/2 w-80 h-80 z-50 transition-all duration-500 ease-out hover:scale-110 hover:rotate-2">
         <iframe 
           src='https://my.spline.design/robotfollowcursorforlandingpage-kBI1Z8KqmGLqXehJzjq41xqN/' 
           frameBorder='0' 
           width='100%' 
           height='100%'
-          allow="camera; microphone; xr-spatial-tracking"
-          style={{ pointerEvents: 'auto' }}
+          allow="camera; microphone; xr-spatial-tracking; fullscreen"
+          sandbox="allow-scripts allow-same-origin allow-pointer-lock"
+          style={{ 
+            pointerEvents: 'auto',
+            borderRadius: '12px',
+            overflow: 'hidden'
+          }}
         />
       </div>
 
