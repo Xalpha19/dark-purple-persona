@@ -57,7 +57,7 @@ const Hero = () => {
             variants={fadeInLeftVariants}
             className="text-left"
           >
-            <div className="bg-gradient-to-r from-background/40 via-background/35 to-background/30 backdrop-blur-sm rounded-2xl p-6 sm:p-8 lg:p-12 border-4 border-primary/30 w-full sm:w-[120%] lg:w-[150%] relative overflow-hidden transform -translate-y-16 sm:-translate-y-24 lg:-translate-y-32">
+            <div className="bg-gradient-to-r from-background/40 via-background/35 to-background/30 backdrop-blur-sm rounded-2xl p-6 sm:p-8 lg:p-12 border-4 border-primary/30 w-[250%] sm:w-[270%] lg:w-[300%] relative overflow-hidden transform -translate-y-16 sm:-translate-y-24 lg:-translate-y-32">
               {/* Content Overlay */}
               <div className="relative z-10">
                 {/* Professional Tagline */}
