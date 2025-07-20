@@ -1,4 +1,6 @@
-import React, { createContext, useContext, useEffect, ReactNode } from 'react';
+import * as React from 'react';
+import { createContext, useContext, useEffect } from 'react';
+import type { ReactNode } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { getSecureHeaders } from '@/utils/security';
 
