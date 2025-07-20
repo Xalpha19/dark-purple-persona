@@ -28,81 +28,93 @@ const Hero = () => {
         <div className="grid lg:grid-cols-2 gap-6 items-center min-h-screen py-12">
           {/* Left Column - Content */}
           <div className="text-left animate-slide-up">
-            <div className="bg-gradient-to-r from-background/18 via-background/12 to-background/8 backdrop-blur-sm rounded-2xl p-8 border border-primary/20 w-[150%]">
-              {/* Professional Tagline */}
-              <div className="mb-6">
-                <span className="text-primary font-medium text-base tracking-wide">
-                  SENIOR THREAT HUNTING AND INCIDENCE RESPONSE ANALYST
-                </span>
+            <div className="bg-gradient-to-r from-background/18 via-background/12 to-background/8 backdrop-blur-sm rounded-2xl p-12 border-4 border-primary/30 w-[150%] relative overflow-hidden">
+              {/* Background Image */}
+              <div className="absolute inset-0 opacity-10">
+                <img 
+                  src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=800&h=600&fit=crop"
+                  alt="Technology Background"
+                  className="w-full h-full object-cover rounded-xl"
+                />
               </div>
               
-              <h1 className="text-5xl md:text-7xl font-bold mb-6 glow-text">
-                Ishaan
-                <span className="block heading-primary">
-                  Srivastava
-                </span>
-              </h1>
-              
-              {/* Location */}
-              <div className="flex items-center gap-2 mb-6">
-                <MapPin className="w-5 h-5 text-primary" />
-                <span className="text-lg text-muted-foreground">Edinburgh, Scotland, 🇬🇧</span>
-              </div>
-              
-              <p className="text-lg md:text-xl text-muted-foreground mb-8 leading-relaxed">
-                "Protecting digital assets through advanced forensics and proactive threat detection"
-              </p>
-              
-              {/* CTAs */}
-              <div className="flex flex-col sm:flex-row gap-4 mb-12">
-                <Button 
-                  size="lg" 
-                  className="btn-enhanced text-lg px-8 py-6"
-                  onClick={scrollToNextSection}
-                >
-                  View My Work
-                </Button>
-                <Button 
-                  variant="outline" 
-                  size="lg" 
-                  className="btn-outline-enhanced text-lg px-8 py-6"
-                  asChild
-                >
-                  <a 
-                    href="/lovable-uploads/Ishaan_Srivastava_Resume.pdf" 
-                    download="Ishaan_Srivastava_Resume.pdf"
-                    target="_blank"
-                    rel="noopener noreferrer"
+              {/* Content Overlay */}
+              <div className="relative z-10">
+                {/* Professional Tagline */}
+                <div className="mb-6">
+                  <span className="text-primary font-medium text-base tracking-wide">
+                    SENIOR THREAT HUNTING AND INCIDENCE RESPONSE ANALYST
+                  </span>
+                </div>
+                
+                <h1 className="text-5xl md:text-7xl font-bold mb-6 glow-text">
+                  Ishaan
+                  <span className="block heading-primary">
+                    Srivastava
+                  </span>
+                </h1>
+                
+                {/* Location */}
+                <div className="flex items-center gap-2 mb-6">
+                  <MapPin className="w-5 h-5 text-primary" />
+                  <span className="text-lg text-muted-foreground">Edinburgh, Scotland, 🇬🇧</span>
+                </div>
+                
+                <p className="text-lg md:text-xl text-muted-foreground mb-8 leading-relaxed">
+                  "Protecting digital assets through advanced forensics and proactive threat detection"
+                </p>
+                
+                {/* CTAs */}
+                <div className="flex flex-col sm:flex-row gap-4 mb-12">
+                  <Button 
+                    size="lg" 
+                    className="btn-enhanced text-lg px-8 py-6"
+                    onClick={scrollToNextSection}
                   >
-                    Download Resume
+                    View My Work
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    size="lg" 
+                    className="btn-outline-enhanced text-lg px-8 py-6"
+                    asChild
+                  >
+                    <a 
+                      href="/lovable-uploads/Ishaan_Srivastava_Resume.pdf" 
+                      download="Ishaan_Srivastava_Resume.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Download Resume
+                    </a>
+                  </Button>
+                </div>
+                
+                {/* Professional Links */}
+                <div className="flex gap-6">
+                  <a 
+                    href="https://linkedin.com/in/ishaansri" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="w-12 h-12 card-enhanced rounded-lg flex items-center justify-center cyber-hover group"
+                  >
+                    <Linkedin className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
                   </a>
-                </Button>
-              </div>
-              
-              {/* Professional Links */}
-              <div className="flex gap-6">
-                <a 
-                  href="https://linkedin.com/in/ishaansri" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="w-12 h-12 card-enhanced rounded-lg flex items-center justify-center cyber-hover group"
-                >
-                  <Linkedin className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
-                </a>
-                <a 
-                  href="mailto:contact@ishaansrv.com"
-                  className="w-12 h-12 card-enhanced rounded-lg flex items-center justify-center cyber-hover group"
-                >
-                  <Mail className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
-                </a>
-                <a 
-                  href="https://x.com/X19Alpha" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="w-12 h-12 card-enhanced rounded-lg flex items-center justify-center cyber-hover group"
-                >
-                  <Twitter className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
-                </a>
+                  <a 
+                    href="mailto:contact@ishaansrv.com"
+                    className="w-12 h-12 card-enhanced rounded-lg flex items-center justify-center cyber-hover group"
+                  >
+                    <Mail className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
+                  </a>
+                  <a 
+                    href="https://x.com/X19Alpha" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="w-12 h-12 card-enhanced rounded-lg flex items-center justify-center cyber-hover group"
+                  >
+                    <Twitter className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
+                  </a>
+                </div>
               </div>
             </div>
           </div>
