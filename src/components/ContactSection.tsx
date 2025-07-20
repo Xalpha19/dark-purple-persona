@@ -104,7 +104,7 @@ const ContactSection = () => {
           <div className="grid lg:grid-cols-2 gap-12">
             
             {/* Quick Contact Form - Now First */}
-            <Card className="bg-gradient-card border-border/20 glow-purple w-[300%]">
+            <Card className="bg-gradient-card border-border/20 glow-purple w-[200%]">
               <CardContent className="p-8">
                 <h3 className="text-2xl font-bold mb-6">Quick Message</h3>
                 <form onSubmit={handleSubmit} className="space-y-6">
