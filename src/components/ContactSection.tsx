@@ -225,19 +225,38 @@ const ContactSection = () => {
                      <Textarea id="quick-message" name="message" value={formData.message} onChange={handleChange} required rows={4} className="bg-background/50 border-border focus:border-primary resize-none" placeholder="Tell me about your project..." />
                    </div>
                    
-                   {/* Captcha */}
+                   {/* Visual Captcha */}
                    <div>
-                     <label htmlFor="captcha" className="block text-sm font-medium mb-2">
-                       Security Check: What is {captcha.question}?
+                     <label className="block text-sm font-medium mb-3">
+                       Security Check
                      </label>
+                     <div className="bg-gradient-to-r from-primary/10 to-secondary/10 border-2 border-dashed border-primary/30 rounded-lg p-4 mb-3">
+                       <div className="flex items-center justify-center space-x-3">
+                         <div className="bg-background/80 rounded-lg px-4 py-2 text-2xl font-bold text-primary border border-primary/20">
+                           {captcha.question.split(' ')[0]}
+                         </div>
+                         <div className="text-3xl font-bold text-primary glow-text">
+                           {captcha.question.split(' ')[1]}
+                         </div>
+                         <div className="bg-background/80 rounded-lg px-4 py-2 text-2xl font-bold text-primary border border-primary/20">
+                           {captcha.question.split(' ')[2]}
+                         </div>
+                         <div className="text-3xl font-bold text-primary glow-text">
+                           =
+                         </div>
+                         <div className="text-2xl font-bold text-muted-foreground">
+                           ?
+                         </div>
+                       </div>
+                     </div>
                      <Input 
                        id="captcha" 
                        type="number" 
                        value={captchaInput} 
                        onChange={(e) => setCaptchaInput(e.target.value)} 
                        required 
-                       className="bg-background/50 border-border focus:border-primary" 
-                       placeholder="Enter the answer" 
+                       className="bg-background/50 border-border focus:border-primary text-center text-lg font-semibold" 
+                       placeholder="Enter your answer" 
                      />
                    </div>
                    
