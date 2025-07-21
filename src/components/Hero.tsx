@@ -1,5 +1,5 @@
 
-import { ArrowDown, Linkedin, Mail, Shield, Search, Lock, MapPin, Twitter } from "lucide-react";
+import { ArrowDown, Linkedin, Mail, Shield, Search, Lock, MapPin, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { useScrollAnimation, fadeInUpVariants, fadeInLeftVariants, fadeInRightVariants } from "@/hooks/useScrollAnimation";
@@ -32,7 +32,7 @@ const Hero = () => {
       initial="hidden" 
       animate={heroControls} 
       variants={fadeInUpVariants} 
-      className="min-h-screen min-h-[100dvh] relative flex items-center justify-center overflow-hidden"
+      className="min-h-screen relative flex items-center justify-center overflow-hidden"
     >
       {/* Animated Code Space Background */}
       <div className="absolute inset-0">
@@ -60,7 +60,7 @@ const Hero = () => {
       
       {/* Responsive Grid Layout */}
       <div className="container mx-auto px-4 sm:px-6 relative z-10 max-w-7xl w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-screen min-h-[100dvh] py-8 sm:py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-screen py-8 sm:py-12">
           
           {/* Content Column */}
           <motion.div 
@@ -70,7 +70,7 @@ const Hero = () => {
             variants={fadeInLeftVariants} 
             className="order-2 lg:order-1 text-center lg:text-left flex items-center justify-center lg:justify-start"
           >
-            <div className="bg-gradient-to-r from-background/50 via-background/45 to-background/40 backdrop-blur-md rounded-2xl p-6 sm:p-8 lg:p-10 border-2 border-primary/30 w-full max-w-2xl lg:max-w-none relative overflow-hidden">
+            <div className="bg-gradient-to-r from-background/60 via-background/55 to-background/50 backdrop-blur-md rounded-2xl p-6 sm:p-8 lg:p-10 border-2 border-primary/30 w-full max-w-2xl lg:max-w-none relative overflow-hidden">
               {/* Content Overlay */}
               <div className="relative z-10">
                 {/* Professional Tagline */}
@@ -80,7 +80,7 @@ const Hero = () => {
                   </span>
                 </div>
                 
-                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6 glow-text leading-tight">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 glow-text leading-tight">
                   Ishaan
                   <span className="block heading-primary">
                     Srivastava
@@ -134,6 +134,14 @@ const Hero = () => {
                   >
                     <Mail className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
                   </a>
+                  <a 
+                    href="https://calendly.com/ishaansr/30min" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="w-12 h-12 card-enhanced rounded-lg flex items-center justify-center cyber-hover group"
+                  >
+                    <Phone className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
+                  </a>
                 </div>
               </div>
             </div>
@@ -147,7 +155,7 @@ const Hero = () => {
             variants={fadeInRightVariants} 
             className="order-1 lg:order-2 flex justify-center lg:justify-end"
           >
-            <div className="relative w-full max-w-md sm:max-w-lg lg:max-w-xl xl:max-w-2xl">
+            <div className="relative w-full max-w-md sm:max-w-lg lg:max-w-xl">
               <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 rounded-3xl blur-xl transform rotate-3"></div>
               <img 
                 src="/lovable-uploads/0e5e242a-c425-4668-acb8-5dda74e3b6ef.png" 
