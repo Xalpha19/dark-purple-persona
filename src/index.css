@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -35,73 +36,103 @@ body {
   min-height: -webkit-fill-available;
 }
 
-/* Enhanced platform-specific optimizations */
+/* Mobile-First Responsive Design */
 .mobile-optimized {
-  font-size: clamp(14px, 4vw, 16px);
-  overscroll-behavior: contain;
-  -webkit-touch-callout: none;
-  -webkit-tap-highlight-color: transparent;
-  touch-action: manipulation;
-  /* Prevent horizontal scrolling issues */
   width: 100%;
   max-width: 100vw;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  touch-action: manipulation;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: 0 1rem;
 }
 
 .tablet-optimized {
   font-size: clamp(16px, 2.5vw, 18px);
   overscroll-behavior: auto;
   touch-action: manipulation;
-  /* Better tablet spacing */
   --container-padding: 2rem;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: 0 1.5rem;
 }
 
 .desktop-optimized {
   font-size: clamp(16px, 1.2vw, 18px);
   overscroll-behavior: auto;
-  /* Desktop-specific optimizations */
   --container-padding: 3rem;
+  padding: 0 2rem;
 }
 
-/* Safari-specific fixes */
-.safari-optimized {
-  -webkit-transform: translateZ(0);
-  -webkit-backface-visibility: hidden;
-  -webkit-perspective: 1000px;
-  /* Fix Safari scrolling issues */
-  -webkit-overflow-scrolling: touch;
+/* Critical Mobile Browser Fixes */
+@supports (-webkit-touch-callout: none) {
+  body {
+    min-height: -webkit-fill-available;
+    height: -webkit-fill-available;
+  }
+  
+  .platform-ios {
+    position: relative;
+    width: 100%;
+    min-height: -webkit-fill-available;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
 }
 
-/* iOS-specific optimizations */
-.ios-optimized {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  user-select: none;
-  -webkit-overflow-scrolling: touch;
-  /* Prevent iOS zoom on input focus */
-  font-size: 16px;
+/* Mobile Viewport Fixes */
+.platform-mobile {
+  width: 100vw;
+  max-width: 100vw;
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
 }
 
-.ios-optimized input,
-.ios-optimized textarea {
-  font-size: 16px !important;
-  border-radius: 0;
+.platform-mobile * {
+  box-sizing: border-box;
+  max-width: 100%;
 }
 
-/* Android-specific optimizations */
-.android-optimized {
-  -webkit-tap-highlight-color: transparent;
-  touch-action: manipulation;
-  overscroll-behavior-y: contain;
-  /* Android scroll performance */
-  transform: translateZ(0);
+/* Ensure proper text alignment on mobile */
+.platform-mobile .text-left {
+  text-align: center !important;
 }
 
-/* Retina display optimizations */
-.retina-optimized {
-  image-rendering: -webkit-optimize-contrast;
-  image-rendering: crisp-edges;
-  /* Sharp borders and text on high-DPI displays */
-  -webkit-font-smoothing: subpixel-antialiased;
+@media (min-width: 1024px) {
+  .platform-mobile .text-left {
+    text-align: left !important;
+  }
+}
+
+.platform-mobile .justify-start {
+  justify-content: center !important;
+}
+
+@media (min-width: 1024px) {
+  .platform-mobile .justify-start {
+    justify-content: flex-start !important;
+  }
+}
+
+.platform-mobile .items-start {
+  align-items: center !important;
+}
+
+@media (min-width: 1024px) {
+  .platform-mobile .items-start {
+    align-items: flex-start !important;
+  }
 }
 
 /* Enhanced touch optimizations */
@@ -110,7 +141,6 @@ body {
   -ms-touch-action: manipulation;
   -webkit-user-select: none;
   user-select: none;
-  /* Prevent accidental selections */
   -webkit-touch-callout: none;
 }
 
@@ -123,7 +153,6 @@ body {
   button, a, [role="button"] {
     min-height: 44px;
     min-width: 44px;
-    /* Better touch feedback */
     position: relative;
     overflow: hidden;
   }
@@ -133,7 +162,6 @@ body {
     transition: transform 0.1s ease;
   }
   
-  /* Touch ripple effect */
   button::after, a::after, [role="button"]::after {
     content: '';
     position: absolute;
@@ -154,217 +182,7 @@ body {
   }
 }
 
-/* High contrast mode support */
-@media (prefers-contrast: high) {
-  :root {
-    --primary: 43 100% 70%;
-    --border: 259 45% 20%;
-  }
-}
-
-/* Enhanced browser-specific optimizations */
-.chrome-optimized {
-  font-feature-settings: "liga" 1, "kern" 1;
-  text-rendering: optimizeLegibility;
-}
-
-.firefox-optimized {
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-}
-
-.edge-optimized {
-  -ms-text-size-adjust: 100%;
-  text-rendering: optimizeLegibility;
-}
-
-/* Connection-based optimizations */
-.connection-slow-2g,
-.connection-2g {
-  --transition-smooth: none;
-  --transition-glow: none;
-}
-
-.connection-slow-2g * {
-  animation-duration: 0.01ms !important;
-  animation-iteration-count: 1 !important;
-  transition-duration: 0.01ms !important;
-}
-
-/* Screen size specific optimizations */
-.screen-small {
-  --container-padding: 1rem;
-  --text-scale: 0.875;
-}
-
-.screen-medium {
-  --container-padding: 1.5rem;
-  --text-scale: 1;
-}
-
-.screen-large {
-  --container-padding: 2rem;
-  --text-scale: 1.125;
-}
-
-.screen-xlarge {
-  --container-padding: 3rem;
-  --text-scale: 1.25;
-}
-
-/* Orientation-specific styles */
-.orientation-portrait {
-  --vertical-spacing: 2rem;
-}
-
-.orientation-landscape {
-  --vertical-spacing: 1.5rem;
-}
-
-/* Low-end device optimizations */
-.low-end-device {
-  will-change: auto;
-  transform: none !important;
-  animation: none !important;
-  transition: none !important;
-}
-
-.low-end-device * {
-  will-change: auto;
-  transform: none !important;
-}
-
-/* Critical Mobile Browser Fixes */
-html {
-  height: 100%;
-  height: -webkit-fill-available;
-}
-
-body {
-  height: 100%;
-  height: -webkit-fill-available;
-  overscroll-behavior: none;
-  -webkit-overflow-scrolling: touch;
-}
-
-/* iOS Safari specific fixes */
-@supports (-webkit-touch-callout: none) {
-  body {
-    min-height: -webkit-fill-available;
-    height: -webkit-fill-available;
-  }
-  
-  .platform-ios {
-    position: fixed;
-    width: 100%;
-    height: -webkit-fill-available;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-}
-
-/* Mobile Optimizations */
-.mobile-optimized {
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior: contain;
-  touch-action: manipulation;
-  position: relative;
-  width: 100%;
-  min-height: 100vh;
-  min-height: 100dvh;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.touch-manipulation {
-  touch-action: manipulation;
-  -webkit-touch-callout: none;
-  -webkit-tap-highlight-color: transparent;
-  -webkit-user-select: none;
-  user-select: none;
-}
-
-/* iOS specific fixes */
-.ios-optimized {
-  -webkit-text-size-adjust: 100%;
-  text-size-adjust: 100%;
-}
-
-/* Safari specific fixes */
-.safari-optimized {
-  -webkit-transform: translateZ(0);
-  -webkit-perspective: 1000px;
-  -webkit-backface-visibility: hidden;
-}
-
-/* Android specific fixes */
-.android-optimized {
-  transform: translateZ(0);
-  min-height: 100vh;
-  min-height: 100dvh;
-}
-
-/* Viewport fixes for all mobile browsers */
-.platform-mobile {
-  width: 100vw;
-  max-width: 100vw;
-  overflow-x: hidden;
-  font-size: clamp(14px, 4vw, 16px);
-  position: relative;
-  min-height: 100vh;
-  min-height: 100dvh;
-  text-align: center;
-}
-
-.platform-mobile * {
-  box-sizing: border-box;
-  text-align: center;
-}
-
-/* Mobile center alignment fixes */
-.platform-mobile .text-left {
-  text-align: center !important;
-}
-
-.platform-mobile .justify-start {
-  justify-content: center !important;
-}
-
-.platform-mobile .items-start {
-  align-items: center !important;
-}
-
-/* Ensure visibility on mobile */
-.platform-mobile h1,
-.platform-mobile p,
-.platform-mobile span,
-.platform-mobile div {
-  position: relative;
-  z-index: 10;
-  opacity: 1;
-  visibility: visible;
-  color: inherit;
-}
-
-.platform-tablet {
-  font-size: clamp(16px, 2.5vw, 18px);
-  min-height: 100vh;
-  min-height: 100dvh;
-}
-
-.platform-desktop {
-  font-size: clamp(16px, 1.2vw, 18px);
-}
-
-.has-touch button,
-.has-touch a,
-.has-touch [role="button"] {
-  min-height: 44px;
-  min-width: 44px;
-}
+/* Enhanced performance optimizations */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -382,7 +200,6 @@ body {
 }
 
 /* DFIR Specialist Portfolio - Dark Purple with Gold Accents */
-
 @layer base {
   :root {
     /* Ultra Dark Base Colors */
@@ -442,49 +259,33 @@ body {
     --transition-glow: box-shadow 0.3s ease-in-out;
 
     --radius: 1rem;
-
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
   .dark {
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
-
     --card: 222.2 84% 4.9%;
     --card-foreground: 210 40% 98%;
-
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
-
     --primary: 210 40% 98%;
     --primary-foreground: 222.2 47.4% 11.2%;
-
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
-
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
-
     --accent: 217.2 32.6% 17.5%;
     --accent-foreground: 210 40% 98%;
-
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
@@ -505,7 +306,7 @@ body {
   }
 
   body {
-    @apply bg-background text-foreground overflow-x-hidden;
+    @apply bg-background text-foreground;
   }
 }
 
@@ -660,29 +461,6 @@ body {
   .heading-secondary {
     color: #ffffff;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-  }
-  
-  /* Skill cards with shimmer effect */
-  .skill-card {
-    background: linear-gradient(145deg, hsl(var(--graphite-100)), hsl(260 45% 8%));
-    border: 1px solid hsl(259 35% 15%);
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .skill-card::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, hsl(43 65% 52% / 0.1), transparent);
-    transition: left 0.5s ease;
-  }
-  
-  .skill-card:hover::after {
-    left: 100%;
   }
   
   /* Timeline enhancements */

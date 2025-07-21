@@ -1,3 +1,4 @@
+
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Building2, Calendar, MapPin } from "lucide-react";
@@ -54,25 +55,25 @@ const Experience = () => {
       animate={sectionControls}
       variants={fadeInUpVariants}
       id="experience" 
-      className="py-24 bg-background"
+      className="py-16 sm:py-24 bg-background overflow-hidden"
     >
-      <div className="container mx-auto px-6 text-center">
+      <div className="container mx-auto px-4 sm:px-6">
         <motion.div 
           ref={titleRef}
           initial="hidden"
           animate={titleControls}
           variants={fadeInUpVariants}
-          className="text-center mb-16"
+          className="text-center mb-12 sm:mb-16"
         >
-          <h2 className="text-4xl md:text-6xl font-bold mb-6 glow-text">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 glow-text">
             Work Experience
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto">
             4+ years of expertise in digital forensics, incident response, and threat hunting across global organizations.
           </p>
         </motion.div>
 
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-5xl mx-auto">
           <motion.div 
             ref={timelineRef}
             initial="hidden"
@@ -80,36 +81,38 @@ const Experience = () => {
             variants={staggerContainerVariants}
             className="relative"
           >
-            {/* Timeline line */}
-            <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary via-primary-glow to-primary opacity-60"></div>
+            {/* Timeline line - hidden on mobile, visible on desktop */}
+            <div className="hidden lg:block absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary via-primary-glow to-primary opacity-60"></div>
             
-            <div className="space-y-12">
+            <div className="space-y-8 sm:space-y-12">
               {experiences.map((exp, index) => (
                 <motion.div 
                   key={exp.id} 
                   variants={staggerItemVariants}
-                  className="relative w-[150%] text-left"
+                  className="relative w-full"
                 >
-                  {/* Timeline dot */}
-                  <div className="absolute left-6 w-4 h-4 bg-primary rounded-full glow-purple"></div>
+                  {/* Timeline dot - hidden on mobile, visible on desktop */}
+                  <div className="hidden lg:block absolute left-6 w-4 h-4 bg-primary rounded-full glow-purple"></div>
                   
                   {/* Content */}
-                  <div className="ml-20">
-                    <Card className="bg-gradient-card border-border/50 glow-purple hover:glow-purple transition-smooth">
-                      <CardContent className="p-8">
-                        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between mb-4">
-                          <div>
-                            <h3 className="text-2xl font-bold text-primary mb-2">{exp.title}</h3>
-                            <div className="flex items-center gap-2 text-lg font-medium mb-2">
-                              <Building2 className="w-5 h-5 text-muted-foreground" />
-                              <span>{exp.company}</span>
+                  <div className="lg:ml-20 w-full">
+                    <Card className="bg-gradient-card border-border/50 glow-purple hover:glow-purple transition-smooth w-full max-w-full overflow-hidden">
+                      <CardContent className="p-6 sm:p-8">
+                        <div className="flex flex-col space-y-4 mb-6">
+                          <div className="text-center lg:text-left">
+                            <h3 className="text-xl sm:text-2xl font-bold text-primary mb-2">{exp.title}</h3>
+                            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-center lg:justify-start gap-2 sm:gap-4 text-base sm:text-lg font-medium mb-2">
+                              <div className="flex items-center justify-center lg:justify-start gap-2">
+                                <Building2 className="w-5 h-5 text-muted-foreground" />
+                                <span>{exp.company}</span>
+                              </div>
                             </div>
-                            <div className="flex items-center gap-4 text-muted-foreground mb-4">
-                              <div className="flex items-center gap-1">
+                            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-center lg:justify-start gap-2 sm:gap-4 text-sm sm:text-base text-muted-foreground mb-4">
+                              <div className="flex items-center justify-center lg:justify-start gap-1">
                                 <Calendar className="w-4 h-4" />
                                 <span>{exp.period}</span>
                               </div>
-                              <div className="flex items-center gap-1">
+                              <div className="flex items-center justify-center lg:justify-start gap-1">
                                 <MapPin className="w-4 h-4" />
                                 <span>{exp.location}</span>
                               </div>
@@ -117,16 +120,16 @@ const Experience = () => {
                           </div>
                         </div>
                         
-                        <p className="text-muted-foreground mb-6 leading-relaxed">
+                        <p className="text-muted-foreground mb-6 leading-relaxed text-center lg:text-left">
                           {exp.description}
                         </p>
                         
                         {/* Technologies */}
                         <div className="mb-6">
-                          <h4 className="font-semibold mb-3">Technologies Used:</h4>
-                          <div className="flex flex-wrap gap-2">
+                          <h4 className="font-semibold mb-3 text-center lg:text-left">Technologies Used:</h4>
+                          <div className="flex flex-wrap gap-2 justify-center lg:justify-start">
                             {exp.technologies.map((tech) => (
-                              <Badge key={tech} variant="secondary" className="bg-primary/20 text-primary hover:bg-primary/30">
+                              <Badge key={tech} variant="secondary" className="bg-primary/20 text-primary hover:bg-primary/30 text-xs sm:text-sm">
                                 {tech}
                               </Badge>
                             ))}
@@ -135,12 +138,12 @@ const Experience = () => {
                         
                         {/* Achievements */}
                         <div>
-                          <h4 className="font-semibold mb-3">Key Achievements:</h4>
+                          <h4 className="font-semibold mb-3 text-center lg:text-left">Key Achievements:</h4>
                           <ul className="space-y-2">
                             {exp.achievements.map((achievement, i) => (
-                              <li key={i} className="flex items-start gap-2 text-muted-foreground">
+                              <li key={i} className="flex items-start gap-2 text-muted-foreground text-sm sm:text-base">
                                 <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></div>
-                                <span>{achievement}</span>
+                                <span className="text-center lg:text-left">{achievement}</span>
                               </li>
                             ))}
                           </ul>
