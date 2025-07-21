@@ -54,7 +54,7 @@ const Hero = () => {
         <div className="grid lg:grid-cols-2 gap-6 items-center min-h-screen min-h-[100dvh] py-8 sm:py-12">
           {/* Left Column - Content */}
           <motion.div ref={contentRef} initial="hidden" animate={contentControls} variants={fadeInLeftVariants} className="text-center sm:text-left flex items-center justify-center lg:justify-start">
-            <div className="bg-gradient-to-r from-background/40 via-background/35 to-background/30 backdrop-blur-sm rounded-2xl p-4 sm:p-6 lg:p-8 xl:p-12 border-2 sm:border-4 border-primary/30 w-full max-w-2xl sm:max-w-3xl lg:max-w-none lg:w-[280%] xl:w-[330%] relative overflow-hidden transform lg:-translate-y-16 xl:-translate-y-24 2xl:-translate-y-32">
+            <div className="bg-gradient-to-r from-background/40 via-background/35 to-background/30 backdrop-blur-sm rounded-2xl p-3 sm:p-4 md:p-6 lg:p-8 xl:p-10 border-2 sm:border-3 lg:border-4 border-primary/30 w-full max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-none xl:w-[120%] 2xl:w-[130%] relative overflow-visible transform lg:-translate-y-8 xl:-translate-y-12 2xl:-translate-y-16">
               {/* Content Overlay */}
               <div className="relative z-10">
                 {/* Professional Tagline */}
@@ -109,9 +109,9 @@ const Hero = () => {
           
           {/* Right Column - Photo */}
           <motion.div ref={imageRef} initial="hidden" animate={imageControls} variants={fadeInRightVariants} className="flex justify-center lg:justify-end">
-            <div className="relative">
+            <div className="relative w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl">
               <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 rounded-3xl blur-xl transform rotate-3"></div>
-              <img src="/lovable-uploads/0e5e242a-c425-4668-acb8-5dda74e3b6ef.png" alt="Ishaan Srivastava" className="relative w-64 h-80 sm:w-80 sm:h-96 md:w-96 md:h-[32rem] object-cover rounded-3xl shadow-2xl border border-primary/20 transform -translate-y-12 sm:-translate-y-16 lg:-translate-y-24 mx-auto" />
+              <img src="/lovable-uploads/0e5e242a-c425-4668-acb8-5dda74e3b6ef.png" alt="Ishaan Srivastava" className="relative w-full h-auto aspect-[4/5] object-cover rounded-3xl shadow-2xl border border-primary/20 transform -translate-y-8 sm:-translate-y-12 lg:-translate-y-16 mx-auto" />
             </div>
           </motion.div>
         </div>
