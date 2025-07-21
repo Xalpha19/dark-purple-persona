@@ -1,4 +1,4 @@
-import { ArrowDown, Linkedin, Mail, Shield, Search, Lock, MapPin, Twitter, Calendar } from "lucide-react";
+import { ArrowDown, Linkedin, Mail, Shield, Search, Lock, MapPin, Twitter, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { useScrollAnimation, fadeInUpVariants, fadeInLeftVariants, fadeInRightVariants } from "@/hooks/useScrollAnimation";
@@ -140,7 +140,7 @@ const Hero = () => {
                     rel="noopener noreferrer"
                     className="w-12 h-12 card-enhanced rounded-lg flex items-center justify-center cyber-hover group"
                   >
-                    <Calendar className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
+                    <Phone className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
                   </a>
                 </div>
               </div>
