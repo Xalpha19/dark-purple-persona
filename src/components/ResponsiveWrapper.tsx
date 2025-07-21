@@ -1,3 +1,4 @@
+
 import { ReactNode, useEffect, useState, CSSProperties } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { isMobile, isTablet, isSafari, isIOS, isAndroid, isBrowser } from 'react-device-detect';
@@ -26,6 +27,13 @@ interface EnhancedPlatformInfo {
   connectionType: 'slow-2g' | '2g' | '3g' | '4g' | 'unknown';
   screenSize: 'small' | 'medium' | 'large' | 'xlarge';
   isLowEndDevice: boolean;
+  viewportHeight: number;
+  safeAreaInsets: {
+    top: number;
+    bottom: number;
+    left: number;
+    right: number;
+  };
 }
 
 export const ResponsiveWrapper = ({ children, className = '' }: ResponsiveWrapperProps) => {
@@ -48,51 +56,64 @@ export const ResponsiveWrapper = ({ children, className = '' }: ResponsiveWrappe
     connectionType: 'unknown',
     screenSize: 'large',
     isLowEndDevice: false,
+    viewportHeight: 1080,
+    safeAreaInsets: { top: 0, bottom: 0, left: 0, right: 0 },
   });
 
-  // Enhanced media queries
+  // Enhanced media queries with better breakpoints
   const isMobileQuery = useMediaQuery({ maxWidth: 767 });
   const isTabletQuery = useMediaQuery({ minWidth: 768, maxWidth: 1023 });
   const isDesktopQuery = useMediaQuery({ minWidth: 1024 });
-  const isRetinaQuery = useMediaQuery({ minResolution: '2dppx' });
-  // Note: Reduced motion and high contrast queries not supported by react-responsive
-  // but we can still use them in CSS with @media queries
+  const isSmallMobile = useMediaQuery({ maxWidth: 479 });
+  const isLargeMobile = useMediaQuery({ minWidth: 480, maxWidth: 767 });
+  const isSmallTablet = useMediaQuery({ minWidth: 768, maxWidth: 991 });
+  const isLargeTablet = useMediaQuery({ minWidth: 992, maxWidth: 1023 });
 
   useEffect(() => {
     const updatePlatformInfo = () => {
       const userAgent = navigator.userAgent.toLowerCase();
       const width = window.innerWidth;
       const height = window.innerHeight;
+      const visualViewport = window.visualViewport;
       
       // Enhanced browser detection
       const isChrome = /chrome/i.test(userAgent) && !/edge/i.test(userAgent);
       const isFirefox = /firefox/i.test(userAgent);
       const isEdge = /edge/i.test(userAgent);
       
-      // Screen size categorization
+      // Screen size categorization with more granular breakpoints
       let screenSize: 'small' | 'medium' | 'large' | 'xlarge' = 'large';
-      if (width < 640) screenSize = 'small';
-      else if (width < 1024) screenSize = 'medium';
-      else if (width < 1440) screenSize = 'large';
+      if (width < 480) screenSize = 'small';
+      else if (width < 768) screenSize = 'medium';
+      else if (width < 1200) screenSize = 'large';
       else screenSize = 'xlarge';
       
       // Touch support detection
       const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
       
-      // Connection type
+      // Connection type detection
       let connectionType: 'slow-2g' | '2g' | '3g' | '4g' | 'unknown' = 'unknown';
       if ('connection' in navigator) {
         const connection = (navigator as any).connection;
         connectionType = connection.effectiveType || 'unknown';
       }
       
-      // Low-end device detection (with safe property access)
+      // Enhanced low-end device detection
       const isLowEndDevice = (
         connectionType === 'slow-2g' || 
         connectionType === '2g' || 
         ((navigator as any).deviceMemory && (navigator as any).deviceMemory < 4) ||
-        (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4)
+        (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4) ||
+        window.devicePixelRatio < 1.5
       );
+      
+      // Safe area insets for devices with notches
+      const safeAreaInsets = {
+        top: parseInt(getComputedStyle(document.documentElement).getPropertyValue('env(safe-area-inset-top)') || '0'),
+        bottom: parseInt(getComputedStyle(document.documentElement).getPropertyValue('env(safe-area-inset-bottom)') || '0'),
+        left: parseInt(getComputedStyle(document.documentElement).getPropertyValue('env(safe-area-inset-left)') || '0'),
+        right: parseInt(getComputedStyle(document.documentElement).getPropertyValue('env(safe-area-inset-right)') || '0'),
+      };
       
       setPlatformInfo({
         isMobile: isMobile || isMobileQuery,
@@ -113,69 +134,66 @@ export const ResponsiveWrapper = ({ children, className = '' }: ResponsiveWrappe
         connectionType,
         screenSize,
         isLowEndDevice,
+        viewportHeight: visualViewport?.height || height,
+        safeAreaInsets,
       });
     };
 
     updatePlatformInfo();
 
+    // Enhanced event listeners for better responsiveness
     const handleResize = () => updatePlatformInfo();
     const handleOrientationChange = () => {
-      // Delay to ensure accurate dimensions after orientation change
-      setTimeout(updatePlatformInfo, 150);
+      setTimeout(updatePlatformInfo, 100);
+    };
+    const handleVisualViewportChange = () => {
+      setTimeout(updatePlatformInfo, 50);
     };
 
-    // Enhanced event listeners
     window.addEventListener('resize', handleResize, { passive: true });
-    window.addEventListener('orientationchange', handleOrientationChange);
+    window.addEventListener('orientationchange', handleOrientationChange, { passive: true });
     
-    // Performance monitoring for mobile
-    if (platformInfo.isMobile || platformInfo.isTablet) {
-      const handleVisibilityChange = () => {
-        if (!document.hidden) {
-          updatePlatformInfo();
-        }
-      };
-      document.addEventListener('visibilitychange', handleVisibilityChange);
-      
-      return () => {
-        window.removeEventListener('resize', handleResize);
-        window.removeEventListener('orientationchange', handleOrientationChange);
-        document.removeEventListener('visibilitychange', handleVisibilityChange);
-      };
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', handleVisualViewportChange, { passive: true });
     }
 
     return () => {
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('orientationchange', handleOrientationChange);
+      if (window.visualViewport) {
+        window.visualViewport.removeEventListener('resize', handleVisualViewportChange);
+      }
     };
   }, [isMobileQuery, isTabletQuery, isDesktopQuery]);
 
-  // Enhanced responsive classes
+  // Enhanced responsive classes with better mobile support
   const getResponsiveClasses = () => {
     const classes = ['min-h-screen', 'w-full', 'overflow-x-hidden'];
     
-    // Critical mobile fixes
-    if (platformInfo.isMobile || platformInfo.isTablet) {
-      classes.push('mobile-optimized', 'touch-manipulation', 'select-none');
-      // Fix iOS scroll bounce
-      classes.push('overscroll-none');
-      // Fix Android viewport issues
-      classes.push('h-screen', 'max-h-screen');
+    // Platform-specific classes
+    if (platformInfo.isMobile) {
+      classes.push('mobile-optimized', 'touch-manipulation');
+      if (isSmallMobile) classes.push('small-mobile');
+      if (isLargeMobile) classes.push('large-mobile');
     }
     
-    // Platform classes
-    if (platformInfo.isTablet) classes.push('tablet-optimized');
+    if (platformInfo.isTablet) {
+      classes.push('tablet-optimized');
+      if (isSmallTablet) classes.push('small-tablet');
+      if (isLargeTablet) classes.push('large-tablet');
+    }
+    
     if (platformInfo.isDesktop) classes.push('desktop-optimized');
     
-    // Browser-specific fixes
+    // Browser-specific classes
     if (platformInfo.isSafari) classes.push('safari-optimized');
-    if (platformInfo.isIOS) classes.push('ios-optimized', 'supports-[height:100dvh]:h-[100dvh]');
+    if (platformInfo.isIOS) classes.push('ios-optimized');
     if (platformInfo.isAndroid) classes.push('android-optimized');
     if (platformInfo.isChrome) classes.push('chrome-optimized');
     if (platformInfo.isFirefox) classes.push('firefox-optimized');
     if (platformInfo.isEdge) classes.push('edge-optimized');
     
-    // Display classes
+    // Feature classes
     if (platformInfo.pixelRatio >= 2) classes.push('retina-optimized');
     if (platformInfo.hasTouch) classes.push('touch-enabled');
     if (platformInfo.isLowEndDevice) classes.push('low-end-device');
@@ -183,21 +201,21 @@ export const ResponsiveWrapper = ({ children, className = '' }: ResponsiveWrappe
     // Screen size classes
     classes.push(`screen-${platformInfo.screenSize}`);
     classes.push(`orientation-${platformInfo.orientation}`);
-    classes.push(`connection-${platformInfo.connectionType}`);
     
     return classes.join(' ');
   };
 
-  // Enhanced platform styles
+  // Enhanced platform styles with better mobile viewport handling
   const getPlatformStyles = (): CSSProperties => {
     const baseStyles: CSSProperties = {
       WebkitOverflowScrolling: 'touch',
       transform: 'translateZ(0)',
       backfaceVisibility: 'hidden',
       WebkitBackfaceVisibility: 'hidden',
+      position: 'relative',
     };
 
-    // Mobile/Tablet optimizations
+    // Mobile/Tablet specific optimizations
     if (platformInfo.isMobile || platformInfo.isTablet) {
       const mobileStyles: CSSProperties = {
         ...baseStyles,
@@ -206,61 +224,53 @@ export const ResponsiveWrapper = ({ children, className = '' }: ResponsiveWrappe
         touchAction: 'manipulation',
         userSelect: 'none',
         WebkitUserSelect: 'none',
-        // Critical iOS fixes
-        minHeight: '100vh',
-        height: '100vh',
-        maxHeight: '100vh',
         overscrollBehavior: 'contain',
-        position: 'relative',
-        // Prevent iOS Safari bounce
-        WebkitOverflowScrolling: 'touch',
-        overflowY: 'auto',
+        WebkitTextSizeAdjust: '100%',
+        textSizeAdjust: '100%',
+        minHeight: '100vh',
+        minHeight: '100dvh',
+        width: '100%',
+        maxWidth: '100vw',
         overflowX: 'hidden',
+        fontSize: platformInfo.screenSize === 'small' ? '14px' : '16px',
       };
       
       // iOS specific fixes
       if (platformInfo.isIOS) {
-        mobileStyles.WebkitTextSizeAdjust = '100%';
-        mobileStyles.textSizeAdjust = '100%';
-        mobileStyles.fontSize = '16px'; // Prevent zoom on input focus
-        // Fix iOS viewport issues
+        mobileStyles.minHeight = '100vh';
         mobileStyles.minHeight = '-webkit-fill-available';
+        mobileStyles.height = '100vh';
         mobileStyles.height = '-webkit-fill-available';
-        // Disable elastic scrolling
-        mobileStyles.position = 'fixed';
-        mobileStyles.width = '100%';
-        mobileStyles.top = '0';
-        mobileStyles.left = '0';
+        // Prevent iOS zoom on input focus
+        mobileStyles.fontSize = '16px';
+        mobileStyles.paddingTop = `${platformInfo.safeAreaInsets.top}px`;
+        mobileStyles.paddingBottom = `${platformInfo.safeAreaInsets.bottom}px`;
+        mobileStyles.paddingLeft = `${platformInfo.safeAreaInsets.left}px`;
+        mobileStyles.paddingRight = `${platformInfo.safeAreaInsets.right}px`;
       }
       
       // Android specific fixes
       if (platformInfo.isAndroid) {
+        mobileStyles.minHeight = '100vh';
         mobileStyles.minHeight = '100dvh';
-        mobileStyles.height = '100dvh';
+        mobileStyles.height = platformInfo.viewportHeight;
+      }
+      
+      // Low-end device optimizations
+      if (platformInfo.isLowEndDevice) {
+        mobileStyles.willChange = 'auto';
+        mobileStyles.transform = 'none';
       }
       
       return mobileStyles;
     }
 
-    // Safari specific optimizations
-    if (platformInfo.isSafari) {
-      return {
-        ...baseStyles,
-        WebkitTransform: 'translateZ(0)',
-        WebkitPerspective: '1000px',
-        WebkitBackfaceVisibility: 'hidden',
-      };
-    }
-
-    // Low-end device optimizations
-    if (platformInfo.isLowEndDevice) {
-      return {
-        ...baseStyles,
-        willChange: 'auto', // Reduce GPU usage
-      };
-    }
-
-    return baseStyles;
+    // Desktop optimizations
+    return {
+      ...baseStyles,
+      minHeight: '100vh',
+      fontSize: '16px',
+    };
   };
 
   // Apply global optimizations
@@ -268,7 +278,7 @@ export const ResponsiveWrapper = ({ children, className = '' }: ResponsiveWrappe
     const body = document.body;
     const html = document.documentElement;
     
-    // Apply platform classes to body
+    // Enhanced platform classes
     const platformClasses = [
       platformInfo.isMobile ? 'platform-mobile' : '',
       platformInfo.isTablet ? 'platform-tablet' : '',
@@ -276,13 +286,31 @@ export const ResponsiveWrapper = ({ children, className = '' }: ResponsiveWrappe
       platformInfo.isIOS ? 'platform-ios' : '',
       platformInfo.isAndroid ? 'platform-android' : '',
       platformInfo.isSafari ? 'platform-safari' : '',
+      platformInfo.isChrome ? 'platform-chrome' : '',
+      platformInfo.isFirefox ? 'platform-firefox' : '',
       platformInfo.hasTouch ? 'has-touch' : 'no-touch',
       platformInfo.isLowEndDevice ? 'low-end-device' : '',
+      `screen-${platformInfo.screenSize}`,
+      `orientation-${platformInfo.orientation}`,
     ].filter(Boolean);
     
     body.classList.add(...platformClasses);
     
-    // iOS viewport fix
+    // Enhanced viewport and zoom fixes
+    let viewportMeta = document.querySelector('meta[name="viewport"]');
+    if (viewportMeta) {
+      if (platformInfo.isMobile || platformInfo.isTablet) {
+        viewportMeta.setAttribute('content', 
+          'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover'
+        );
+      } else {
+        viewportMeta.setAttribute('content', 
+          'width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover'
+        );
+      }
+    }
+    
+    // iOS viewport fixes
     if (platformInfo.isIOS) {
       html.style.height = '100%';
       html.style.height = '-webkit-fill-available';
@@ -292,8 +320,18 @@ export const ResponsiveWrapper = ({ children, className = '' }: ResponsiveWrappe
     
     // Performance optimizations for low-end devices
     if (platformInfo.isLowEndDevice) {
-      body.style.setProperty('--transition-smooth', 'none');
-      body.style.setProperty('--transition-glow', 'none');
+      html.style.setProperty('--transition-smooth', 'none');
+      html.style.setProperty('--transition-glow', 'none');
+      // Disable heavy animations
+      const style = document.createElement('style');
+      style.textContent = `
+        *, *::before, *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      `;
+      document.head.appendChild(style);
     }
     
     return () => {
@@ -311,8 +349,8 @@ export const ResponsiveWrapper = ({ children, className = '' }: ResponsiveWrappe
       data-pixel-ratio={platformInfo.pixelRatio}
       data-orientation={platformInfo.orientation}
       data-touch={platformInfo.hasTouch}
-      data-connection={platformInfo.connectionType}
       data-screen-size={platformInfo.screenSize}
+      data-viewport-height={platformInfo.viewportHeight}
     >
       {children}
     </div>
