@@ -54,7 +54,7 @@ const Hero = () => {
         <div className="grid lg:grid-cols-2 gap-6 items-center min-h-screen min-h-[100dvh] py-8 sm:py-12">
           {/* Left Column - Content */}
           <motion.div ref={contentRef} initial="hidden" animate={contentControls} variants={fadeInLeftVariants} className="text-center sm:text-left flex items-center justify-center lg:justify-start">
-            <div className="bg-gradient-to-r from-background/40 via-background/35 to-background/30 backdrop-blur-sm rounded-2xl p-3 sm:p-4 md:p-6 lg:p-8 xl:p-10 border-2 sm:border-3 lg:border-4 border-primary/30 w-full max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-none xl:w-[120%] 2xl:w-[130%] relative overflow-visible transform lg:-translate-y-8 xl:-translate-y-12 2xl:-translate-y-16">
+            <div className="bg-gradient-to-r from-background/40 via-background/35 to-background/30 backdrop-blur-sm rounded-2xl p-3 sm:p-4 md:p-6 lg:p-8 xl:p-10 border-2 sm:border-3 lg:border-4 border-primary/30 w-full max-w-xs sm:max-w-md md:max-w-lg lg:max-w-2xl xl:max-w-none xl:w-[150%] 2xl:w-[180%] relative overflow-visible transform lg:-translate-y-8 xl:-translate-y-12 2xl:-translate-y-16">
               {/* Content Overlay */}
               <div className="relative z-10">
                 {/* Professional Tagline */}
