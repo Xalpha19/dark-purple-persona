@@ -56,7 +56,7 @@ const Experience = () => {
       id="experience" 
       className="py-24 bg-background"
     >
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-6 text-center">
         <motion.div 
           ref={titleRef}
           initial="hidden"
