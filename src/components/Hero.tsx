@@ -22,7 +22,7 @@ const Hero = () => {
       behavior: 'smooth'
     });
   };
-  return <motion.section ref={heroRef} initial="hidden" animate={heroControls} variants={fadeInUpVariants} className="min-h-screen relative flex items-center justify-center">
+  return <motion.section ref={heroRef} initial="hidden" animate={heroControls} variants={fadeInUpVariants} className="min-h-screen min-h-[100dvh] relative flex items-center justify-center overflow-hidden">
       {/* Animated Code Space Background */}
       <div className="absolute inset-0">
         <img src={codeSpaceAnimation} alt="Code Animation in Space" className="w-full h-full object-cover animate-slow-zoom" />
@@ -31,40 +31,40 @@ const Hero = () => {
       
       {/* Clean CSS Gradient Background with Tech Patterns */}
       <div className="absolute inset-0 hero-gradient-bg opacity-50">
-        {/* DFIR themed floating icons */}
-        <div className="absolute top-1/3 left-1/4 animate-float" style={{
+        {/* DFIR themed floating icons - hidden on mobile for better performance */}
+        <div className="hidden sm:block absolute top-1/3 left-1/4 animate-float" style={{
         animationDelay: '1s'
       }}>
-          <Shield className="w-12 h-12 text-primary/30" />
+          <Shield className="w-8 h-8 sm:w-12 sm:h-12 text-primary/30" />
         </div>
-        <div className="absolute bottom-1/3 left-1/6 animate-float" style={{
+        <div className="hidden sm:block absolute bottom-1/3 left-1/6 animate-float" style={{
         animationDelay: '3s'
       }}>
-          <Search className="w-10 h-10 text-accent/30" />
+          <Search className="w-6 h-6 sm:w-10 sm:h-10 text-accent/30" />
         </div>
-        <div className="absolute top-3/4 left-1/3 animate-float" style={{
+        <div className="hidden sm:block absolute top-3/4 left-1/3 animate-float" style={{
         animationDelay: '5s'
       }}>
-          <Lock className="w-8 h-8 text-primary/30" />
+          <Lock className="w-6 h-6 sm:w-8 sm:h-8 text-primary/30" />
         </div>
       </div>
       
       {/* Two Column Layout */}
-      <div className="container mx-auto px-6 relative z-10 max-w-7xl">
-        <div className="grid lg:grid-cols-2 gap-6 items-center min-h-screen py-12">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10 max-w-7xl w-full">
+        <div className="grid lg:grid-cols-2 gap-6 items-center min-h-screen min-h-[100dvh] py-8 sm:py-12">
           {/* Left Column - Content */}
-          <motion.div ref={contentRef} initial="hidden" animate={contentControls} variants={fadeInLeftVariants} className="text-left">
-            <div className="bg-gradient-to-r from-background/40 via-background/35 to-background/30 backdrop-blur-sm rounded-2xl p-6 sm:p-8 lg:p-12 border-4 border-primary/30 w-[155%] sm:w-[175%] lg:w-[205%] relative overflow-hidden transform -translate-y-16 sm:-translate-y-24 lg:-translate-y-32">
+          <motion.div ref={contentRef} initial="hidden" animate={contentControls} variants={fadeInLeftVariants} className="text-center sm:text-left flex items-center justify-center lg:justify-start">
+            <div className="bg-gradient-to-r from-background/40 via-background/35 to-background/30 backdrop-blur-sm rounded-2xl p-4 sm:p-6 lg:p-8 xl:p-12 border-2 sm:border-4 border-primary/30 w-full max-w-md sm:max-w-lg lg:max-w-none lg:w-[180%] xl:w-[205%] relative overflow-hidden transform lg:-translate-y-16 xl:-translate-y-24 2xl:-translate-y-32">
               {/* Content Overlay */}
               <div className="relative z-10">
                 {/* Professional Tagline */}
-                <div className="mb-6">
-                  <span className="text-primary font-medium text-base tracking-wide">
+                <div className="mb-4 sm:mb-6">
+                  <span className="text-primary font-medium text-xs sm:text-sm md:text-base tracking-wide text-center sm:text-left block">
                     SENIOR THREAT HUNTING AND INCIDENCE RESPONSE ANALYST
                   </span>
                 </div>
                 
-                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-6 glow-text">
+                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-7xl font-bold mb-4 sm:mb-6 glow-text text-center sm:text-left leading-tight">
                   Ishaan
                   <span className="block heading-primary">
                     Srivastava
@@ -72,21 +72,21 @@ const Hero = () => {
                 </h1>
                 
                 {/* Location */}
-                <div className="flex items-center gap-2 mb-6">
-                  <MapPin className="w-5 h-5 text-primary" />
-                  <span className="text-lg text-muted-foreground">Edinburgh, Scotland, 🇬🇧</span>
+                <div className="flex items-center justify-center sm:justify-start gap-2 mb-4 sm:mb-6">
+                  <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
+                  <span className="text-sm sm:text-base md:text-lg text-muted-foreground">Edinburgh, Scotland, 🇬🇧</span>
                 </div>
                 
-                <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-8 leading-relaxed">
+                <p className="text-sm sm:text-base md:text-lg lg:text-xl text-muted-foreground mb-6 sm:mb-8 leading-relaxed text-center sm:text-left max-w-lg mx-auto sm:mx-0">
                   "Protecting digital assets through advanced forensics and proactive threat detection"
                 </p>
                 
                 {/* CTAs */}
-                <div className="flex flex-col sm:flex-row gap-4 mb-12">
-                  <Button size="lg" className="btn-enhanced text-sm sm:text-base lg:text-lg px-6 sm:px-8 py-4 sm:py-6 w-full sm:w-auto" onClick={scrollToNextSection}>
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-8 sm:mb-12 w-full">
+                  <Button size="lg" className="btn-enhanced text-xs sm:text-sm md:text-base lg:text-lg px-4 sm:px-6 lg:px-8 py-3 sm:py-4 lg:py-6 w-full sm:w-auto" onClick={scrollToNextSection}>
                     View My Work
                   </Button>
-                  <Button variant="outline" size="lg" className="btn-outline-enhanced text-sm sm:text-base lg:text-lg px-6 sm:px-8 py-4 sm:py-6 w-full sm:w-auto" asChild>
+                  <Button variant="outline" size="lg" className="btn-outline-enhanced text-xs sm:text-sm md:text-base lg:text-lg px-4 sm:px-6 lg:px-8 py-3 sm:py-4 lg:py-6 w-full sm:w-auto" asChild>
                     <a href="/lovable-uploads/Ishaan_Srivastava_Resume.pdf" download="Ishaan_Srivastava_Resume.pdf" target="_blank" rel="noopener noreferrer">
                       Download Resume
                     </a>
@@ -94,7 +94,7 @@ const Hero = () => {
                 </div>
                 
                 {/* Professional Links */}
-                <div className="flex gap-6">
+                <div className="flex gap-4 sm:gap-6 justify-center sm:justify-start">
                   <a href="https://linkedin.com/in/ishaansri" target="_blank" rel="noopener noreferrer" className="w-12 h-12 card-enhanced rounded-lg flex items-center justify-center cyber-hover group">
                     <Linkedin className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
                   </a>

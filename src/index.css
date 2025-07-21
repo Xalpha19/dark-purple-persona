@@ -272,6 +272,11 @@ body {
   width: 100%;
   min-height: 100vh;
   min-height: 100dvh;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .touch-manipulation {
@@ -311,10 +316,37 @@ body {
   position: relative;
   min-height: 100vh;
   min-height: 100dvh;
+  text-align: center;
 }
 
 .platform-mobile * {
   box-sizing: border-box;
+  text-align: center;
+}
+
+/* Mobile center alignment fixes */
+.platform-mobile .text-left {
+  text-align: center !important;
+}
+
+.platform-mobile .justify-start {
+  justify-content: center !important;
+}
+
+.platform-mobile .items-start {
+  align-items: center !important;
+}
+
+/* Ensure visibility on mobile */
+.platform-mobile h1,
+.platform-mobile p,
+.platform-mobile span,
+.platform-mobile div {
+  position: relative;
+  z-index: 10;
+  opacity: 1;
+  visibility: visible;
+  color: inherit;
 }
 
 .platform-tablet {
