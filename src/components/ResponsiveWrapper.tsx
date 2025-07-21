@@ -34,6 +34,7 @@ interface EnhancedPlatformInfo {
     left: number;
     right: number;
   };
+  keyboardHeight: number;
 }
 
 export const ResponsiveWrapper = ({ children, className = '' }: ResponsiveWrapperProps) => {
@@ -58,6 +59,7 @@ export const ResponsiveWrapper = ({ children, className = '' }: ResponsiveWrappe
     isLowEndDevice: false,
     viewportHeight: 1080,
     safeAreaInsets: { top: 0, bottom: 0, left: 0, right: 0 },
+    keyboardHeight: 0,
   });
 
   // Enhanced media queries with better breakpoints
@@ -66,8 +68,6 @@ export const ResponsiveWrapper = ({ children, className = '' }: ResponsiveWrappe
   const isDesktopQuery = useMediaQuery({ minWidth: 1024 });
   const isSmallMobile = useMediaQuery({ maxWidth: 479 });
   const isLargeMobile = useMediaQuery({ minWidth: 480, maxWidth: 767 });
-  const isSmallTablet = useMediaQuery({ minWidth: 768, maxWidth: 991 });
-  const isLargeTablet = useMediaQuery({ minWidth: 992, maxWidth: 1023 });
 
   useEffect(() => {
     const updatePlatformInfo = () => {
@@ -81,7 +81,7 @@ export const ResponsiveWrapper = ({ children, className = '' }: ResponsiveWrappe
       const isFirefox = /firefox/i.test(userAgent);
       const isEdge = /edge/i.test(userAgent);
       
-      // Screen size categorization with more granular breakpoints
+      // Screen size categorization
       let screenSize: 'small' | 'medium' | 'large' | 'xlarge' = 'large';
       if (width < 480) screenSize = 'small';
       else if (width < 768) screenSize = 'medium';
@@ -98,7 +98,7 @@ export const ResponsiveWrapper = ({ children, className = '' }: ResponsiveWrappe
         connectionType = connection.effectiveType || 'unknown';
       }
       
-      // Enhanced low-end device detection
+      // Low-end device detection
       const isLowEndDevice = (
         connectionType === 'slow-2g' || 
         connectionType === '2g' || 
@@ -107,13 +107,25 @@ export const ResponsiveWrapper = ({ children, className = '' }: ResponsiveWrappe
         window.devicePixelRatio < 1.5
       );
       
-      // Safe area insets for devices with notches
-      const safeAreaInsets = {
-        top: parseInt(getComputedStyle(document.documentElement).getPropertyValue('env(safe-area-inset-top)') || '0'),
-        bottom: parseInt(getComputedStyle(document.documentElement).getPropertyValue('env(safe-area-inset-bottom)') || '0'),
-        left: parseInt(getComputedStyle(document.documentElement).getPropertyValue('env(safe-area-inset-left)') || '0'),
-        right: parseInt(getComputedStyle(document.documentElement).getPropertyValue('env(safe-area-inset-right)') || '0'),
+      // Enhanced safe area insets with fallbacks
+      const getSafeAreaInset = (property: string) => {
+        try {
+          const value = getComputedStyle(document.documentElement).getPropertyValue(`env(safe-area-inset-${property})`);
+          return parseInt(value) || 0;
+        } catch {
+          return 0;
+        }
       };
+      
+      const safeAreaInsets = {
+        top: getSafeAreaInset('top'),
+        bottom: getSafeAreaInset('bottom'),
+        left: getSafeAreaInset('left'),
+        right: getSafeAreaInset('right'),
+      };
+      
+      // Keyboard height detection for mobile
+      const keyboardHeight = visualViewport ? Math.max(0, height - visualViewport.height) : 0;
       
       setPlatformInfo({
         isMobile: isMobile || isMobileQuery,
@@ -136,19 +148,16 @@ export const ResponsiveWrapper = ({ children, className = '' }: ResponsiveWrappe
         isLowEndDevice,
         viewportHeight: visualViewport?.height || height,
         safeAreaInsets,
+        keyboardHeight,
       });
     };
 
     updatePlatformInfo();
 
-    // Enhanced event listeners for better responsiveness
+    // Enhanced event listeners
     const handleResize = () => updatePlatformInfo();
-    const handleOrientationChange = () => {
-      setTimeout(updatePlatformInfo, 100);
-    };
-    const handleVisualViewportChange = () => {
-      setTimeout(updatePlatformInfo, 50);
-    };
+    const handleOrientationChange = () => setTimeout(updatePlatformInfo, 100);
+    const handleVisualViewportChange = () => setTimeout(updatePlatformInfo, 50);
 
     window.addEventListener('resize', handleResize, { passive: true });
     window.addEventListener('orientationchange', handleOrientationChange, { passive: true });
@@ -166,7 +175,7 @@ export const ResponsiveWrapper = ({ children, className = '' }: ResponsiveWrappe
     };
   }, [isMobileQuery, isTabletQuery, isDesktopQuery]);
 
-  // Enhanced responsive classes with better mobile support
+  // Enhanced responsive classes
   const getResponsiveClasses = () => {
     const classes = ['min-h-screen', 'w-full', 'overflow-x-hidden'];
     
@@ -179,8 +188,6 @@ export const ResponsiveWrapper = ({ children, className = '' }: ResponsiveWrappe
     
     if (platformInfo.isTablet) {
       classes.push('tablet-optimized');
-      if (isSmallTablet) classes.push('small-tablet');
-      if (isLargeTablet) classes.push('large-tablet');
     }
     
     if (platformInfo.isDesktop) classes.push('desktop-optimized');
@@ -205,7 +212,7 @@ export const ResponsiveWrapper = ({ children, className = '' }: ResponsiveWrappe
     return classes.join(' ');
   };
 
-  // Enhanced platform styles with better mobile viewport handling
+  // Enhanced platform styles with mobile optimizations
   const getPlatformStyles = (): CSSProperties => {
     const baseStyles: CSSProperties = {
       WebkitOverflowScrolling: 'touch',
@@ -227,24 +234,18 @@ export const ResponsiveWrapper = ({ children, className = '' }: ResponsiveWrappe
         overscrollBehavior: 'contain',
         WebkitTextSizeAdjust: '100%',
         textSizeAdjust: '100%',
-        minHeight: '100vh',
-        minHeight: '100dvh',
         width: '100%',
         maxWidth: '100vw',
         overflowX: 'hidden',
         fontSize: platformInfo.screenSize === 'small' ? '14px' : '16px',
       };
       
-      // iOS specific fixes
+      // iOS specific fixes - consolidated height handling
       if (platformInfo.isIOS) {
-        mobileStyles.minHeight = '100vh';
         mobileStyles.minHeight = '-webkit-fill-available';
-        mobileStyles.height = '100vh';
         mobileStyles.height = '-webkit-fill-available';
-        // Prevent iOS zoom on input focus
-        mobileStyles.fontSize = '16px';
         mobileStyles.paddingTop = `${platformInfo.safeAreaInsets.top}px`;
-        mobileStyles.paddingBottom = `${platformInfo.safeAreaInsets.bottom}px`;
+        mobileStyles.paddingBottom = `${Math.max(platformInfo.safeAreaInsets.bottom, platformInfo.keyboardHeight)}px`;
         mobileStyles.paddingLeft = `${platformInfo.safeAreaInsets.left}px`;
         mobileStyles.paddingRight = `${platformInfo.safeAreaInsets.right}px`;
       }
@@ -252,8 +253,10 @@ export const ResponsiveWrapper = ({ children, className = '' }: ResponsiveWrappe
       // Android specific fixes
       if (platformInfo.isAndroid) {
         mobileStyles.minHeight = '100vh';
-        mobileStyles.minHeight = '100dvh';
-        mobileStyles.height = platformInfo.viewportHeight;
+        mobileStyles.height = `${platformInfo.viewportHeight}px`;
+        if (platformInfo.keyboardHeight > 0) {
+          mobileStyles.paddingBottom = `${platformInfo.keyboardHeight}px`;
+        }
       }
       
       // Low-end device optimizations
@@ -278,7 +281,7 @@ export const ResponsiveWrapper = ({ children, className = '' }: ResponsiveWrappe
     const body = document.body;
     const html = document.documentElement;
     
-    // Enhanced platform classes
+    // Platform classes
     const platformClasses = [
       platformInfo.isMobile ? 'platform-mobile' : '',
       platformInfo.isTablet ? 'platform-tablet' : '',
@@ -296,7 +299,7 @@ export const ResponsiveWrapper = ({ children, className = '' }: ResponsiveWrappe
     
     body.classList.add(...platformClasses);
     
-    // Enhanced viewport and zoom fixes
+    // Enhanced viewport handling
     let viewportMeta = document.querySelector('meta[name="viewport"]');
     if (viewportMeta) {
       if (platformInfo.isMobile || platformInfo.isTablet) {
@@ -312,17 +315,12 @@ export const ResponsiveWrapper = ({ children, className = '' }: ResponsiveWrappe
     
     // iOS viewport fixes
     if (platformInfo.isIOS) {
-      html.style.height = '100%';
       html.style.height = '-webkit-fill-available';
-      body.style.minHeight = '100%';
       body.style.minHeight = '-webkit-fill-available';
     }
     
     // Performance optimizations for low-end devices
     if (platformInfo.isLowEndDevice) {
-      html.style.setProperty('--transition-smooth', 'none');
-      html.style.setProperty('--transition-glow', 'none');
-      // Disable heavy animations
       const style = document.createElement('style');
       style.textContent = `
         *, *::before, *::after {
@@ -351,6 +349,7 @@ export const ResponsiveWrapper = ({ children, className = '' }: ResponsiveWrappe
       data-touch={platformInfo.hasTouch}
       data-screen-size={platformInfo.screenSize}
       data-viewport-height={platformInfo.viewportHeight}
+      data-keyboard-height={platformInfo.keyboardHeight}
     >
       {children}
     </div>
