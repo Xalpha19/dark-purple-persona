@@ -154,14 +154,22 @@ export const ResponsiveWrapper = ({ children, className = '' }: ResponsiveWrappe
   const getResponsiveClasses = () => {
     const classes = ['min-h-screen', 'w-full', 'overflow-x-hidden'];
     
+    // Critical mobile fixes
+    if (platformInfo.isMobile || platformInfo.isTablet) {
+      classes.push('mobile-optimized', 'touch-manipulation', 'select-none');
+      // Fix iOS scroll bounce
+      classes.push('overscroll-none');
+      // Fix Android viewport issues
+      classes.push('h-screen', 'max-h-screen');
+    }
+    
     // Platform classes
-    if (platformInfo.isMobile) classes.push('mobile-optimized', 'touch-manipulation');
-    if (platformInfo.isTablet) classes.push('tablet-optimized', 'touch-manipulation');
+    if (platformInfo.isTablet) classes.push('tablet-optimized');
     if (platformInfo.isDesktop) classes.push('desktop-optimized');
     
-    // Browser classes
+    // Browser-specific fixes
     if (platformInfo.isSafari) classes.push('safari-optimized');
-    if (platformInfo.isIOS) classes.push('ios-optimized');
+    if (platformInfo.isIOS) classes.push('ios-optimized', 'supports-[height:100dvh]:h-[100dvh]');
     if (platformInfo.isAndroid) classes.push('android-optimized');
     if (platformInfo.isChrome) classes.push('chrome-optimized');
     if (platformInfo.isFirefox) classes.push('firefox-optimized');
@@ -198,14 +206,37 @@ export const ResponsiveWrapper = ({ children, className = '' }: ResponsiveWrappe
         touchAction: 'manipulation',
         userSelect: 'none',
         WebkitUserSelect: 'none',
-        minHeight: '100dvh', // Dynamic viewport height
+        // Critical iOS fixes
+        minHeight: '100vh',
+        height: '100vh',
+        maxHeight: '100vh',
         overscrollBehavior: 'contain',
+        position: 'relative',
+        // Prevent iOS Safari bounce
+        WebkitOverflowScrolling: 'touch',
+        overflowY: 'auto',
+        overflowX: 'hidden',
       };
       
       // iOS specific fixes
       if (platformInfo.isIOS) {
         mobileStyles.WebkitTextSizeAdjust = '100%';
+        mobileStyles.textSizeAdjust = '100%';
         mobileStyles.fontSize = '16px'; // Prevent zoom on input focus
+        // Fix iOS viewport issues
+        mobileStyles.minHeight = '-webkit-fill-available';
+        mobileStyles.height = '-webkit-fill-available';
+        // Disable elastic scrolling
+        mobileStyles.position = 'fixed';
+        mobileStyles.width = '100%';
+        mobileStyles.top = '0';
+        mobileStyles.left = '0';
+      }
+      
+      // Android specific fixes
+      if (platformInfo.isAndroid) {
+        mobileStyles.minHeight = '100dvh';
+        mobileStyles.height = '100dvh';
       }
       
       return mobileStyles;
