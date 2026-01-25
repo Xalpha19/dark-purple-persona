@@ -13,10 +13,29 @@ const Experience = () => {
   const experiences = [
     {
       id: 1,
+      title: "Security Analyst (Detection Engineer)",
+      company: "NatWest Group",
+      location: "Edinburgh, UK",
+      period: "January 2025 - Present",
+      description: "Focused on developing and optimizing high-fidelity threat detection rules and SOAR playbooks within enterprise SIEM environments. Daily work spans threat hunting, rule testing/CI/CD deployment, playbook automation, system integrations, and cross-team tuning to ensure scalable MDR operations.",
+      technologies: ["SIEM", "SOAR", "CI/CD", "Detection Engineering", "Threat Hunting", "MDR", "Splunk", "SPL", "KQL", "Python"],
+      achievements: [
+        "Designed and implemented advanced detection rule logic for new and evolving threat use cases within enterprise SIEM platforms",
+        "Performed proactive threat hunts to validate the existence, relevance, and performance of detection rules against real-world attacker behaviours",
+        "Integrated subsidiary and partner organisations' security systems into the central SOC, unifying alert pipelines, event sources, and detection logic",
+        "Served as a subject matter expert (SME) for SOC operations and incident response, providing technical guidance on investigation workflows",
+        "Analysed and documented existing detection workflows across business units to identify coverage gaps and standardise alert tuning methodologies",
+        "Collaborated with SOC analysts to refine detection correlation, reduce false positives, and optimise response efficiency",
+        "Developed and maintained SOAR playbooks to automate triage actions, contextual data enrichments, and incident workflow standardisation",
+        "Automated rule deployment and change control using CI/CD and SOAR workflows, enabling consistent and auditable detection management"
+      ]
+    },
+    {
+      id: 2,
       title: "Cybersecurity Analyst",
       company: "NatWest Group",
       location: "Edinburgh, UK",
-      period: "February 2024 - Present",
+      period: "February 2024 - January 2025",
       description: "Performing SOC analyst responsibilities conducting comprehensive alert investigations and forensics analysis across AWS, Azure, and GCP cloud environments. Executing proactive threat hunting using SIEM log correlation and developing custom detection rules.",
       technologies: ["Microsoft Defender XDR", "Splunk", "KQL", "Python", "PowerShell", "AWS", "Azure", "GCP", "Akamai", "Cofense"],
       achievements: [
@@ -30,7 +49,7 @@ const Experience = () => {
       ]
     },
     {
-      id: 2,
+      id: 3,
       title: "IT Security Engineer",
       company: "Dar Al-Handasah",
       location: "Pune, India",
@@ -69,7 +88,7 @@ const Experience = () => {
             Work Experience
           </h2>
           <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto">
-            4+ years of expertise in digital forensics, incident response, and threat hunting across global organizations.
+            5+ years of expertise in detection engineering, digital forensics, incident response, and threat hunting across global organizations.
           </p>
         </motion.div>
 
