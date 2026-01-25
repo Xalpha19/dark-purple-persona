@@ -57,10 +57,8 @@ const BlogSection = () => {
   const fetchRSSPosts = async (showRefreshToast = false) => {
     try {
       setIsRefreshing(true);
-      console.log('Starting RSS fetch from:', WORDPRESS_RSS_URL);
       
       const rssPosts = await rssService.fetchRSSFeed(WORDPRESS_RSS_URL);
-      console.log('Successfully fetched RSS posts:', rssPosts.length);
       
       // Convert RSS items to match our post format
       const formattedPosts = rssPosts.slice(0, 6).map(item => ({
@@ -85,20 +83,18 @@ const BlogSection = () => {
       if (showRefreshToast) {
         toast({
           title: "Posts Updated",
-          description: `Loaded ${formattedPosts.length} posts from WordPress RSS`,
+          description: `Loaded ${formattedPosts.length} posts from blog`,
         });
       }
-    } catch (error) {
-      console.error("Failed to fetch RSS posts:", error);
-      // Fall back to static posts
-      console.log('Falling back to static posts');
+    } catch {
+      // Fall back to static posts silently
       setPosts(fallbackPosts);
       setUsingRSS(false);
       
       if (showRefreshToast) {
         toast({
-          title: "RSS Feed Error", 
-          description: `RSS fetch failed: ${error.message}. Showing cached posts.`,
+          title: "Feed Unavailable", 
+          description: "Showing cached posts. Please try again later.",
           variant: "destructive",
         });
       }

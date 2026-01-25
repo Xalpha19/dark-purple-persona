@@ -10,10 +10,18 @@ export interface RSSItem {
   thumbnail?: string;
 }
 
+// Security constants for XML parsing
+const MAX_XML_SIZE = 1024 * 1024; // 1MB max
+const MAX_ITEMS = 50; // Maximum number of items to parse
+const MAX_ELEMENT_DEPTH = 10; // Maximum nesting depth
+
 export class RSSService {
   async fetchRSSFeed(feedUrl: string): Promise<RSSItem[]> {
-    console.log('Attempting to fetch RSS feed from:', feedUrl);
-    
+    // Validate URL before fetching
+    if (!this.isValidFeedUrl(feedUrl)) {
+      throw new Error('Invalid feed URL');
+    }
+
     // Try multiple CORS proxy services
     const corsProxies = [
       `https://api.allorigins.win/get?url=${encodeURIComponent(feedUrl)}`,
@@ -23,8 +31,6 @@ export class RSSService {
 
     for (let i = 0; i < corsProxies.length; i++) {
       try {
-        console.log(`Trying proxy ${i + 1}:`, corsProxies[i]);
-        
         if (i === 2) {
           // rss2json has different response format
           return await this.fetchViaRss2Json(corsProxies[i]);
@@ -32,28 +38,40 @@ export class RSSService {
           const response = await fetch(corsProxies[i]);
           
           if (!response.ok) {
-            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            throw new Error('Feed fetch failed');
           }
           
           const data = await response.json();
-          console.log('Proxy response:', data);
           
           if (!data.contents) {
-            throw new Error('No contents in proxy response');
+            throw new Error('No contents in response');
+          }
+
+          // Validate content size before parsing
+          if (data.contents.length > MAX_XML_SIZE) {
+            throw new Error('Feed content exceeds size limit');
           }
 
           return await this.parseXMLFeed(data.contents);
         }
-      } catch (error) {
-        console.info(`Proxy ${i + 1} failed:`, error);
+      } catch {
         if (i === corsProxies.length - 1) {
-          throw error;
+          throw new Error('Unable to fetch feed');
         }
         continue;
       }
     }
 
-    throw new Error('All CORS proxies failed');
+    throw new Error('Unable to fetch feed');
+  }
+
+  private isValidFeedUrl(url: string): boolean {
+    try {
+      const parsed = new URL(url);
+      return ['http:', 'https:'].includes(parsed.protocol);
+    } catch {
+      return false;
+    }
   }
 
   private async fetchViaRss2Json(url: string): Promise<RSSItem[]> {
@@ -78,6 +96,16 @@ export class RSSService {
   }
 
   private async parseXMLFeed(xmlContent: string): Promise<RSSItem[]> {
+    // Validate XML size
+    if (xmlContent.length > MAX_XML_SIZE) {
+      throw new Error('XML content exceeds size limit');
+    }
+
+    // Basic validation before parsing - check for suspicious patterns
+    if (this.containsSuspiciousPatterns(xmlContent)) {
+      throw new Error('XML contains potentially unsafe content');
+    }
+
     const parser = new DOMParser();
     const xmlDoc = parser.parseFromString(xmlContent, 'text/xml');
     
@@ -87,20 +115,35 @@ export class RSSService {
       throw new Error('Invalid XML format');
     }
 
+    // Validate document structure
+    const rootElement = xmlDoc.documentElement;
+    if (!rootElement || !['rss', 'feed', 'rdf:RDF'].includes(rootElement.tagName.toLowerCase())) {
+      throw new Error('Invalid RSS feed structure');
+    }
+
+    // Check depth of document
+    if (this.getMaxDepth(rootElement) > MAX_ELEMENT_DEPTH) {
+      throw new Error('XML structure too deeply nested');
+    }
+
     const items = xmlDoc.querySelectorAll('item');
-    console.log(`Found ${items.length} items in RSS feed`);
     
-    return Array.from(items).map((item, index) => {
-      const title = this.getTextContent(item, 'title') || 'Untitled';
-      const link = this.getTextContent(item, 'link') || '';
+    // Limit number of items processed
+    const limitedItems = Array.from(items).slice(0, MAX_ITEMS);
+    
+    return limitedItems.map((item, index) => {
+      const title = this.sanitizeTextContent(this.getTextContent(item, 'title')) || 'Untitled';
+      const link = this.sanitizeUrl(this.getTextContent(item, 'link')) || '';
       const description = this.getTextContent(item, 'description') || '';
       const pubDate = this.getTextContent(item, 'pubDate') || new Date().toISOString();
-      const author = this.getTextContent(item, 'dc:creator') || 
-                    this.getTextContent(item, 'author') || 
-                    'Unknown Author';
+      const author = this.sanitizeTextContent(
+        this.getTextContent(item, 'dc:creator') || 
+        this.getTextContent(item, 'author') || 
+        'Unknown Author'
+      );
       
       return {
-        id: this.getTextContent(item, 'guid') || link || `item-${index}`,
+        id: this.sanitizeTextContent(this.getTextContent(item, 'guid')) || link || `item-${index}`,
         title,
         excerpt: this.extractExcerpt(description),
         content: description,
@@ -111,6 +154,51 @@ export class RSSService {
         thumbnail: this.extractThumbnail(item, description)
       };
     });
+  }
+
+  private containsSuspiciousPatterns(xml: string): boolean {
+    // Check for XXE attack patterns
+    const suspiciousPatterns = [
+      /<!ENTITY/i,
+      /<!DOCTYPE[^>]*\[/i,
+      /SYSTEM\s+["']/i,
+      /PUBLIC\s+["']/i,
+      /<!\[CDATA\[.*?javascript:/i,
+      /<!NOTATION/i
+    ];
+    
+    return suspiciousPatterns.some(pattern => pattern.test(xml));
+  }
+
+  private getMaxDepth(element: Element, currentDepth = 0): number {
+    if (currentDepth > MAX_ELEMENT_DEPTH) {
+      return currentDepth;
+    }
+    
+    let maxChildDepth = currentDepth;
+    for (const child of Array.from(element.children)) {
+      const childDepth = this.getMaxDepth(child, currentDepth + 1);
+      maxChildDepth = Math.max(maxChildDepth, childDepth);
+    }
+    return maxChildDepth;
+  }
+
+  private sanitizeTextContent(text: string): string {
+    // Remove any HTML/script tags and trim
+    return text.replace(/<[^>]*>/g, '').trim().substring(0, 500);
+  }
+
+  private sanitizeUrl(url: string): string {
+    try {
+      const parsed = new URL(url);
+      // Only allow http/https protocols
+      if (!['http:', 'https:'].includes(parsed.protocol)) {
+        return '';
+      }
+      return parsed.toString();
+    } catch {
+      return '';
+    }
   }
 
   private getTextContent(element: Element, tagName: string): string {

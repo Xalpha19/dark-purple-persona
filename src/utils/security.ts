@@ -82,35 +82,58 @@ class RateLimiter {
 
 export const rateLimiter = new RateLimiter();
 
-// Secure storage utilities
-export const secureStorage = {
+// Client-side storage utilities
+// NOTE: This is NOT encrypted storage. Do not store sensitive data client-side.
+// For truly sensitive data, use server-side storage with proper encryption.
+export const clientStorage = {
+  /**
+   * Store a value in localStorage
+   * WARNING: Not encrypted - do not use for sensitive data
+   */
   setItem: (key: string, value: string): void => {
     try {
-      const encryptedValue = btoa(value); // Basic encoding
-      localStorage.setItem(key, encryptedValue);
-    } catch (error) {
-      console.error('Failed to store data securely:', error);
+      localStorage.setItem(key, value);
+    } catch {
+      // Storage may be full or disabled - fail silently in production
     }
   },
   
+  /**
+   * Retrieve a value from localStorage
+   */
   getItem: (key: string): string | null => {
     try {
-      const value = localStorage.getItem(key);
-      return value ? atob(value) : null;
-    } catch (error) {
-      console.error('Failed to retrieve data securely:', error);
+      return localStorage.getItem(key);
+    } catch {
       return null;
     }
   },
   
+  /**
+   * Remove a value from localStorage
+   */
   removeItem: (key: string): void => {
-    localStorage.removeItem(key);
+    try {
+      localStorage.removeItem(key);
+    } catch {
+      // Fail silently
+    }
   },
   
+  /**
+   * Clear all localStorage
+   */
   clear: (): void => {
-    localStorage.clear();
+    try {
+      localStorage.clear();
+    } catch {
+      // Fail silently
+    }
   }
 };
+
+// Alias for backward compatibility - but renamed to avoid misleading name
+export const secureStorage = clientStorage;
 
 // Form security helpers
 export const sanitizeFormData = (data: Record<string, any>): Record<string, any> => {
