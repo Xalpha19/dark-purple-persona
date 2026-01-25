@@ -24,18 +24,18 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error('Error caught by boundary:', error);
-    console.error('Error info:', errorInfo);
-    
-    // Log error to monitoring service in production
-    if (process.env.NODE_ENV === 'production') {
-      // Analytics or error reporting service would go here
-      console.error('Production error:', { error, errorInfo });
+    // Only log detailed errors in development
+    if (import.meta.env.DEV) {
+      console.error('Error caught by boundary:', error);
+      console.error('Error info:', errorInfo);
     }
+    
+    // In production, send to error monitoring service (without logging to console)
+    // Error monitoring integration would go here
     
     this.setState({
       error,
-      errorInfo: errorInfo.componentStack,
+      errorInfo: import.meta.env.DEV ? errorInfo.componentStack : undefined,
     });
   }
 

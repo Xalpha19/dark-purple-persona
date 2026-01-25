@@ -79,8 +79,8 @@ export const SecureForm: React.FC<SecureFormProps> = ({ onSubmit, isLoading = fa
         description: "Thank you for your message. I'll get back to you soon.",
       });
       
-    } catch (error) {
-      console.error('Form submission error:', error);
+    } catch {
+      // Don't log error details to console in production
       toast({
         title: "Failed to send message",
         description: "Please try again later or contact me directly.",
