@@ -1,116 +1,25 @@
-import { useState, useEffect } from "react";
-import { ArrowRight, Calendar, User, ExternalLink, RefreshCw } from "lucide-react";
+import { ArrowRight, Calendar, ExternalLink, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { RSSService, RSSItem } from "@/services/rssService";
 import { useToast } from "@/hooks/use-toast";
-import staticCodeAnalysisImage from "@/assets/blog-static-code-analysis.png";
+import { useCyberJournalPosts, fallbackPosts } from "@/hooks/useCyberJournalPosts";
 import hexAppealImage from "@/assets/blog-hex-appeal.jpg";
-import threatHuntingImage from "@/assets/blog-threat-hunting.png";
-
-// WordPress RSS feed URL
-const WORDPRESS_RSS_URL = "https://journal.ishaansrv.com/feed/";
-
-// Fallback posts in case RSS fails
-const fallbackPosts = [
-  {
-    id: "1",
-    title: "Static Code Analysis",
-    excerpt: "Imagine you're trying to understand how a complex clock works, but you can't actually wind it up or let its gears turn. This is like static analysis in cybersecurity - examining software without running it.",
-    date: "2025-07-05", 
-    readTime: "12 min read",
-    image: staticCodeAnalysisImage,
-    tags: ["Static Analysis", "Reverse Engineering", "Cybersecurity"],
-    url: "https://journal.ishaansrv.com/2025/07/05/static-code-analysis/"
-  },
-  {
-    id: "2",
-    title: "Hex Appeal Part 1: Unraveling the Art of Malware Analysis",
-    excerpt: "Understanding how the adversary operates is paramount to mounting a proper defense. Malware analysis is a deep technical investigation into the heart of malicious code - a craft demanding skill and dedication.",
-    date: "2025-05-23",
-    readTime: "15 min read", 
-    image: hexAppealImage,
-    tags: ["Malware Analysis", "Static Analysis", "Dynamic Analysis"],
-    url: "https://journal.ishaansrv.com/2025/05/23/hex-appeal-part-1-unraveling-the-art-of-malware-analysis/"
-  },
-  {
-    id: "3",
-    title: "Introducing you to Threat Hunting",
-    excerpt: "Threat Hunting is proactive and rigorously looking after threats in your environment. Learn how to establish effective threat hunting with the right data, baseline understanding, and hypothesis development.",
-    date: "2025-03-30",
-    readTime: "10 min read",
-    image: threatHuntingImage, 
-    tags: ["Threat Hunting", "MITRE ATT&CK", "Proactive Defense"],
-    url: "https://journal.ishaansrv.com/2025/03/30/introducing-you-to-threat-hunting/"
-  }
-];
 
 const BlogSection = () => {
-  const [posts, setPosts] = useState<any[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isRefreshing, setIsRefreshing] = useState(false);
-  const [usingRSS, setUsingRSS] = useState(false);
+  const { posts, isLoading, usingRSS, refresh, isRefreshing, isError } = useCyberJournalPosts(6);
   const { toast } = useToast();
-  const rssService = new RSSService();
-
-  const fetchRSSPosts = async (showRefreshToast = false) => {
-    try {
-      setIsRefreshing(true);
-      
-      const rssPosts = await rssService.fetchRSSFeed(WORDPRESS_RSS_URL);
-      
-      // Convert RSS items to match our post format
-      const formattedPosts = rssPosts.slice(0, 6).map(item => ({
-        id: item.id,
-        title: item.title,
-        excerpt: item.excerpt,
-        date: item.pubDate,
-        readTime: `${Math.ceil(item.content.length / 1000)} min read`,
-        image: item.thumbnail || hexAppealImage,
-        tags: item.categories.slice(0, 3),
-        url: item.link,
-        author: item.author
-      }));
-      
-      if (formattedPosts.length === 0) {
-        throw new Error('No posts found in RSS feed');
-      }
-      
-      setPosts(formattedPosts);
-      setUsingRSS(true);
-      
-      if (showRefreshToast) {
-        toast({
-          title: "Posts Updated",
-          description: `Loaded ${formattedPosts.length} posts from blog`,
-        });
-      }
-    } catch {
-      // Fall back to static posts silently
-      setPosts(fallbackPosts);
-      setUsingRSS(false);
-      
-      if (showRefreshToast) {
-        toast({
-          title: "Feed Unavailable", 
-          description: "Showing cached posts. Please try again later.",
-          variant: "destructive",
-        });
-      }
-    } finally {
-      setIsLoading(false);
-      setIsRefreshing(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchRSSPosts();
-  }, []);
 
   const handleRefresh = () => {
-    fetchRSSPosts(true);
+    refresh();
+    toast({
+      title: "Refreshing Feed",
+      description: "Fetching latest posts from the blog...",
+    });
   };
+
+  // Use fallback if still loading or error with no posts
+  const displayPosts = posts.length > 0 ? posts : (isError ? fallbackPosts.slice(0, 6) : []);
 
   return (
     <section className="py-24 bg-background">
@@ -125,6 +34,11 @@ const BlogSection = () => {
           {usingRSS && (
             <Badge variant="secondary" className="bg-green-500/20 text-green-400 border-green-500/30">
               Live Feed
+            </Badge>
+          )}
+          {isError && (
+            <Badge variant="secondary" className="bg-amber-500/20 text-amber-400 border-amber-500/30 ml-2">
+              Using Cached Posts
             </Badge>
           )}
         </div>
@@ -146,7 +60,7 @@ const BlogSection = () => {
               variant="outline"
               size="lg" 
               onClick={handleRefresh}
-              disabled={isRefreshing}
+              disabled={isRefreshing || isLoading}
               className="group"
             >
               {isRefreshing ? (
@@ -161,7 +75,7 @@ const BlogSection = () => {
 
         {/* Blog Posts */}
         <div className="max-w-6xl mx-auto">
-          {isLoading ? (
+          {isLoading && displayPosts.length === 0 ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {[1, 2, 3].map((i) => (
                 <Card key={i} className="bg-gradient-card border-border/50 animate-pulse">
@@ -182,7 +96,7 @@ const BlogSection = () => {
             </div>
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {posts.map((post, index) => (
+              {displayPosts.map((post, index) => (
                 <Card key={post.id} className="bg-gradient-card border-border/50 glow-cyber hover:glow-cyber transition-smooth animate-slide-up group overflow-hidden cyber-hover" style={{animationDelay: `${index * 0.1}s`}}>
                   <div className="aspect-video overflow-hidden">
                     <img 

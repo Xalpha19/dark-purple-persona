@@ -14,6 +14,25 @@ export interface RSSItem {
 const MAX_XML_SIZE = 1024 * 1024; // 1MB max
 const MAX_ITEMS = 50; // Maximum number of items to parse
 const MAX_ELEMENT_DEPTH = 10; // Maximum nesting depth
+const FETCH_TIMEOUT = 10000; // 10 second timeout per request
+
+// Helper to create a timeout promise
+const fetchWithTimeout = async (url: string, timeout: number = FETCH_TIMEOUT): Promise<Response> => {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeout);
+  
+  try {
+    const response = await fetch(url, { signal: controller.signal });
+    clearTimeout(timeoutId);
+    return response;
+  } catch (error) {
+    clearTimeout(timeoutId);
+    if (error instanceof Error && error.name === 'AbortError') {
+      throw new Error('Request timed out');
+    }
+    throw error;
+  }
+};
 
 export class RSSService {
   async fetchRSSFeed(feedUrl: string): Promise<RSSItem[]> {
@@ -22,23 +41,27 @@ export class RSSService {
       throw new Error('Invalid feed URL');
     }
 
-    // Try multiple CORS proxy services
+    // Try multiple CORS proxy services with timeout
     const corsProxies = [
+      `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}`,
       `https://api.allorigins.win/get?url=${encodeURIComponent(feedUrl)}`,
-      `https://corsproxy.io/?${encodeURIComponent(feedUrl)}`,
-      `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}`
+      `https://corsproxy.io/?${encodeURIComponent(feedUrl)}`
     ];
+
+    const errors: string[] = [];
 
     for (let i = 0; i < corsProxies.length; i++) {
       try {
-        if (i === 2) {
-          // rss2json has different response format
+        console.log(`[RSS] Trying proxy ${i + 1}/${corsProxies.length}...`);
+        
+        if (i === 0) {
+          // rss2json has different response format - try first as it's most reliable
           return await this.fetchViaRss2Json(corsProxies[i]);
         } else {
-          const response = await fetch(corsProxies[i]);
+          const response = await fetchWithTimeout(corsProxies[i]);
           
           if (!response.ok) {
-            throw new Error('Feed fetch failed');
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
           }
           
           const data = await response.json();
@@ -52,11 +75,17 @@ export class RSSService {
             throw new Error('Feed content exceeds size limit');
           }
 
+          console.log('[RSS] Successfully fetched via proxy', i + 1);
           return await this.parseXMLFeed(data.contents);
         }
-      } catch {
+      } catch (error) {
+        const errorMsg = error instanceof Error ? error.message : 'Unknown error';
+        errors.push(`Proxy ${i + 1}: ${errorMsg}`);
+        console.warn(`[RSS] Proxy ${i + 1} failed:`, errorMsg);
+        
         if (i === corsProxies.length - 1) {
-          throw new Error('Unable to fetch feed');
+          console.error('[RSS] All proxies failed:', errors);
+          throw new Error(`Unable to fetch feed. Tried ${corsProxies.length} sources.`);
         }
         continue;
       }
@@ -75,24 +104,40 @@ export class RSSService {
   }
 
   private async fetchViaRss2Json(url: string): Promise<RSSItem[]> {
-    const response = await fetch(url);
+    const response = await fetchWithTimeout(url);
+    
+    if (!response.ok) {
+      throw new Error(`RSS2JSON HTTP ${response.status}`);
+    }
+    
     const data = await response.json();
     
     if (data.status !== 'ok') {
-      throw new Error('RSS2JSON service error');
+      throw new Error(`RSS2JSON error: ${data.message || 'Unknown error'}`);
     }
+
+    if (!data.items || !Array.isArray(data.items) || data.items.length === 0) {
+      throw new Error('RSS2JSON returned no items');
+    }
+
+    console.log(`[RSS] RSS2JSON returned ${data.items.length} items`);
 
     return data.items.map((item: any, index: number) => ({
       id: item.guid || item.link || `item-${index}`,
-      title: item.title || 'Untitled',
-      excerpt: this.extractExcerpt(item.description || ''),
+      title: this.sanitizeTextContent(item.title || 'Untitled'),
+      excerpt: this.extractExcerpt(item.description || item.content || ''),
       content: item.content || item.description || '',
-      link: item.link || '',
+      link: this.sanitizeUrl(item.link) || '',
       pubDate: item.pubDate || new Date().toISOString(),
-      author: item.author || 'Unknown Author',
-      categories: item.categories || [],
-      thumbnail: item.thumbnail
+      author: this.sanitizeTextContent(item.author || data.feed?.author || 'Unknown Author'),
+      categories: Array.isArray(item.categories) ? item.categories.map((c: string) => this.sanitizeTextContent(c)) : [],
+      thumbnail: item.thumbnail || item.enclosure?.link || this.extractImageFromContent(item.content || item.description || '')
     }));
+  }
+
+  private extractImageFromContent(content: string): string | undefined {
+    const imgMatch = content.match(/<img[^>]+src=["']([^"'>]+)["']/i);
+    return imgMatch ? this.sanitizeUrl(imgMatch[1]) : undefined;
   }
 
   private async parseXMLFeed(xmlContent: string): Promise<RSSItem[]> {
