@@ -1,145 +1,62 @@
 
+Goal
+- Fix “Page won’t scroll” on Desktop Chrome/Edge (preview + published) without breaking the existing mobile viewport work.
 
-## Merge NatWest Group Roles into Single Combined Section
+What I found (most likely causes)
+- There is an aggressive inline “critical CSS” rule in `index.html` that applies `transform: translateZ(0)` to every element (`*`). On desktop this can break/disable normal page scrolling and create massive compositing/stacking-context side effects.
+- The app root wrapper (`src/components/ResponsiveWrapper.tsx`) applies `transform: translateZ(0)` at the top-level container as well.
+- Root-level scroll behavior is also constrained by global overscroll settings (mostly intended for mobile), and the desktop wrapper does not explicitly declare a vertical overflow strategy.
 
-### Summary
-Restructure the Experience component to display both NatWest Group roles under a single company card with two distinct positions inside, while keeping the IT Security Engineer at Dar Al-Handasah as a separate entry.
+Plan (implementation steps)
+1) Make desktop scrolling explicit in the app wrapper (safe, targeted)
+   - File: `src/components/ResponsiveWrapper.tsx`
+   - Update `getPlatformStyles()` “Desktop optimizations” return object to explicitly allow vertical scrolling and avoid scroll trapping:
+     - Add `overflowY: "auto"` (or `"visible"` depending on existing layout needs; start with `"auto"`).
+     - Ensure we do not set any fixed `height` on desktop (keep `minHeight` only).
+   - Remove or gate the wrapper-level `transform: "translateZ(0)"` so it only applies where needed:
+     - Option A (preferred): remove `transform` from `baseStyles` entirely for desktop.
+     - Option B: apply `transform` only on mobile/tablet and/or only on specific animated elements, not the whole site container.
 
----
+2) Remove the global “transform on every element” rule (this is the biggest red flag)
+   - File: `index.html` (inline `<style>` block)
+   - Change:
+     - Remove:
+       - `* { transform: translateZ(0); }`
+     - Replace with a safer, scoped optimization:
+       - Only apply GPU hints to specific known animated elements (e.g., `.animate-*`, `.hero-gradient-bg::before`, etc.), or
+       - Apply to mobile only using media queries like:
+         - `@media (hover: none) and (pointer: coarse) { ... }`
+   - Reason: global `transform` on all nodes commonly breaks scrolling/positioning on desktop and is not a recommended performance optimization anymore.
 
-### Data Structure Changes
+3) Adjust overscroll behavior so desktop uses default browser scrolling
+   - Files: `index.html` (inline critical CSS) and `src/index.css`
+   - Keep `overscroll-behavior: contain` for mobile if you want it, but avoid applying it universally to `html, body` for desktop.
+   - Implement by scoping overscroll rules:
+     - In `src/index.css`, add/adjust selectors so “contain” applies only when `.platform-mobile` / `.platform-tablet` is present.
+     - Ensure `html, body` on desktop have normal scrolling (no restrictive overscroll settings).
 
-#### Current Structure
-Three separate experience entries, each with their own card:
-1. Security Analyst (Detection Engineer) - NatWest Group
-2. Cybersecurity Analyst - NatWest Group  
-3. IT Security Engineer - Dar Al-Handasah
+4) Verify no CSS is forcing a non-scrollable root
+   - File: `src/index.css`
+   - Confirm `html`, `body`, and `#root` do not end up with `overflow: hidden` (directly or via class combinations).
+   - If needed, add a defensive rule:
+     - `html, body { overflow-y: auto; }`
+     - Keep `overflow-x: hidden` if desired.
 
-#### New Structure
-Two experience entries with the NatWest entry containing multiple positions:
+5) Validation checklist (quick)
+   - Desktop (Chrome + Edge):
+     - Mouse wheel scroll works on `/` from Hero down to Footer.
+     - Trackpad scroll works.
+     - Scrollbar appears when content exceeds viewport.
+     - Clicking “View My Work” and nav anchors still scrolls to sections.
+   - Mobile sanity check:
+     - iOS Safari and Android Chrome still scroll.
+     - No “rubber band” issues or keyboard layout regressions.
 
-```text
-experiences = [
-  {
-    id: 1,
-    company: "NatWest Group",
-    location: "Edinburgh, UK",
-    period: "January 2024 - Present",
-    positions: [
-      {
-        title: "Security Analyst (Detection Engineer)",
-        description: "...",
-        technologies: [...],
-        achievements: [...]
-      },
-      {
-        title: "Cybersecurity Analyst", 
-        description: "...",
-        technologies: [...],
-        achievements: [...]
-      }
-    ]
-  },
-  {
-    id: 2,
-    company: "Dar Al-Handasah",
-    // Single position structure (legacy format)
-    ...
-  }
-]
-```
+Files expected to change
+- `src/components/ResponsiveWrapper.tsx`
+- `index.html`
+- `src/index.css` (small scoping/defensive overflow adjustments)
 
----
-
-### Technical Implementation
-
-#### 1. Update Data Structure (lines 13-68)
-
-Create a new data structure that supports both:
-- **Multi-position entries** (NatWest Group with nested positions array)
-- **Single-position entries** (Dar Al-Handasah with inline title/description)
-
-**NatWest Group Entry:**
-- Company: "NatWest Group"
-- Location: "Edinburgh, UK"
-- Period: "January 2024 - Present"
-- Two positions with exact text preserved
-
-**Dar Al-Handasah Entry:**
-- Remains unchanged, converted to match the new structure
-
-#### 2. Update Rendering Logic (lines 107-174)
-
-Modify the card rendering to:
-1. Display company header with period and location at the card level
-2. Loop through `positions` array (if present) to render each role
-3. Each position shows: title, description, technologies badges, achievements list
-4. Add visual separator between positions within the same company card
-5. Fall back to single-position rendering for entries without `positions` array
-
-#### 3. Visual Layout for Combined Section
-
-```text
-+--------------------------------------------------+
-| NatWest Group                                     |
-| January 2024 - Present | Edinburgh, UK           |
-|                                                  |
-| --- Position 1 ---                               |
-| Security Analyst (Detection Engineer)            |
-| [description paragraph]                          |
-| Technologies: [badges...]                        |
-| Key Achievements: [bullet list...]               |
-|                                                  |
-| ─────────────── separator ───────────────        |
-|                                                  |
-| --- Position 2 ---                               |
-| Cybersecurity Analyst                            |
-| [description paragraph]                          |
-| Technologies: [badges...]                        |
-| Key Achievements: [bullet list...]               |
-+--------------------------------------------------+
-```
-
----
-
-### Content Preservation (Exact Text)
-
-**Position 1: Security Analyst (Detection Engineer)**
-
-Description:
-> "Focused on developing and optimizing high-fidelity threat detection rules and SOAR playbooks within enterprise SIEM environments. Daily work spans threat hunting, rule testing/CI/CD deployment, playbook automation, system integrations, and cross-team tuning to ensure scalable MDR operations."
-
-Technologies:
-> SIEM, SOAR, CI/CD, Detection Engineering, Threat Hunting, MDR, Splunk, SPL, KQL, Python
-
-Achievements (8 items preserved exactly)
-
-**Position 2: Cybersecurity Analyst**
-
-Description:
-> "Performing SOC analyst responsibilities conducting comprehensive alert investigations and forensic analysis across AWS, Azure, and GCP cloud environments. Executing proactive threat hunting using SIEM log correlation and developing custom detection rules."
-
-Technologies:
-> Microsoft Defender XDR, Splunk, KQL, Python, PowerShell, AWS, Azure, GCP, Akamai, Cofense
-
-Achievements (7 items preserved exactly)
-
----
-
-### Files to Modify
-
-| File | Changes |
-|------|---------|
-| `src/components/Experience.tsx` | Update data structure and rendering logic |
-
----
-
-### Styling Consistency
-
-- Same card background (`bg-gradient-card`)
-- Same border and glow effects (`border-border/50 glow-purple`)
-- Same badge styling for technologies
-- Same bullet point styling for achievements
-- Add a subtle divider (using Separator component or border) between positions
-- Position titles styled as subheadings within the card
-
+Why this should fix it
+- Removing the global `* { transform: translateZ(0) }` eliminates a known class of “page won’t scroll” failures on desktop.
+- Ensuring the top-level wrapper doesn’t create unintended stacking contexts and explicitly supports vertical overflow prevents scroll trapping regardless of browser quirks.
