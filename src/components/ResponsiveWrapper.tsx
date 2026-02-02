@@ -214,18 +214,14 @@ export const ResponsiveWrapper = ({ children, className = '' }: ResponsiveWrappe
 
   // Enhanced platform styles with mobile optimizations
   const getPlatformStyles = (): CSSProperties => {
-    const baseStyles: CSSProperties = {
-      WebkitOverflowScrolling: 'touch',
-      transform: 'translateZ(0)',
-      backfaceVisibility: 'hidden',
-      WebkitBackfaceVisibility: 'hidden',
-      position: 'relative',
-    };
-
     // Mobile/Tablet specific optimizations
     if (platformInfo.isMobile || platformInfo.isTablet) {
       const mobileStyles: CSSProperties = {
-        ...baseStyles,
+        WebkitOverflowScrolling: 'touch',
+        transform: 'translateZ(0)',
+        backfaceVisibility: 'hidden',
+        WebkitBackfaceVisibility: 'hidden',
+        position: 'relative',
         WebkitTouchCallout: 'none',
         WebkitTapHighlightColor: 'transparent',
         touchAction: 'manipulation',
@@ -243,8 +239,6 @@ export const ResponsiveWrapper = ({ children, className = '' }: ResponsiveWrappe
       // iOS specific fixes - use minHeight, NOT height (to allow scrolling)
       if (platformInfo.isIOS) {
         mobileStyles.minHeight = '-webkit-fill-available';
-        // Remove fixed height to allow scrolling
-        delete (mobileStyles as any).height;
         mobileStyles.paddingTop = `${platformInfo.safeAreaInsets.top}px`;
         mobileStyles.paddingBottom = `${Math.max(platformInfo.safeAreaInsets.bottom, platformInfo.keyboardHeight)}px`;
         mobileStyles.paddingLeft = `${platformInfo.safeAreaInsets.left}px`;
@@ -255,8 +249,6 @@ export const ResponsiveWrapper = ({ children, className = '' }: ResponsiveWrappe
       // Android specific fixes - use minHeight, NOT height (to allow scrolling)
       if (platformInfo.isAndroid) {
         mobileStyles.minHeight = '100vh';
-        // Remove fixed height to allow scrolling
-        delete (mobileStyles as any).height;
         mobileStyles.overflowY = 'auto';
         if (platformInfo.keyboardHeight > 0) {
           mobileStyles.paddingBottom = `${platformInfo.keyboardHeight}px`;
@@ -272,11 +264,12 @@ export const ResponsiveWrapper = ({ children, className = '' }: ResponsiveWrappe
       return mobileStyles;
     }
 
-    // Desktop optimizations
+    // Desktop optimizations - no transform, explicit scrolling
     return {
-      ...baseStyles,
+      position: 'relative',
       minHeight: '100vh',
       fontSize: '16px',
+      overflowY: 'auto',
     };
   };
 
