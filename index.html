@@ -148,10 +148,21 @@
         touch-action: manipulation;
       }
       
-      /* Mobile-specific scrolling */
-      body, html {
-        overscroll-behavior: contain;
-        -webkit-overflow-scrolling: touch;
+      /* Mobile-specific scrolling - scoped to touch devices only */
+      @media (hover: none) and (pointer: coarse) {
+        body, html {
+          overscroll-behavior: contain;
+          -webkit-overflow-scrolling: touch;
+        }
+      }
+      
+      /* Desktop scrolling - ensure normal behavior */
+      @media (hover: hover) and (pointer: fine) {
+        html, body {
+          overflow-y: auto !important;
+          overflow-x: hidden;
+          height: auto !important;
+        }
       }
       
       /* GPU hints only for animated elements on mobile */

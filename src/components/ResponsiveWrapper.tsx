@@ -269,7 +269,7 @@ export const ResponsiveWrapper = ({ children, className = '' }: ResponsiveWrappe
       position: 'relative',
       minHeight: '100vh',
       fontSize: '16px',
-      overflowY: 'auto',
+      // Desktop: let the window scroll naturally (don't set overflowY on wrapper)
     };
   };
 
@@ -316,6 +316,15 @@ export const ResponsiveWrapper = ({ children, className = '' }: ResponsiveWrappe
       body.style.minHeight = '-webkit-fill-available';
     }
     
+    // Desktop scroll reset - ensure nothing blocks scrolling
+    if (platformInfo.isDesktop) {
+      html.style.overflowY = 'auto';
+      html.style.height = 'auto';
+      body.style.overflowY = 'auto';
+      body.style.height = 'auto';
+      body.style.position = 'relative';
+    }
+    
     // Performance optimizations for low-end devices
     if (platformInfo.isLowEndDevice) {
       const style = document.createElement('style');
@@ -331,6 +340,14 @@ export const ResponsiveWrapper = ({ children, className = '' }: ResponsiveWrappe
     
     return () => {
       body.classList.remove(...platformClasses);
+      // Reset desktop styles on cleanup
+      if (platformInfo.isDesktop) {
+        html.style.overflowY = '';
+        html.style.height = '';
+        body.style.overflowY = '';
+        body.style.height = '';
+        body.style.position = '';
+      }
     };
   }, [platformInfo]);
 
